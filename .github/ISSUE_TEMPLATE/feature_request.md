@@ -1,7 +1,7 @@
 ---
 name: 'Issue: Feature request'
 about: '해당 이슈 템플릿을 활용하여 이슈를 생성해 주세요.'
-title: ''
+title: 'feat: '
 labels: ''
 assignees: ''
 ---

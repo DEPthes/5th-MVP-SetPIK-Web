@@ -69,6 +69,19 @@
 <br />
 
 <details>
+<summary><b style="font-size:1.7rem">🤝 협업 및 PR 검사</b></summary>
+
+- VS Code Clone부터 Issue, branch, Claude Code, Commit, PR, Merge까지 순서대로 진행
+- 작업 branch 형식: `feat/#이슈번호/작업-타이틀`
+- PR마다 GitHub Actions에서 `pnpm lint`와 `pnpm build` 실행
+- GitHub Conflict와 팀 코드 리뷰 확인 후 Merge
+
+> 상세: [`frontend-beginner-guide.md`](./docs/frontend-beginner-guide.md), [`pr-automation.md`](./docs/pr-automation.md)
+
+</details>
+<br />
+
+<details>
 <summary><b style="font-size:1.7rem">📑 Commit Convention</b></summary>
 우리 프로젝트는 다음과 같은 커밋 규칙을 따릅니다.
 <br />

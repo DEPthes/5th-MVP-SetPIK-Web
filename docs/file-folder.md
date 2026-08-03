@@ -66,12 +66,15 @@
 ├── .github/
 │   ├── ISSUE_TEMPLATE/
 │   │   └── feature_request.md          # 기능 개발 Issue 템플릿
+│   ├── workflows/
+│   │   └── ci.yml                      # PR lint/build 자동 검사
 │   └── PULL_REQUEST_TEMPLATE.md        # Pull Request 템플릿
 ├── docs/
 │   ├── absolute-paths.md               # 절대 경로 alias 규칙
 │   ├── coding.md                       # 코드 네이밍 컨벤션
 │   ├── file-folder.md                  # 파일/폴더 배치 컨벤션
-│   ├── frontend-beginner-guide.md       # 초보 프론트엔드 협업 가이드
+│   ├── frontend-beginner-guide.md      # 초보 프론트엔드 협업 가이드
+│   ├── pr-automation.md                # GitHub PR 자동 검사 설정
 │   └── style-guide.md                  # 디자인 시스템과 스타일 규칙
 ├── node_modules/                       # 패키지 설치 결과 (Git 제외)
 ├── public/
