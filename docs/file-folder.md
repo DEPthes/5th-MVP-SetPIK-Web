@@ -29,6 +29,7 @@
   - 비밀 값이 포함된 환경 파일은 Git에 커밋하지 않습니다.
 - **도구 표준 파일은 예외**
   - `README.md`, `package.json`, `pnpm-lock.yaml`, `tsconfig.*.json`, `vite.config.ts`, `eslint.config.js`, `.gitignore`, `.gitkeep`은 도구의 표준 이름을 유지합니다.
+  - `.github/ISSUE_TEMPLATE`, `PULL_REQUEST_TEMPLATE.md` 등 GitHub가 인식하는 파일과 폴더도 플랫폼 표준 이름을 유지합니다.
 
 > 프로젝트 내부의 상위 폴더를 넘나드는 import는 `@/*` alias를 사용합니다. 상세한 매핑과 사용 기준은 [`absolute-paths.md`](./absolute-paths.md)를 참고합니다.
 
@@ -62,10 +63,15 @@
 
 ```text
 .
+├── .github/
+│   ├── ISSUE_TEMPLATE/
+│   │   └── feature_request.md          # 기능 개발 Issue 템플릿
+│   └── PULL_REQUEST_TEMPLATE.md        # Pull Request 템플릿
 ├── docs/
 │   ├── absolute-paths.md               # 절대 경로 alias 규칙
 │   ├── coding.md                       # 코드 네이밍 컨벤션
 │   ├── file-folder.md                  # 파일/폴더 배치 컨벤션
+│   ├── frontend-beginner-guide.md       # 초보 프론트엔드 협업 가이드
 │   └── style-guide.md                  # 디자인 시스템과 스타일 규칙
 ├── node_modules/                       # 패키지 설치 결과 (Git 제외)
 ├── public/
