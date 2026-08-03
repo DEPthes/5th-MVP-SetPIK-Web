@@ -1,0 +1,39 @@
+import { useNavigate } from "react-router-dom";
+import spotifyIcon from "@/assets/icons/spotify-icon.svg";
+import { Button } from "@/components/common/button";
+
+export function LoginPage() {
+  const navigate = useNavigate();
+
+  function handleSpotifyLogin() {
+    navigate("/concerts", { replace: true });
+  }
+
+  return (
+    <section className="login-page" aria-labelledby="login-title">
+      <div className="login-card">
+        <p className="login-card__eyebrow">당신의 플레이리스트를 공연으로</p>
+        <h1 className="login-card__title" id="login-title">
+          Spotify 계정 연결
+        </h1>
+        <p className="login-card__description">
+          Spotify 계정으로 로그인하여 플레이리스트를 분석하고,
+          <br />
+          맞춤형 공연을 만나보세요.
+        </p>
+
+        <div className="login-card__actions">
+          <Button
+            className="login-card__button"
+            fullWidth
+            leadingIcon={<img src={spotifyIcon} width="20" height="20" alt="" />}
+            onClick={handleSpotifyLogin}
+            variant="spotify"
+          >
+            Spotify로 계속하기
+          </Button>
+        </div>
+      </div>
+    </section>
+  );
+}

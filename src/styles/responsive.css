@@ -1,0 +1,63 @@
+@media (max-width: 768px) {
+  :root {
+    --layout-gutter: 20px;
+  }
+
+  .site-header__inner {
+    min-height: 64px;
+  }
+
+  .site-logo {
+    width: 72px;
+    height: auto;
+  }
+
+  .site-nav {
+    display: none;
+  }
+
+  .spotify-connect-link {
+    min-height: 40px;
+    padding: 7px 12px;
+    font-size: var(--font-size-body-small);
+  }
+
+  .site-footer__inner {
+    padding-block: 48px;
+  }
+
+  .site-footer__columns {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+
+  .site-footer__bottom {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .page-shell {
+    padding-block: 48px;
+  }
+
+  .text-display {
+    font-size: var(--font-size-heading-1);
+    line-height: var(--line-height-default);
+  }
+}
+
+@media (max-width: 420px) {
+  .spotify-connect-link span {
+    display: none;
+  }
+
+  .spotify-connect-link {
+    width: 40px;
+    padding-inline: 0;
+  }
+
+  .site-footer__details > div {
+    grid-template-columns: 48px minmax(0, 1fr);
+  }
+}
