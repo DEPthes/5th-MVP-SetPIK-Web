@@ -27,6 +27,8 @@
   --color-spotify-700: #0d5d2f;
   --color-spotify-500: #169c46;
   --color-spotify-300: #1ed760;
+  --color-spotify-default: #1db954;
+  --color-spotify-active: #189a46;
 
   /* Semantic colors */
   --color-background: var(--color-black);

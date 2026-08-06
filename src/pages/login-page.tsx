@@ -1,6 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import spotifyIcon from "@/assets/icons/spotify-icon.svg";
-import { Button } from "@/components/common/button";
+import { SpotifyButton } from "@/components/common/spotify-button";
 
 export function LoginPage() {
   const navigate = useNavigate();
@@ -23,15 +22,13 @@ export function LoginPage() {
         </p>
 
         <div className="login-card__actions">
-          <Button
+          <SpotifyButton
             className="login-card__button"
             fullWidth
-            leadingIcon={<img src={spotifyIcon} width="20" height="20" alt="" />}
             onClick={handleSpotifyLogin}
-            variant="spotify"
           >
             Spotify로 계속하기
-          </Button>
+          </SpotifyButton>
         </div>
       </div>
     </section>

@@ -76,84 +76,30 @@
 }
 
 .login-card__button {
-  --button-background: #1db954;
-  --button-background-hover: #1db954;
-  --button-background-active: var(--color-spotify-700);
-
   position: relative;
   height: 56px;
   min-height: 56px;
   gap: 12px;
   padding: 0 24px;
-  overflow: hidden;
   border-radius: 16px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
   font-size: var(--font-size-subtitle);
-  isolation: isolate;
   line-height: var(--line-height-default);
-  transition:
-    background-color var(--transition-fast),
-    box-shadow 220ms ease;
-}
-
-.login-card__button::after {
-  position: absolute;
-  z-index: 0;
-  top: -70%;
-  left: -35%;
-  width: 24%;
-  height: 240%;
-  background: linear-gradient(
-    90deg,
-    transparent 0%,
-    rgba(255, 255, 255, 0.12) 30%,
-    rgba(255, 255, 255, 0.5) 50%,
-    rgba(255, 255, 255, 0.12) 70%,
-    transparent 100%
-  );
-  content: "";
-  pointer-events: none;
-  transform: translateX(-300%) skewX(-18deg);
-}
-
-.login-card__button:hover:not(:disabled)::after {
-  animation: login-button-reflection 800ms ease-out;
 }
 
 .login-card__button:hover:not(:disabled) {
-  box-shadow:
-    0 4px 8px rgba(0, 0, 0, 0.3),
-    0 0 10px rgba(255, 255, 255, 0.3),
-    0 0 22px rgba(255, 255, 255, 0.12);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.4);
+  transform: scale(1.02);
 }
 
-.login-card__button > span {
-  position: relative;
-  z-index: 1;
-}
-
-@keyframes login-button-reflection {
-  from {
-    transform: translateX(-300%) skewX(-18deg);
-  }
-
-  to {
-    transform: translateX(650%) skewX(-18deg);
-  }
-}
-
-.login-card__button .button__icon > img {
-  width: 20px;
-  height: 20px;
+.login-card__button:active:not(:disabled) {
+  box-shadow: none;
+  transform: scale(0.99);
 }
 
 @media (prefers-reduced-motion: reduce) {
   .login-card {
     animation: none;
-  }
-
-  .login-card__button::after {
-    display: none;
   }
 }
 
