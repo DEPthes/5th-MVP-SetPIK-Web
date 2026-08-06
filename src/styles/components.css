@@ -64,10 +64,22 @@
 }
 
 .button--spotify {
-  --button-background: var(--color-spotify-300);
-  --button-background-hover: var(--color-spotify-500);
-  --button-background-active: var(--color-spotify-700);
+  --button-background: var(--color-spotify-default);
+  --button-background-hover: var(--color-spotify-default);
+  --button-background-active: var(--color-spotify-active);
   --button-foreground: var(--color-white);
+
+  transition:
+    color var(--transition-fast),
+    background-color var(--transition-fast),
+    border-color var(--transition-fast),
+    box-shadow 180ms ease,
+    transform 180ms ease;
+}
+
+.button--spotify .button__icon > img {
+  width: 20px;
+  height: 20px;
 }
 
 .button--outline {
