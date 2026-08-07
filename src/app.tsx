@@ -1,5 +1,6 @@
-import { Route, Routes } from "react-router-dom";
+import { Navigate, Route, Routes } from "react-router-dom";
 import { AppLayout } from "@/components/layout/app-layout";
+import { ArtistSelectionPage } from "@/pages/artist-selection-page";
 import { ConcertsPage } from "@/pages/concerts-page";
 import { LoginPage } from "@/pages/login-page";
 import { MyPage } from "@/pages/my-page";
