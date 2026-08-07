@@ -62,9 +62,11 @@ function ArtistCover({ artist }: { artist: Artist }) {
 function ArtistSkeleton() {
   return (
     <article className="artist-card artist-card--skeleton" aria-hidden="true">
-      <span className="artist-card__skeleton-cover" />
-      <span className="artist-card__skeleton-title" />
-      <span className="artist-card__skeleton-description" />
+      <span className="artist-card__skeleton-cover skeleton-reflection" />
+      <span className="artist-card__skeleton-content">
+        <span className="artist-card__skeleton-title skeleton-reflection" />
+        <span className="artist-card__skeleton-description skeleton-reflection" />
+      </span>
     </article>
   );
 }
@@ -142,8 +144,8 @@ export function ArtistSelectionPage() {
           <div className="artist-selection__loading" aria-live="polite" aria-label="아티스트를 분석하는 중">
             <h1 className="sr-only" id="artist-selection-title">아티스트를 분석하는 중</h1>
             <div className="artist-selection__heading-skeleton">
-              <span />
-              <i />
+              <span className="skeleton-reflection" />
+              <i className="skeleton-reflection" />
             </div>
             <p>플레이리스트에서 아티스트를 분석하고 있어요.</p>
             <span>잠시만 기다려 주세요.</span>
@@ -221,8 +223,9 @@ export function ArtistSelectionPage() {
             </div>
 
             <div className="artist-selection__grid">
-              {filteredArtists.map((artist) => {
+              {filteredArtists.map((artist, index) => {
                 const isSelected = selectedArtistIds.includes(artist.id);
+                const shouldReserveTagSpace = index < 5;
 
                 return (
                   <button
@@ -232,13 +235,21 @@ export function ArtistSelectionPage() {
                     onClick={() => toggleArtist(artist.id)}
                     type="button"
                   >
-                    <ArtistCover artist={artist} />
-                    <span className="artist-card__selection-mark" aria-hidden="true">
-                      {isSelected ? <img src={checkIcon} alt="" /> : null}
+                    <span className="artist-card__cover-wrap">
+                      <ArtistCover artist={artist} />
+                      <span className="artist-card__selection-mark" aria-hidden="true">
+                        {isSelected ? <img src={checkIcon} alt="" /> : null}
+                      </span>
                     </span>
-                    {artist.isMainArtist ? <span className="artist-card__tag">주요 아티스트</span> : null}
-                    <strong>{artist.name}</strong>
-                    <small>{artist.description}</small>
+                    <span className="artist-card__content">
+                      {artist.isMainArtist ? (
+                        <span className="artist-card__tag">주요 아티스트</span>
+                      ) : shouldReserveTagSpace ? (
+                        <span aria-hidden="true" className="artist-card__tag-placeholder" />
+                      ) : null}
+                      <strong>{artist.name}</strong>
+                      <small>{artist.description}</small>
+                    </span>
                   </button>
                 );
               })}
@@ -247,7 +258,7 @@ export function ArtistSelectionPage() {
             <div className={`artist-selection__footer-action${selectedArtistCount ? " artist-selection__footer-action--selected" : ""}`}>
               <div>
                 <strong>선택한 아티스트 <em>{selectedArtistCount}명</em></strong>
-                <p>{selectedArtistCount ? "선택한 아티스트를 기준으로 공연을 추천해 드릴게요." : "공연 추천을 받으려면 최소 1명을 선택해 주세요."}</p>
+                <p>{selectedArtistCount ? "선택한 아티스트의 공연 정보를 찾을 준비가 되었어요." : "공연 추천을 받으려면 최소 1명을 선택해 주세요."}</p>
               </div>
               <Button
                 className="artist-selection__next-button button--selection-cta"

@@ -594,9 +594,7 @@
 .playlist-skeleton__text i {
   display: block;
   border-radius: 8px;
-  background: linear-gradient(100deg, #262626 25%, #333333 45%, #262626 65%);
-  background-size: 200% 100%;
-  animation: playlist-skeleton-loading 1.4s ease-in-out infinite;
+  background: #262626;
 }
 
 .playlist-skeleton__cover {
@@ -617,16 +615,6 @@
 .playlist-skeleton__text i:last-child {
   width: min(100%, 112px);
   height: 12px;
-}
-
-@keyframes playlist-skeleton-loading {
-  from {
-    background-position: 100% 0;
-  }
-
-  to {
-    background-position: -100% 0;
-  }
 }
 
 @media (max-width: 900px) {
@@ -708,12 +696,5 @@
 
   .playlist-selection__next-button {
     width: 100%;
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .playlist-skeleton__cover,
-  .playlist-skeleton__text i {
-    animation: none;
   }
 }

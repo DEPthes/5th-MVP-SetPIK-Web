@@ -24,6 +24,33 @@
     border-color var(--transition-fast);
 }
 
+.skeleton-reflection {
+  position: relative;
+  display: block;
+  overflow: hidden;
+}
+
+.skeleton-reflection::after {
+  position: absolute;
+  inset: 0;
+  content: "";
+  background: linear-gradient(105deg, transparent 30%, rgba(255, 255, 255, 0.16) 50%, transparent 70%);
+  transform: translateX(-120%);
+  animation: skeleton-reflection 1.4s ease-in-out infinite;
+}
+
+@keyframes skeleton-reflection {
+  to {
+    transform: translateX(120%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .skeleton-reflection::after {
+    animation: none;
+  }
+}
+
 .button:hover:not(:disabled) {
   background: var(--button-background-hover);
 }

@@ -91,10 +91,10 @@ function PlaylistSkeletonList() {
       <div className="playlist-skeleton-list" aria-label="플레이리스트를 불러오는 중">
         {Array.from({ length: 6 }, (_, index) => (
           <div className="playlist-skeleton" key={index}>
-            <span className="playlist-skeleton__cover" />
+            <span className="playlist-skeleton__cover skeleton-reflection" />
             <span className="playlist-skeleton__text">
-              <i />
-              <i />
+              <i className="skeleton-reflection" />
+              <i className="skeleton-reflection" />
             </span>
           </div>
         ))}
