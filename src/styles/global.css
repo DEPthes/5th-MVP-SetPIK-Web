@@ -4,6 +4,8 @@
 @import "./layout.css";
 @import "./components.css";
 @import "./auth.css";
+@import "./artist-selection.css";
 @import "./onboarding.css";
+@import "./playlist-selection.css";
 @import "./overlays.css";
 @import "./responsive.css";

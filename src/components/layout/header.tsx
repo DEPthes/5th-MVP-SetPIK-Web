@@ -16,7 +16,7 @@ function getNavigationClassName(isActive: boolean) {
 export function Header({ variant, userInitial = "U" }: HeaderProps) {
   const { pathname } = useLocation();
   const isConcertsPage = pathname.startsWith("/concerts");
-  const isPlaylistPage = pathname.startsWith("/preferences");
+  const isPreStudyPlaylistPage = pathname.startsWith("/pre-study-playlists");
   const isMyPage = pathname.startsWith("/mypage");
 
   return (
@@ -42,9 +42,9 @@ export function Header({ variant, userInitial = "U" }: HeaderProps) {
                 공연 홈
               </Link>
               <Link
-                className={getNavigationClassName(isPlaylistPage)}
-                to="/preferences/playlists"
-                aria-current={isPlaylistPage ? "page" : undefined}
+                className={getNavigationClassName(isPreStudyPlaylistPage)}
+                to="/pre-study-playlists"
+                aria-current={isPreStudyPlaylistPage ? "page" : undefined}
               >
                 예습 플리 생성
               </Link>
