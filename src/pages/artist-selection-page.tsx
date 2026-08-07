@@ -4,11 +4,13 @@ import arrowRightIcon from "@/assets/icons/ic-arrow-right.svg";
 import checkIcon from "@/assets/icons/ic-check.svg";
 import chevronDownIcon from "@/assets/icons/ic-chevron-down.svg";
 import chevronUpIcon from "@/assets/icons/ic-chevron-up.svg";
+import disconnectedIcon from "@/assets/icons/ic-disconnected.svg";
 import searchIcon from "@/assets/icons/ic-search.svg";
 import { BackButton } from "@/components/common/back-button";
 import { Button } from "@/components/common/button";
+import { SpotifyButton } from "@/components/common/spotify-button";
 
-type ArtistLoadState = "loading" | "ready";
+type ArtistLoadState = "loading" | "ready" | "disconnected";
 type ArtistSortOption = "appearance" | "name";
 
 interface Artist {
@@ -44,7 +46,7 @@ const SORT_OPTIONS: Array<{ value: ArtistSortOption; label: string }> = [
 ];
 
 function getPreviewState(value: string | null): ArtistLoadState | null {
-  return value === "loading" ? value : null;
+  return value === "loading" || value === "disconnected" ? value : null;
 }
 
 function ArtistCover({ artist }: { artist: Artist }) {
@@ -117,11 +119,26 @@ export function ArtistSelectionPage() {
   }
 
   return (
-    <section className="artist-selection-page" aria-labelledby="artist-selection-title">
+    <section className={`artist-selection-page${currentState === "disconnected" ? " artist-selection-page--disconnected" : ""}`} aria-labelledby="artist-selection-title">
       <div className="artist-selection-page__inner">
-        <BackButton className="artist-selection__back-button" onClick={() => navigate("/onboarding/playlist-selection")} />
+        {currentState !== "disconnected" ? (
+          <BackButton className="artist-selection__back-button" onClick={() => navigate("/onboarding/playlist-selection")} />
+        ) : null}
 
-        {currentState === "loading" ? (
+        {currentState === "disconnected" ? (
+          <div className="artist-selection__disconnected" aria-live="assertive">
+            <div className="artist-selection__disconnected-icon" aria-hidden="true">
+              <img src={disconnectedIcon} alt="" />
+            </div>
+            <div className="artist-selection__disconnected-copy">
+              <h1 id="artist-selection-title">Spotify 연결이 끊겼어요.</h1>
+              <p>플레이리스트 분석을 계속하려면 Spotify 계정을 다시 연결해 주세요.</p>
+            </div>
+            <SpotifyButton className="artist-selection__reconnect-button" onClick={() => navigate("/login")}>
+              Spotify 다시 연결하기
+            </SpotifyButton>
+          </div>
+        ) : currentState === "loading" ? (
           <div className="artist-selection__loading" aria-live="polite" aria-label="아티스트를 분석하는 중">
             <h1 className="sr-only" id="artist-selection-title">아티스트를 분석하는 중</h1>
             <div className="artist-selection__heading-skeleton">

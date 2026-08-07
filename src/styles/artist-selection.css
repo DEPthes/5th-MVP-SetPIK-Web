@@ -3,6 +3,73 @@
   background: var(--color-footer-background);
 }
 
+.artist-selection-page--disconnected .artist-selection-page__inner {
+  width: 100%;
+  padding: 0;
+}
+
+.artist-selection__disconnected {
+  display: flex;
+  min-height: 458px;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  padding: 80px var(--layout-gutter) 96px;
+  text-align: center;
+}
+
+.artist-selection__disconnected-icon {
+  display: grid;
+  width: 64px;
+  height: 64px;
+  place-items: center;
+  border: 1px solid rgba(255, 107, 122, 0.2);
+  border-radius: 16px;
+  background: rgba(255, 107, 122, 0.1);
+}
+
+.artist-selection__disconnected-icon img {
+  width: 26px;
+  height: 26px;
+}
+
+.artist-selection__disconnected-copy {
+  display: grid;
+  gap: 16px;
+}
+
+.artist-selection__disconnected-copy h1 {
+  color: var(--color-white);
+  font-size: var(--font-size-heading-1);
+  font-weight: var(--font-weight-bold);
+  line-height: var(--line-height-default);
+}
+
+.artist-selection__disconnected-copy p {
+  color: var(--color-footer-text);
+  font-size: var(--font-size-heading-2);
+  font-weight: var(--font-weight-semibold);
+  line-height: var(--line-height-default);
+}
+
+.artist-selection__reconnect-button {
+  min-height: 51px;
+  padding: 14px 28px;
+  border-radius: 16px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  font-size: var(--font-size-subtitle);
+}
+
+.artist-selection__reconnect-button:hover:not(:disabled) {
+  background: var(--color-spotify-default);
+  box-shadow: 0 0 16px rgba(156, 3, 245, 0.4);
+}
+
+.artist-selection__reconnect-button:active:not(:disabled) {
+  box-shadow: none;
+}
+
 .artist-selection-page__inner {
   width: min(100%, var(--layout-viewport-max));
   margin-inline: auto;
