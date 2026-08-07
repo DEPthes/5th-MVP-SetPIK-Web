@@ -5,7 +5,7 @@ export function LoginPage() {
   const navigate = useNavigate();
 
   function handleSpotifyLogin() {
-    navigate("/concerts", { replace: true });
+    navigate("/onboarding/playlist-selection", { replace: true });
   }
 
   return (

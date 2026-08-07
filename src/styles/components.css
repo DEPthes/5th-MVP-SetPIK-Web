@@ -82,6 +82,58 @@
   height: 20px;
 }
 
+/* 플레이리스트·아티스트 선택 단계의 주요 CTA 상태 */
+.button--selection-cta {
+  --button-background: var(--color-brand-300);
+  --button-background-hover: var(--color-brand-300);
+  --button-background-active: var(--color-brand-500);
+  --button-foreground: var(--color-white);
+
+  transition:
+    color var(--transition-fast),
+    background-color var(--transition-fast),
+    border-color var(--transition-fast),
+    box-shadow var(--transition-fast);
+}
+
+.button--selection-cta:hover:not(:disabled) {
+  box-shadow: 0 0 16px rgba(156, 3, 245, 0.4);
+}
+
+.button--selection-cta:active:not(:disabled) {
+  box-shadow: none;
+}
+
+.back-button {
+  display: inline-flex;
+  min-height: 44px;
+  align-items: center;
+  gap: 6px;
+  padding: 0;
+  border: 0;
+  color: var(--color-gray-500);
+  background: transparent;
+  cursor: pointer;
+  font-size: 20px;
+  font-weight: var(--font-weight-semibold);
+  line-height: var(--line-height-default);
+  transition: color var(--transition-fast);
+}
+
+.back-button img {
+  width: 28px;
+  height: 28px;
+  transition: filter var(--transition-fast);
+}
+
+.back-button:hover {
+  color: var(--color-white);
+}
+
+.back-button:hover img {
+  filter: brightness(0) invert(1);
+}
+
 .button--outline {
   --button-background: transparent;
   --button-background-hover: var(--color-surface);
