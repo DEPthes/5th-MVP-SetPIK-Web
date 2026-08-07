@@ -252,7 +252,7 @@ export function ArtistSelectionPage() {
               <Button
                 className="artist-selection__next-button button--selection-cta"
                 disabled={!selectedArtistCount}
-                onClick={() => navigate("/concerts")}
+                onClick={() => navigate("/concerts?state=loading")}
                 trailingIcon={<img src={arrowRightIcon} alt="" />}
               >
                 선택한 아티스트로 공연 찾기
