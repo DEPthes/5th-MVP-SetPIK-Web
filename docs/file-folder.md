@@ -48,7 +48,8 @@
 - **로직의 역할을 구분**
   - React 상태와 Effect를 재사용하면 `hooks`, API 연동은 `services`, 순수 함수는 `utils`, 공유 타입은 `types`에 둡니다.
 - **스타일 역할 분리**
-  - 디자인 토큰, 전역 기본값, 레이아웃, 공통 컴포넌트, 반응형 스타일을 각각의 CSS 파일로 구분합니다.
+  - 디자인 토큰과 전역 기본값은 `src/styles`에서 관리하고, 레이아웃·공통 UI·기능 UI의 스타일은 이를 소유하는 컴포넌트 옆에 둡니다.
+  - 현재 init 단계에서는 별도의 반응형 규칙을 두지 않습니다. 반응형 작업을 시작할 때도 소유 컴포넌트의 CSS에서 관리합니다.
 - **에셋은 종류별로 분리**
   - SVG 아이콘은 `assets/icons`, 이미지 파일은 `assets/images`에 둡니다.
 - **폴더명은 의미 중심으로 선택**
@@ -88,34 +89,34 @@
 │   │   └── images/                     # 포스터와 화면용 이미지
 │   │
 │   ├── components/
-│   │   ├── artist/                     # 아티스트 기능 전용 UI
+│   │   ├── artist/                     # 아티스트 UI, 데이터, 소유 CSS
 │   │   ├── common/                     # 두 곳 이상에서 재사용하는 UI
 │   │   │   ├── badge.tsx
 │   │   │   ├── button.tsx
 │   │   │   └── icon-button.tsx
-│   │   ├── concert/                    # 공연 기능 전용 UI
-│   │   ├── layout/                     # 공통 레이아웃
+│   │   ├── concert/                    # 공연 UI, 데이터, 필터, 소유 CSS
+│   │   ├── layout/                     # 공통 레이아웃과 각 소유 CSS
 │   │   │   ├── app-layout.tsx
 │   │   │   ├── footer.tsx
 │   │   │   └── header.tsx
-│   │   └── playlist/                   # 플레이리스트 기능 전용 UI
+│   │   ├── onboarding/                 # 온보딩 섹션, 데이터, 소유 CSS
+│   │   └── playlist/                   # 플레이리스트 UI, 데이터, 소유 CSS
 │   │
-│   ├── hooks/                          # React Hook
+│   ├── hooks/                          # 페이지 상태와 상호작용을 담당하는 React Hook
 │   ├── pages/                          # React Router 페이지 엔트리
 │   │   ├── concerts-page.tsx
 │   │   ├── login-page.tsx
 │   │   ├── my-page.tsx
 │   │   ├── not-found-page.tsx
-│   │   └── onboarding-page.tsx
+│   │   ├── onboarding-page.tsx
+│   │   └── playlist-selection-page.tsx
 │   ├── services/                       # API와 외부 서비스 연동
 │   ├── styles/
 │   │   ├── auth.css                    # 로그인 페이지 전용 스타일
 │   │   ├── base.css                    # reset과 전역 기본 스타일
-│   │   ├── components.css              # 공통 UI 스타일
 │   │   ├── global.css                  # CSS import 진입점
 │   │   ├── layout.css                  # 공통 레이아웃 스타일
-│   │   ├── overlays.css                # 모달과 팝오버 스타일
-│   │   ├── responsive.css              # 반응형 스타일
+│   │   ├── skeleton.css                # 공통 Skeleton 반사 효과
 │   │   ├── tokens.css                  # 디자인 토큰
 │   │   └── typography.css              # 타이포그래피 클래스
 │   ├── types/                          # 공유 타입과 인터페이스

@@ -1,0 +1,137 @@
+.site-header {
+  position: sticky;
+  z-index: 100;
+  top: 0;
+  width: 100%;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  background: var(--color-header-background);
+}
+
+.site-header__inner {
+  position: relative;
+  display: flex;
+  width: min(100%, var(--layout-viewport-max));
+  min-height: 80px;
+  align-items: center;
+  justify-content: space-between;
+  margin-inline: auto;
+  padding-inline: var(--layout-gutter);
+}
+
+.site-logo {
+  display: block;
+  width: 86px;
+  height: 24px;
+  flex: 0 0 auto;
+}
+
+.site-logo img {
+  width: 100%;
+  height: 100%;
+}
+
+.spotify-connect-link {
+  display: inline-flex;
+  min-height: 46px;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 11px 21px;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: var(--radius-medium);
+  background: #0f0f0f;
+  font-size: var(--font-size-body);
+  font-weight: var(--font-weight-semibold);
+  line-height: var(--line-height-default);
+  transition: background-color var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.spotify-connect-link:hover {
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.35);
+}
+
+.spotify-connect-link:active {
+  background: #189a46;
+  box-shadow: none;
+}
+
+.spotify-connect-link:focus-visible,
+.site-nav__link:focus-visible,
+.profile-button:focus-visible {
+  outline: 2px solid var(--color-white);
+  outline-offset: 3px;
+}
+
+.spotify-connect-link img {
+  width: 16px;
+  height: 16px;
+}
+
+.site-nav {
+  position: absolute;
+  left: 50%;
+  display: flex;
+  align-items: center;
+  gap: 32px;
+  transform: translateX(-50%);
+}
+
+.site-nav__link {
+  position: relative;
+  color: var(--color-text-disabled);
+  font-size: var(--font-size-subtitle);
+  font-weight: var(--font-weight-semibold);
+  line-height: var(--line-height-default);
+  white-space: nowrap;
+  transition: color var(--transition-fast);
+}
+
+.site-nav__link:hover,
+.site-nav__link--active {
+  color: var(--color-text-primary);
+}
+
+.site-nav__link--active::after {
+  position: absolute;
+  top: calc(100% + 4px);
+  left: 50%;
+  width: 20px;
+  height: 2.5px;
+  border-radius: var(--radius-pill);
+  background: var(--color-brand-300);
+  content: "";
+  transform: translateX(-50%);
+}
+
+.site-header__actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.notification-button {
+  width: 44px;
+  height: 44px;
+}
+
+.notification-button > img {
+  width: 20px;
+  height: 20px;
+}
+
+.profile-button {
+  display: inline-flex;
+  width: 36px;
+  height: 36px;
+  align-items: center;
+  justify-content: center;
+  padding: 1px;
+  border: 1px solid rgba(255, 88, 224, 0.25);
+  border-radius: 50%;
+  color: var(--color-white);
+  background: linear-gradient(135deg, #1a0830 0%, #2a1040 100%);
+  cursor: pointer;
+  font-size: var(--font-size-body-small);
+  font-weight: var(--font-weight-bold);
+  line-height: var(--line-height-default);
+}

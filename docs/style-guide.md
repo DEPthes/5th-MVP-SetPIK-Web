@@ -8,12 +8,12 @@ SetPik의 Figma 디자인 시스템을 코드에서 일관되게 사용하는 �
 
 ## 1) 기본 원칙
 
-- 전역 스타일은 `src/styles/global.css`를 통해 한 번만 불러옵니다.
+- 앱 전체에서 필요한 토큰·reset·타이포그래피·Skeleton 효과만 `src/styles/global.css`에서 불러옵니다.
 - 색상, 폰트 크기, 폰트 굵기, line-height는 `tokens.css`의 CSS 변수를 사용합니다.
 - 정해진 타이포그래피는 `typography.css`의 전역 클래스를 우선 사용합니다.
 - 두 곳 이상에서 반복되는 UI는 `src/components/common`에 공통 컴포넌트로 분리합니다.
 - 공통 컴포넌트가 이미 있다면 페이지에서 동일한 마크업과 스타일을 다시 만들지 않습니다.
-- 공통 스타일은 `components.css`, 특정 페이지 전용 스타일은 역할이 드러나는 별도 CSS 파일에 작성합니다.
+- 공통 컴포넌트 스타일은 해당 컴포넌트의 CSS 파일에 두고, 특정 페이지와 기능 스타일도 이를 소유하는 페이지 또는 컴포넌트에서 직접 import합니다.
 - inline style과 임의의 색상·폰트 크기 하드코딩을 지양합니다.
 - Figma에서 제공된 SVG는 외부 아이콘 라이브러리로 대체하지 않고 `src/assets/icons`에서 import합니다.
 - hover, active, focus-visible, disabled 등 컴포넌트 상태를 함께 구현합니다.
@@ -23,17 +23,13 @@ SetPik의 Figma 디자인 시스템을 코드에서 일관되게 사용하는 �
 
 ## 2) 전역 CSS 구조
 
-`src/main.tsx`는 `global.css`만 import하고, `global.css`가 나머지 스타일 파일을 순서대로 불러옵니다.
+`src/main.tsx`는 앱 전체에 필요한 `global.css`만 import합니다. 레이아웃·페이지·기능 컴포넌트의 CSS는 해당 TSX 파일이 직접 소유합니다.
 
 ```css
 @import "./tokens.css";
 @import "./base.css";
 @import "./typography.css";
-@import "./layout.css";
-@import "./components.css";
-@import "./auth.css";
-@import "./overlays.css";
-@import "./responsive.css";
+@import "./skeleton.css";
 ```
 
 | 파일 | 역할 |
@@ -41,14 +37,14 @@ SetPik의 Figma 디자인 시스템을 코드에서 일관되게 사용하는 �
 | `tokens.css` | 색상, 타이포그래피, radius, motion, 레이아웃 토큰 |
 | `base.css` | reset, 전역 폰트, 기본 배경과 접근성 설정 |
 | `typography.css` | Figma 타이포그래피에 대응하는 전역 클래스 |
-| `layout.css` | Header, Footer, AppLayout, 공통 페이지 레이아웃 |
-| `components.css` | Button, IconButton, Badge 등 공통 UI 스타일 |
-| `auth.css` | 로그인 페이지 전용 스타일과 모션 |
-| `overlays.css` | 모달, 팝오버, 드롭다운 등 overlay 스타일 |
-| `responsive.css` | 공통 레이아웃과 타이포그래피의 반응형 스타일 |
+| `layout.css` | AppLayout과 범용 page-shell 스타일. `AppLayout`이 직접 import |
+| `components/layout/*.css` | Header와 Footer가 각각 소유하는 스타일 |
+| `skeleton.css` | 모든 Skeleton UI가 공유하는 반사 애니메이션 |
+| `auth.css` | 로그인 페이지 전용 스타일과 모션. `LoginPage`가 직접 import |
+| `components/<feature>/*.css` | 해당 기능 컴포넌트만 사용하는 스타일 |
 | `global.css` | 전역 CSS import 진입점 |
 
-새로운 스타일 파일을 추가하면 역할에 맞는 위치에 두고, 전역으로 필요한 경우에만 `global.css`에 import합니다.
+새로운 스타일 파일은 역할에 맞는 위치에 두고 소유 컴포넌트가 직접 import합니다. 여러 화면이 공통으로 사용하는 기반 스타일만 `global.css`에 추가합니다.
 
 ---
 
@@ -102,7 +98,7 @@ Figma 컬러 팔레트는 `tokens.css`에 CSS 변수로 정의되어 있습니�
 }
 ```
 
-Figma에 새로운 색상이 추가되면 페이지에 직접 값을 넣기 전에 `tokens.css`에 primitive 또는 semantic token으로 등록할 수 있는지 먼저 검토합니다.
+`tokens.css`는 현재 Figma 디자인 시스템을 옮긴 원본이므로 화면 구현 과정에서 임의로 추가하거나 수정하지 않습니다. Figma 디자인 시스템 자체가 변경되고 팀에서 반영 범위를 합의한 경우에만 토큰을 함께 갱신합니다.
 
 ---
 
@@ -264,7 +260,7 @@ Figma 디자인 시스템에는 다음과 같은 반복 UI가 포함되어 있�
 
 ## 7) 공통 컴포넌트 스타일 작성
 
-공통 컴포넌트의 기본 스타일과 variant는 `components.css`에서 관리합니다.
+공통 컴포넌트의 기본 스타일과 variant는 같은 폴더의 소유 CSS에서 관리합니다. 예: `button.tsx` ↔ `button.css`.
 
 ```css
 .button {}
@@ -287,18 +283,17 @@ Figma 디자인 시스템에는 다음과 같은 반복 UI가 포함되어 있�
 </Button>
 ```
 
-위 예시에서 `Button`의 공통 상태와 접근성은 `components.css`, 로그인 화면에만 필요한 크기와 반사 효과는 `auth.css`가 담당합니다.
+위 예시에서 `Button`의 공통 상태와 접근성은 `components/common/button.css`, 로그인 화면에만 필요한 크기와 반사 효과는 `auth.css`가 담당합니다.
 
 ---
 
-## 8) 레이아웃과 반응형
+## 8) 레이아웃
 
-- Figma의 1440px 디자인은 `--layout-gutter`를 통해 1920px까지 비례 확장합니다.
+- 현재 초기 버전은 데스크톱 Figma 시안을 기준으로 고정 레이아웃을 구현합니다.
 - 공통 콘텐츠 최대 너비는 `--layout-viewport-max`를 사용합니다.
-- Header와 Footer 같은 공통 배치는 `layout.css`에서 관리합니다.
-- 공통 반응형 규칙은 `responsive.css`에 작성합니다.
-- 특정 페이지에서만 필요한 반응형 규칙은 해당 페이지 CSS에 함께 둘 수 있습니다.
-- 작은 화면에서 정보가 사라질 때는 대체 탐색 방법과 접근성을 함께 검토합니다.
+- AppLayout의 전체 배치는 `layout.css`, Header와 Footer는 각 컴포넌트의 소유 CSS에서 관리합니다.
+- 반응형 규칙은 별도 요구사항이 확정되기 전까지 추가하지 않습니다.
+- 접근성 목적의 `prefers-reduced-motion` 규칙은 반응형 레이아웃과 별개로 유지합니다.
 
 ```css
 .page-content {

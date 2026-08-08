@@ -1,0 +1,30 @@
+import { useNavigate } from "react-router-dom";
+import arrowRightIcon from "@/assets/icons/ic-arrow-right.svg";
+import { Button } from "@/components/common/button";
+
+export function ArtistSelectionAction({ selectedArtistCount }: { selectedArtistCount: number }) {
+  const navigate = useNavigate();
+
+  return (
+    <div
+      className={`artist-selection__footer-action${selectedArtistCount ? " artist-selection__footer-action--selected" : ""}`}
+    >
+      <div>
+        <strong>선택한 아티스트 <em>{selectedArtistCount}명</em></strong>
+        <p>
+          {selectedArtistCount
+            ? "선택한 아티스트의 공연 정보를 찾을 준비가 되었어요."
+            : "공연 추천을 받으려면 최소 1명을 선택해 주세요."}
+        </p>
+      </div>
+      <Button
+        className="artist-selection__next-button button--selection-cta"
+        disabled={!selectedArtistCount}
+        onClick={() => navigate("/concerts?state=loading")}
+        trailingIcon={<img src={arrowRightIcon} alt="" />}
+      >
+        선택한 아티스트로 공연 찾기
+      </Button>
+    </div>
+  );
+}

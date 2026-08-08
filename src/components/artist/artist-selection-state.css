@@ -1,0 +1,41 @@
+.artist-selection__loading {
+  margin-top: 12px;
+}
+
+.artist-selection__heading-skeleton {
+  display: grid;
+  gap: 12px;
+}
+
+.artist-selection__heading-skeleton span,
+.artist-selection__heading-skeleton i {
+  width: 320px;
+  height: 32px;
+  border-radius: 16px;
+}
+
+.artist-selection__heading-skeleton i {
+  width: 384px;
+  height: 16px;
+}
+
+.artist-selection__loading > p {
+  margin-top: 40px;
+  color: var(--color-gray-300);
+  font-size: var(--font-size-title);
+  font-weight: var(--font-weight-semibold);
+  line-height: var(--line-height-default);
+}
+
+.artist-selection__loading > span {
+  display: block;
+  margin-top: 8px;
+  color: var(--color-gray-500);
+  font-size: var(--font-size-title);
+  font-weight: var(--font-weight-semibold);
+  line-height: var(--line-height-default);
+}
+
+.artist-selection__skeleton-grid {
+  margin-top: 24px;
+}

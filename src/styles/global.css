@@ -1,12 +1,4 @@
 @import "./tokens.css";
 @import "./base.css";
 @import "./typography.css";
-@import "./layout.css";
-@import "./components.css";
-@import "./auth.css";
-@import "./artist-selection.css";
-@import "./concerts.css";
-@import "./onboarding.css";
-@import "./playlist-selection.css";
-@import "./overlays.css";
-@import "./responsive.css";
+@import "./skeleton.css";

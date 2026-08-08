@@ -1,0 +1,105 @@
+.onboarding-hero {
+  position: relative;
+  display: flex;
+  min-height: calc(100svh - 80px);
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 82% 56%, rgba(102, 0, 83, 0.32), transparent 34%),
+    linear-gradient(101deg, #0e0e0e 0%, #1c101b 47%, #360e2f 100%);
+}
+
+.onboarding-hero__wave {
+  position: absolute;
+  z-index: 0;
+  inset: 0;
+  opacity: 0.52;
+  background-image: url("@/assets/images/onboarding-background.png");
+  background-position: center;
+  background-size: cover;
+  pointer-events: none;
+}
+
+.onboarding-hero__inner {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  width: min(100%, var(--layout-viewport-max));
+  min-height: inherit;
+  align-items: center;
+  justify-content: space-between;
+  gap: 48px;
+  margin-inline: auto;
+  padding: 80px var(--layout-gutter);
+}
+
+.onboarding-hero__content {
+  width: min(100%, 571px);
+  flex: 0 0 auto;
+}
+
+.onboarding-hero__title {
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  color: var(--color-white);
+  font-size: var(--font-size-display);
+  font-weight: var(--font-weight-bold);
+  line-height: var(--line-height-display);
+  letter-spacing: -0.04em;
+}
+
+.onboarding-hero__title--brand {
+  color: var(--color-brand-300);
+}
+
+.onboarding-hero__description {
+  margin: 32px 0 0;
+  color: var(--color-white);
+  font-size: var(--font-size-title);
+  font-weight: var(--font-weight-semibold);
+  line-height: var(--line-height-default);
+}
+
+.onboarding-hero__button {
+  min-height: 56px;
+  margin-top: 32px;
+  padding-inline: 32px;
+  border-radius: 15px;
+  box-shadow: 0 0 16px rgba(255, 255, 255, 0.2);
+  --button-hover-shadow: 0 0 24px rgba(255, 255, 255, 0.35);
+  font-size: var(--font-size-subtitle);
+}
+
+.onboarding-hero__button:active:not(:disabled) {
+  transform: scale(0.99);
+}
+
+.onboarding-hero__benefits {
+  display: grid;
+  gap: 10px;
+  margin: 40px 0 0;
+  padding: 0;
+  color: var(--color-white);
+  font-size: var(--font-size-body);
+  line-height: var(--line-height-default);
+  list-style: none;
+}
+
+.onboarding-hero__benefits li {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.onboarding-hero__benefits li::before {
+  display: grid;
+  width: 16px;
+  height: 16px;
+  place-items: center;
+  border-radius: 50%;
+  color: var(--color-brand-300);
+  background: rgba(255, 88, 224, 0.2);
+  content: "✓";
+  font-size: var(--font-size-caption);
+  line-height: 1;
+}

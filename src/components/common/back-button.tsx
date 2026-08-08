@@ -1,5 +1,6 @@
 import type { ButtonHTMLAttributes, ReactNode } from "react";
 import arrowLeftIcon from "@/assets/icons/ic-chevron-left.svg";
+import "./back-button.css";
 
 interface BackButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   children?: ReactNode;

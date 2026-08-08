@@ -1,0 +1,145 @@
+.button {
+  --button-background: var(--color-brand-300);
+  --button-background-hover: var(--button-background);
+  --button-background-active: var(--color-brand-500);
+  --button-foreground: var(--color-white);
+  --button-hover-shadow: 0 0 16px rgba(156, 3, 245, 0.4);
+
+  display: inline-flex;
+  min-height: 48px;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 12px 24px;
+  border: 1px solid transparent;
+  border-radius: var(--radius-pill);
+  color: var(--button-foreground);
+  background: var(--button-background);
+  cursor: pointer;
+  font-size: var(--font-size-body-small);
+  font-weight: var(--font-weight-semibold);
+  line-height: var(--line-height-default);
+  transition: color var(--transition-fast), background-color var(--transition-fast), border-color var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.button:hover:not(:disabled):not([aria-disabled="true"]) {
+  background: var(--button-background-hover);
+  box-shadow: var(--button-hover-shadow);
+}
+
+.button:active:not(:disabled):not([aria-disabled="true"]) {
+  background: var(--button-background-active);
+  box-shadow: none;
+}
+
+.button:focus-visible {
+  outline: 2px solid var(--color-white);
+  outline-offset: 3px;
+}
+
+.button:disabled,
+.button[aria-disabled="true"] {
+  color: var(--color-text-disabled);
+  background: var(--color-gray-700);
+  box-shadow: none;
+  cursor: not-allowed;
+}
+
+.button:disabled .button__icon,
+.button[aria-disabled="true"] .button__icon {
+  opacity: 0.45;
+}
+
+.button--accent {
+  --button-background: var(--color-accent-300);
+  --button-background-hover: var(--color-accent-200);
+  --button-background-active: var(--color-accent-500);
+  --button-foreground: var(--color-black);
+}
+
+.button--neutral {
+  --button-background: transparent;
+  --button-background-hover: rgba(255, 255, 255, 0.08);
+  --button-background-active: var(--color-gray-500);
+  --button-foreground: var(--color-white);
+  --button-hover-shadow: 0 0 16px rgba(255, 255, 255, 0.28);
+
+  border-color: var(--color-gray-700);
+}
+
+.button--error {
+  --button-background: rgba(236, 61, 61, 0.12);
+  --button-background-hover: rgba(236, 61, 61, 0.22);
+  --button-background-active: var(--color-error-700);
+  --button-foreground: var(--color-error-500);
+  --button-hover-shadow: 0 0 16px rgba(236, 61, 61, 0.28);
+}
+
+.button--spotify {
+  --button-background: var(--color-spotify-default);
+  --button-background-hover: var(--color-spotify-default);
+  --button-background-active: var(--color-spotify-500);
+  --button-foreground: var(--color-white);
+  --button-hover-shadow: 0 0 16px rgba(156, 3, 245, 0.4);
+}
+
+.button--spotify .button__icon > img {
+  width: 20px;
+  height: 20px;
+}
+
+.button--sub {
+  --button-background: rgba(111, 253, 248, 0.1);
+  --button-background-hover: rgba(111, 253, 248, 0.16);
+  --button-background-active: rgba(111, 253, 248, 0.24);
+  --button-foreground: var(--color-accent-300);
+  --button-hover-shadow: 0 0 16px rgba(111, 253, 248, 0.28);
+
+  border-color: var(--color-accent-300);
+}
+
+.button--selection-cta {
+  --button-background: var(--color-brand-300);
+  --button-background-hover: var(--color-brand-300);
+  --button-background-active: var(--color-brand-500);
+  --button-foreground: var(--color-white);
+}
+
+.button--outline {
+  --button-background: transparent;
+  --button-background-hover: var(--color-surface);
+  --button-background-active: var(--color-gray-700);
+  --button-foreground: var(--color-white);
+  --button-hover-shadow: 0 0 10px rgba(255, 255, 255, 0.24);
+
+  border-color: var(--color-white);
+}
+
+.button--large {
+  min-height: 64px;
+  padding: 16px 32px;
+  font-size: var(--font-size-subtitle);
+}
+
+.button--small {
+  min-height: 40px;
+  padding: 10px 20px;
+  font-size: var(--font-size-body-small);
+}
+
+.button--full-width {
+  width: 100%;
+}
+
+.button__icon {
+  display: inline-flex;
+  flex: 0 0 auto;
+  align-items: center;
+  justify-content: center;
+}
+
+.button__icon > svg,
+.button__icon > img {
+  width: 18px;
+  height: 18px;
+}

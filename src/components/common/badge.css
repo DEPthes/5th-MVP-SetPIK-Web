@@ -1,0 +1,26 @@
+.badge {
+  display: inline-flex;
+  min-height: 22px;
+  align-items: center;
+  justify-content: center;
+  padding: 2px 8px;
+  border-radius: var(--radius-pill);
+  font-size: var(--font-size-caption);
+  font-weight: var(--font-weight-semibold);
+  line-height: var(--line-height-default);
+}
+
+.badge--accent {
+  color: var(--color-accent-100);
+  background: var(--color-accent-700);
+}
+
+.badge--brand {
+  color: var(--color-brand-100);
+  background: var(--color-brand-700);
+}
+
+.badge--neutral {
+  color: var(--color-gray-100);
+  background: var(--color-gray-700);
+}

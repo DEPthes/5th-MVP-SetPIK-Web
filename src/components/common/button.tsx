@@ -1,7 +1,8 @@
 import type { ButtonHTMLAttributes, ReactNode } from "react";
+import "./button.css";
 
-export type ButtonVariant = "brand" | "accent" | "neutral" | "error" | "spotify" | "outline";
-export type ButtonSize = "medium" | "large";
+export type ButtonVariant = "brand" | "accent" | "neutral" | "error" | "spotify" | "sub" | "outline";
+export type ButtonSize = "small" | "medium" | "large";
 
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   variant?: ButtonVariant;
@@ -27,6 +28,7 @@ export function Button({
   const buttonClassName = [
     "button",
     variant === "brand" ? "" : `button--${variant}`,
+    size === "small" ? "button--small" : "",
     size === "large" ? "button--large" : "",
     fullWidth ? "button--full-width" : "",
     className,

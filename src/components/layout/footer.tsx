@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import setPikLogo from "@/assets/icons/set-pik.svg";
+import "./footer.css";
 
 const QUICK_LINKS = [
   { label: "서비스 소개", to: "/#service" },

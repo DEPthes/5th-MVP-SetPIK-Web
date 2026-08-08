@@ -3,6 +3,7 @@ import notificationIcon from "@/assets/icons/ic-noti.svg";
 import setPikLogo from "@/assets/icons/set-pik.svg";
 import spotifyIcon from "@/assets/icons/spotify-icon.svg";
 import { IconButton } from "@/components/common/icon-button";
+import "./header.css";
 
 interface HeaderProps {
   variant: "public" | "authenticated";
