@@ -1,0 +1,211 @@
+.concert-filter-modal {
+  position: absolute;
+  z-index: 30;
+  top: calc(100% + 8px);
+  right: 0;
+  width: 520px;
+  transform: scale(0.8);
+  transform-origin: top right;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 16px;
+  background: #1a1a1a;
+  box-shadow: 0 24px 64px rgba(0, 0, 0, 0.48);
+}
+
+.concert-filter-modal__header,
+.concert-filter-modal__footer {
+  display: flex;
+  align-items: center;
+  padding-inline: 24px;
+}
+
+.concert-filter-modal__header {
+  min-height: 63px;
+  justify-content: space-between;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.concert-filter-modal__header h2 {
+  color: var(--color-white);
+  font-size: var(--font-size-title);
+  font-weight: var(--font-weight-bold);
+  line-height: var(--line-height-default);
+}
+
+.concert-filter-modal__close {
+  display: grid;
+  width: 20px;
+  height: 20px;
+  place-items: center;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+}
+
+.concert-filter-modal__close img {
+  width: 20px;
+  height: 20px;
+}
+
+.concert-filter-modal__body {
+  padding: 20px 24px;
+}
+
+.concert-filter-modal__section--spaced {
+  margin-top: 28px;
+}
+
+.concert-filter-modal__section h3 {
+  color: var(--color-white);
+  font-size: var(--font-size-body);
+  font-weight: var(--font-weight-semibold);
+  line-height: var(--line-height-default);
+}
+
+.concert-filter-modal__chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 12px;
+}
+
+.concert-filter-modal__chips--regions {
+  max-width: 470px;
+  row-gap: 8px;
+}
+
+.concert-filter-chip {
+  min-height: 38px;
+  padding: 7px 17px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: var(--radius-pill);
+  color: #b6b6b6;
+  background: #262626;
+  cursor: pointer;
+  font-size: var(--font-size-body);
+  font-weight: var(--font-weight-semibold);
+  line-height: var(--line-height-default);
+}
+
+.concert-filter-chip:hover,
+.concert-filter-chip--selected {
+  border-color: rgba(255, 88, 224, 0.55);
+  color: var(--color-white);
+  background: rgba(255, 88, 224, 0.2);
+}
+
+.concert-filter-payment {
+  display: inline-flex;
+  margin-top: 12px;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 20px;
+}
+
+.concert-filter-payment__option {
+  min-width: 68px;
+  min-height: 40px;
+  padding: 8px 20px;
+  border: 0;
+  color: #b6b6b6;
+  background: #262626;
+  cursor: pointer;
+  font-size: var(--font-size-body);
+  font-weight: var(--font-weight-semibold);
+  line-height: var(--line-height-default);
+}
+
+.concert-filter-payment__option--selected {
+  color: var(--color-white);
+  background: var(--color-brand-300);
+}
+
+.concert-filter-artist-only {
+  display: flex;
+  min-height: 56px;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 28px;
+  padding: 16px;
+  border-radius: 20px;
+  color: var(--color-white);
+  background: #262626;
+  font-size: var(--font-size-body);
+  font-weight: var(--font-weight-semibold);
+  line-height: var(--line-height-default);
+}
+
+.concert-filter-switch {
+  width: 48px;
+  height: 24px;
+  flex: 0 0 auto;
+  padding: 2px;
+  border: 0;
+  border-radius: var(--radius-pill);
+  background: #444;
+  cursor: pointer;
+}
+
+.concert-filter-switch i {
+  display: block;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: var(--color-white);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1), 0 1px 2px rgba(0, 0, 0, 0.1);
+  transition: transform var(--transition-fast);
+}
+
+.concert-filter-switch--checked {
+  background: var(--color-brand-300);
+}
+
+.concert-filter-switch--checked i {
+  transform: translateX(24px);
+}
+
+.concert-filter-modal__footer {
+  min-height: 83px;
+  gap: 12px;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.concert-filter-modal__reset,
+.concert-filter-modal__apply {
+  border-radius: 20px;
+  cursor: pointer;
+  font-weight: var(--font-weight-semibold);
+  line-height: var(--line-height-default);
+}
+
+.concert-filter-modal__reset {
+  min-width: 84px;
+  min-height: 46px;
+  padding: 10px 21px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: #b6b6b6;
+  background: transparent;
+  font-size: var(--font-size-body);
+}
+
+.concert-filter-modal__apply {
+  min-height: 50px;
+  flex: 1;
+  border: 0;
+  color: var(--color-white);
+  background: var(--color-brand-300);
+  box-shadow: 0 0 10px rgba(255, 88, 224, 0.3);
+  font-size: var(--font-size-title);
+  font-weight: var(--font-weight-bold);
+}
+
+.concert-filter-modal__close:focus-visible,
+.concert-filter-chip:focus-visible,
+.concert-filter-payment__option:focus-visible,
+.concert-filter-switch:focus-visible,
+.concert-filter-modal__reset:focus-visible,
+.concert-filter-modal__apply:focus-visible {
+  outline: 2px solid var(--color-white);
+  outline-offset: 3px;
+}
