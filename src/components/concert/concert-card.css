@@ -118,8 +118,24 @@
 
 .concert-featured-card__detail-button { border: 0; color: var(--color-white); background: var(--color-brand-300); }
 .concert-featured-card__detail-button img { width: 14px; height: 14px; filter: brightness(0) invert(1); }
-.concert-featured-card__save-button { border: 1px solid rgba(255, 255, 255, 0.2); color: var(--color-white); background: transparent; }
-.concert-featured-card__save-button img { width: 16px; height: 16px; }
+.concert-featured-card__save-button {
+  min-height: 54px;
+  padding: 0 21px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 20px;
+  color: var(--color-white);
+  background: transparent;
+  font-size: var(--font-size-subtitle);
+}
+
+.concert-featured-card__save-button img { width: 15px; height: 15px; }
+
+.concert-featured-card__save-button--active,
+.concert-featured-card__save-button[aria-pressed="true"] {
+  border-color: rgba(255, 88, 224, 0.4);
+  color: var(--color-brand-300);
+  background: rgba(255, 88, 224, 0.2);
+}
 
 .concert-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 20px; }
 
@@ -134,6 +150,14 @@
 }
 
 .concert-card__image-wrap { height: 185px; background: #232323; }
+
+.concert-card__image-wrap::after {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(23, 23, 23, 0.7) 0%, rgba(0, 0, 0, 0) 55%);
+  content: "";
+  pointer-events: none;
+}
 
 .concert-card__save {
   position: absolute;
@@ -153,8 +177,10 @@
 }
 
 .concert-card__save img { width: 18px; height: 17px; }
-.concert-card__save--active { background: rgba(255, 88, 224, 0.2); }
-.concert-card__save--active img { filter: brightness(0) saturate(100%) invert(59%) sepia(85%) saturate(2067%) hue-rotate(286deg) brightness(103%) contrast(101%); }
+.concert-card__save--active {
+  border-color: rgba(255, 88, 224, 0.4);
+  background: rgba(255, 88, 224, 0.2);
+}
 
 .concert-card__category {
   position: absolute;

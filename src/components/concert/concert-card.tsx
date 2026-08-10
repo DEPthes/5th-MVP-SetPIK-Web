@@ -2,6 +2,7 @@ import aiCyanIcon from "@/assets/icons/ic-ai-cyan.svg";
 import artistIcon from "@/assets/icons/ic-artist.svg";
 import arrowRightIcon from "@/assets/icons/ic-arrow-right.svg";
 import dateIcon from "@/assets/icons/ic-date-gray.svg";
+import filledHeartIcon from "@/assets/icons/ic-heart-icon-1.svg";
 import heartIcon from "@/assets/icons/ic-heart-icon.svg";
 import locationIcon from "@/assets/icons/ic-location.svg";
 import { Button } from "@/components/common/button";
@@ -31,7 +32,7 @@ export function ConcertCard({ concert, isSaved, onToggleSaved }: ConcertCardProp
           onClick={() => onToggleSaved(concert.id)}
           type="button"
         >
-          <img alt="" src={heartIcon} />
+          <img alt="" src={isSaved ? filledHeartIcon : heartIcon} />
         </button>
         <span className="concert-card__category">{concert.category}</span>
       </div>
@@ -79,9 +80,11 @@ export function ConcertCardSkeleton() {
 
 interface FeaturedConcertCardProps {
   concert: Concert;
+  isSaved: boolean;
+  onToggleSaved: (id: string) => void;
 }
 
-export function FeaturedConcertCard({ concert }: FeaturedConcertCardProps) {
+export function FeaturedConcertCard({ concert, isSaved, onToggleSaved }: FeaturedConcertCardProps) {
   return (
     <article className="concert-featured-card">
       <div className="concert-featured-card__image-wrap">
@@ -106,8 +109,14 @@ export function FeaturedConcertCard({ concert }: FeaturedConcertCardProps) {
           <Button className="concert-featured-card__detail-button" trailingIcon={<img alt="" src={arrowRightIcon} />}>
             공연 상세 보기
           </Button>
-          <button className="concert-featured-card__save-button" type="button">
-            <img alt="" src={heartIcon} />
+          <button
+            aria-label={`${concert.title} ${isSaved ? "저장 취소" : "저장"}`}
+            aria-pressed={isSaved}
+            className={`concert-featured-card__save-button${isSaved ? " concert-featured-card__save-button--active" : ""}`}
+            onClick={() => onToggleSaved(concert.id)}
+            type="button"
+          >
+            <img alt="" src={isSaved ? filledHeartIcon : heartIcon} />
             저장
           </button>
         </div>

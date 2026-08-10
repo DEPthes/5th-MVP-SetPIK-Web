@@ -65,7 +65,11 @@ export function ConcertRecommendations({
           <h2 id="best-concert-title">가장 잘 맞는 공연</h2>
           <p>선택한 플레이리스트와 아티스트를 기준으로 가장 높은 관련도를 가진 공연이에요.</p>
         </div>
-        <FeaturedConcertCard concert={ALL_CONCERTS[0]} />
+        <FeaturedConcertCard
+          concert={ALL_CONCERTS[0]}
+          isSaved={savedConcertIds.has(ALL_CONCERTS[0].id)}
+          onToggleSaved={onToggleSaved}
+        />
       </section>
 
       <ConcertSection
