@@ -31,8 +31,8 @@
   --color-spotify-active: #189a46;
 
   /* Semantic colors */
-  --color-background: var(--color-black);
-  --color-header-background: #151515;
+  --color-background: #0E0E0E;
+  --color-header-background: #0E0E0E;
   --color-footer-background: #0e0e0e;
   --color-footer-text: #b6b6b6;
   --color-surface: var(--color-gray-900);

@@ -3,6 +3,7 @@ import { AppLayout } from "@/components/layout/app-layout";
 import { ArtistSelectionPage } from "@/pages/artist-selection-page";
 import { ConcertDetailPage } from "@/pages/concert-detail-page";
 import { ConcertsPage } from "@/pages/concerts-page";
+import { CreatedPlaylistsPage } from "@/pages/created-playlists-page";
 import { LoginPage } from "@/pages/login-page";
 import { MyPage } from "@/pages/my-page";
 import { NotFoundPage } from "@/pages/not-found-page";
@@ -10,6 +11,8 @@ import { OnboardingPage } from "@/pages/onboarding-page";
 import { PlaylistSelectionPage } from "@/pages/playlist-selection-page";
 import { PreStudyPlaylistPage } from "@/pages/pre-study-playlist-page";
 import { PreStudyPlaylistCreatePage } from "@/pages/pre-study-playlist-create-page";
+import { SavedConcertsPage } from "@/pages/saved-concerts-page";
+import { RecentlyViewedPage } from "@/pages/recently-viewed-page";
 
 export function App() {
   return (
@@ -24,8 +27,11 @@ export function App() {
         <Route path="preferences/playlists" element={<Navigate to="/onboarding/playlist-selection" replace />} />
         <Route path="pre-study-playlists" element={<PreStudyPlaylistPage />} />
         <Route path="pre-study-playlists/create" element={<PreStudyPlaylistCreatePage />} />
+        <Route path="created-playlists" element={<CreatedPlaylistsPage />} />
         <Route path="concerts" element={<ConcertsPage />} />
         <Route path="concerts/:concertId" element={<ConcertDetailPage />} />
+        <Route path="saved-concerts" element={<SavedConcertsPage />} />
+        <Route path="recently-viewed" element={<RecentlyViewedPage />} />
         <Route path="mypage" element={<MyPage />} />
       </Route>
       <Route element={<AppLayout headerVariant="public" />}>

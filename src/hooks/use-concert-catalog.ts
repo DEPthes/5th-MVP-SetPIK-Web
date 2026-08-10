@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
+import { useSavedConcerts } from "@/contexts/saved-concerts-context";
 import {
   ALL_CONCERTS,
   CONCERT_BATCH_SIZE,
@@ -21,7 +22,7 @@ export function useConcertCatalog() {
   const [appliedFilters, setAppliedFilters] = useState<ConcertFilterState>(EMPTY_CONCERT_FILTERS);
   const [draftFilterCount, setDraftFilterCount] = useState(0);
   const [visibleConcertCount, setVisibleConcertCount] = useState(INITIAL_CONCERT_COUNT);
-  const [savedConcertIds, setSavedConcertIds] = useState<Set<string>>(() => new Set());
+  const { savedConcertIds, toggleSavedConcert } = useSavedConcerts();
   const filterMenuRef = useRef<HTMLDivElement>(null);
   const loadMoreRef = useRef<HTMLDivElement>(null);
   const pageState = searchParams.get("state");
@@ -96,15 +97,6 @@ export function useConcertCatalog() {
     window.addEventListener("keydown", closeOnEscape);
     return () => window.removeEventListener("keydown", closeOnEscape);
   }, [isSortOpen]);
-
-  function toggleSavedConcert(concertId: string) {
-    setSavedConcertIds((currentIds) => {
-      const nextIds = new Set(currentIds);
-      if (nextIds.has(concertId)) nextIds.delete(concertId);
-      else nextIds.add(concertId);
-      return nextIds;
-    });
-  }
 
   function updateSearchTerm(value: string) {
     setSearchTerm(value);
