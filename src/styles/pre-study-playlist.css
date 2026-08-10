@@ -43,6 +43,41 @@
   align-items: center;
 }
 
+.pre-study-playlist-page__sort-wrapper {
+  position: relative;
+  display: inline-block;
+}
+
+.pre-study-playlist-page__sort-menu {
+  position: absolute;
+  top: calc(100% + 8px);
+  right: 0;
+  min-width: 180px;
+  background: #171717;
+  border: 1px solid rgba(255,255,255,0.06);
+  border-radius: 10px;
+  padding: 6px 0;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.6);
+  z-index: 40;
+}
+
+.pre-study-playlist-page__sort-menu button {
+  display: block;
+  width: 100%;
+  padding: 8px 16px;
+  background: transparent;
+  border: none;
+  text-align: left;
+  color: #b3b3b3;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.pre-study-playlist-page__sort-menu button:hover {
+  background: rgba(255,255,255,0.02);
+  color: #ffffff;
+}
+
 .pre-study-playlist-page__search-box {
   flex: 1;
   min-width: 260px;

@@ -84,17 +84,24 @@ const PLAYLISTS: PlaylistData[] = [
 
 export function CreatedPlaylistsPage() {
   const [searchTerm, setSearchTerm] = useState("");
-  const [sortMode, setSortMode] = useState<"recent" | "alphabetical">("recent");
+  const [sortMode, setSortMode] = useState<"recent" | "oldest" | "alphabetical" | "most-tracks">("recent");
+  const [showSortMenu, setShowSortMenu] = useState(false);
   const [expandedPlaylistIds, setExpandedPlaylistIds] = useState<string[]>(["seoul-music-festival"]);
 
   const filteredPlaylists = useMemo(() => {
-    return PLAYLISTS.filter((playlist) => playlist.title.includes(searchTerm) || playlist.subtitle.includes(searchTerm))
-      .sort((a, b) => {
-        if (sortMode === "recent") {
-          return b.createdAt.localeCompare(a.createdAt);
-        }
-        return a.title.localeCompare(b.title, "ko");
-      });
+    const list = PLAYLISTS.filter((playlist) => playlist.title.includes(searchTerm) || playlist.subtitle.includes(searchTerm));
+    switch (sortMode) {
+      case "recent":
+        return [...list].sort((a, b) => b.createdAt.localeCompare(a.createdAt));
+      case "oldest":
+        return [...list].sort((a, b) => a.createdAt.localeCompare(b.createdAt));
+      case "alphabetical":
+        return [...list].sort((a, b) => a.title.localeCompare(b.title, "ko"));
+      case "most-tracks":
+        return [...list].sort((a, b) => b.trackCount - a.trackCount);
+      default:
+        return list;
+    }
   }, [searchTerm, sortMode]);
 
   const allExpanded = filteredPlaylists.every((playlist) => expandedPlaylistIds.includes(playlist.id));
@@ -142,11 +149,36 @@ export function CreatedPlaylistsPage() {
             className="pre-study-playlist-page__search-input"
           />
         </label>
-        <button type="button" className="pre-study-playlist-page__sort-button" onClick={() => setSortMode((current) => (current === "recent" ? "alphabetical" : "recent"))}>
-          <img src={imgSortIcon} alt="정렬" />
-          <span>{sortMode === "recent" ? "최근 생성한 순" : "가나다 순"}</span>
-          <img src={imgChevronDown} alt="펼치기" />
-        </button>
+        <div className="pre-study-playlist-page__sort-wrapper">
+          <button
+            type="button"
+            className="pre-study-playlist-page__sort-button"
+            onClick={() => setShowSortMenu((s) => !s)}
+            aria-expanded={showSortMenu}
+            aria-haspopup="menu"
+          >
+            <img src={imgSortIcon} alt="정렬" />
+            <span>{sortMode === "recent" ? "최근 생성한 순" : sortMode === "oldest" ? "오래된 생성 순" : sortMode === "alphabetical" ? "공연명 순" : "수록곡 많은 순"}</span>
+            <img src={imgChevronDown} alt="펼치기" />
+          </button>
+
+          {showSortMenu && (
+            <div className="pre-study-playlist-page__sort-menu" role="menu">
+              <button type="button" role="menuitem" onClick={() => { setSortMode("recent"); setShowSortMenu(false); }}>
+                최근 생성한 순
+              </button>
+              <button type="button" role="menuitem" onClick={() => { setSortMode("oldest"); setShowSortMenu(false); }}>
+                오래된 생성 순
+              </button>
+              <button type="button" role="menuitem" onClick={() => { setSortMode("alphabetical"); setShowSortMenu(false); }}>
+                공연명 순
+              </button>
+              <button type="button" role="menuitem" onClick={() => { setSortMode("most-tracks"); setShowSortMenu(false); }}>
+                수록곡 많은 순
+              </button>
+            </div>
+          )}
+        </div>
       </div>
 
       <div className="pre-study-playlist-page__summary-row">
