@@ -1,0 +1,60 @@
+.concert-detail { background: #0e0e0e; }
+.concert-detail__inner, .concert-lineup__inner { width: min(100%, var(--layout-viewport-max)); margin-inline: auto; padding-inline: var(--layout-gutter); }
+.concert-detail__inner { padding-block: 40px 100px; }
+.concert-detail__back { display: inline-flex; align-items: center; gap: 6px; color: var(--color-gray-500); font-size: var(--font-size-subtitle); font-weight: var(--font-weight-semibold); line-height: var(--line-height-default); }
+.concert-detail__back img { width: 16px; height: 16px; }
+.concert-detail__back:hover { color: var(--color-white); }
+.concert-detail__heading { padding-top: 24px; }
+.concert-detail__heading h1 { font-size: var(--font-size-heading-1); font-weight: var(--font-weight-bold); line-height: var(--line-height-default); }
+.concert-detail__recommendation { display: flex; align-items: center; flex-wrap: wrap; gap: 16px; margin-top: 16px; }
+.concert-detail__recommendation-label { display: inline-flex; align-items: center; gap: 6px; color: var(--color-accent-300); font-size: var(--font-size-body-small); font-weight: var(--font-weight-semibold); }
+.concert-detail__recommendation-label img { width: 13px; height: 13px; }
+.concert-detail__recommendation ul { display: flex; flex-wrap: wrap; gap: 16px; margin: 0; padding: 0; list-style: none; }
+.concert-detail__recommendation li { padding: 3px 11px; border: 1px solid rgba(111, 253, 248, 0.2); border-radius: var(--radius-pill); color: var(--color-accent-300); background: rgba(111, 253, 248, 0.08); font-size: var(--font-size-caption); line-height: var(--line-height-default); }
+.concert-detail__overview { display: grid; grid-template-columns: 356px minmax(0, 1fr); gap: 76px; margin-top: 32px; }
+.concert-detail__poster { display: flex; min-height: 456px; align-items: center; justify-content: center; flex-direction: column; gap: 12px; overflow: hidden; border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 16px; background: linear-gradient(155deg, #1a1028 8.5%, #0e1a2a 50%, #0a1a12 91.5%); box-shadow: 0 8px 40px rgba(0, 0, 0, 0.5); }
+.concert-detail__poster img { width: 64px; height: 64px; opacity: 0.15; }
+.concert-detail__poster p { color: rgba(255, 255, 255, 0.3); font-size: 13px; line-height: 1.5; }
+.concert-detail__information { display: flex; min-width: 0; flex-direction: column; justify-content: space-between; }
+.concert-detail__information dl { margin: 0; }
+.concert-detail__information dl > div { display: grid; grid-template-columns: 156px minmax(0, 1fr); min-height: 53px; align-items: center; border-bottom: 1px solid rgba(255, 255, 255, 0.07); }
+.concert-detail__information dl > div:last-child { border-bottom: 0; }
+.concert-detail__information dt { color: var(--color-gray-500); font-size: var(--font-size-body-small); line-height: var(--line-height-default); }
+.concert-detail__information dd { margin: 0; color: var(--color-white); font-size: var(--font-size-body); line-height: var(--line-height-default); }
+.concert-detail__actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 32px; }
+.concert-detail__action { display: inline-flex; min-height: 54px; align-items: center; justify-content: center; gap: 8px; padding: 12px 24px; border: 1px solid transparent; border-radius: 20px; cursor: pointer; font-size: var(--font-size-body); font-weight: var(--font-weight-semibold); line-height: var(--line-height-default); transition: border-color var(--transition-fast), background-color var(--transition-fast), color var(--transition-fast); }
+.concert-detail__action img { width: 16px; height: 16px; }
+.concert-detail__action--ticket { border-color: rgba(255, 88, 224, 0.35); color: var(--color-brand-300); background: rgba(255, 88, 224, 0.12); }
+.concert-detail__action--playlist { border-color: rgba(111, 253, 248, 0.3); color: var(--color-accent-300); background: rgba(111, 253, 248, 0.08); }
+.concert-detail__action--neutral { border-color: rgba(255, 255, 255, 0.12); color: var(--color-gray-300); background: rgba(255, 255, 255, 0.08); }
+.concert-detail__action--saved { border-color: rgba(255, 88, 224, 0.4); color: var(--color-brand-300); background: rgba(255, 88, 224, 0.2); }
+.concert-detail__action:hover { filter: brightness(1.18); }
+.concert-lineup { border-top: 1px solid rgba(255, 255, 255, 0.06); background: #171717; }
+.concert-lineup__inner { padding-block: 64px 72px; }
+.concert-lineup__heading { display: flex; align-items: center; justify-content: space-between; }
+.concert-lineup__heading h2 { font-size: var(--font-size-heading-2); font-weight: var(--font-weight-semibold); line-height: var(--line-height-default); }
+.concert-lineup__heading p { margin-top: 4px; color: var(--color-gray-500); font-size: var(--font-size-body-small); line-height: var(--line-height-default); }
+.concert-lineup__controls { display: flex; gap: 8px; }
+.concert-lineup__controls button { display: grid; width: 44px; height: 44px; place-items: center; border: 1px solid rgba(255, 255, 255, 0.12); border-radius: 50%; background: rgba(255, 255, 255, 0.08); cursor: pointer; }
+.concert-lineup__controls img { width: 20px; height: 20px; }
+.concert-lineup__controls button:last-child img { transform: rotate(180deg); }
+.concert-lineup__controls button:hover { background: rgba(255, 255, 255, 0.15); }
+.concert-lineup__cards { display: flex; gap: 16px; margin-top: 24px; overflow-x: auto; scroll-behavior: smooth; scroll-snap-type: x mandatory; scrollbar-width: none; }
+.concert-lineup__cards::-webkit-scrollbar { display: none; }
+.concert-artist-card { flex: 0 0 calc((100% - 64px) / 5); overflow: hidden; border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 16px; background: #171717; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3); scroll-snap-align: start; }
+.concert-artist-card__image { position: relative; display: flex; aspect-ratio: 1; align-items: center; justify-content: center; }
+.concert-artist-card__image--purple { background: linear-gradient(135deg, #1a0a2e, #320a4a); }
+.concert-artist-card__image--blue { background: linear-gradient(135deg, #0a1b42, #123b88); }
+.concert-artist-card__image--teal { background: linear-gradient(135deg, #062f31, #075b5f); }
+.concert-artist-card__image--yellow { background: linear-gradient(135deg, #302705, #584807); }
+.concert-artist-card__image--red { background: linear-gradient(135deg, #350707, #681010); }
+.concert-artist-card__image strong { color: rgba(255, 255, 255, 0.12); font-size: 52px; font-weight: var(--font-weight-bold); letter-spacing: -2px; line-height: 1.5; }
+.concert-artist-card__image span { position: absolute; bottom: 18px; left: 12px; display: inline-flex; align-items: center; gap: 6px; padding: 5px 11px; border: 1px solid rgba(111, 253, 248, 0.35); border-radius: var(--radius-pill); color: var(--color-accent-300); background: rgba(14, 14, 14, 0.8); font-size: var(--font-size-caption); line-height: var(--line-height-default); }
+.concert-artist-card__image span img { width: 13px; height: 13px; }
+.concert-artist-card__content { padding: 14px 16px 16px; }
+.concert-artist-card__content h3 { font-size: var(--font-size-subtitle); font-weight: var(--font-weight-semibold); line-height: var(--line-height-default); }
+.concert-artist-card__play { width: 100%; min-height: 40px; margin-top: 12px; padding: 10px 20px; border-color: var(--color-gray-700); color: var(--color-gray-300); background: rgba(255, 255, 255, 0.06); font-size: 13px; }
+.concert-artist-card__play .button__icon > img { width: 16px; height: 16px; }
+.concert-detail a:focus-visible, .concert-detail button:focus-visible { outline: 2px solid var(--color-white); outline-offset: 3px; }
+@media (max-width: 1000px) { .concert-detail__overview { grid-template-columns: 300px minmax(0, 1fr); gap: 40px; } .concert-detail__poster { min-height: 420px; } .concert-detail__information dl > div { grid-template-columns: 126px minmax(0, 1fr); } .concert-artist-card { flex-basis: calc((100% - 32px) / 3); } }
+@media (max-width: 700px) { .concert-detail__inner { padding-block: 28px 64px; } .concert-detail__heading h1 { font-size: 28px; } .concert-detail__recommendation { gap: 10px; } .concert-detail__recommendation ul { gap: 8px; } .concert-detail__overview { grid-template-columns: 1fr; gap: 28px; margin-top: 28px; } .concert-detail__poster { min-height: 320px; } .concert-detail__information dl > div { grid-template-columns: 110px minmax(0, 1fr); min-height: 50px; } .concert-detail__information dt { font-size: 13px; } .concert-detail__information dd { font-size: var(--font-size-body-small); } .concert-detail__actions { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; margin-top: 24px; } .concert-detail__action { min-height: 48px; padding: 10px 12px; font-size: 13px; white-space: nowrap; } .concert-lineup__inner { padding-block: 48px; } .concert-lineup__heading { align-items: flex-end; } .concert-lineup__heading h2 { font-size: 21px; } .concert-lineup__controls button { width: 38px; height: 38px; } .concert-lineup__cards { gap: 12px; } .concert-artist-card { flex-basis: calc((100% - 12px) / 2); } .concert-artist-card__content { padding: 12px; } .concert-artist-card__content h3 { font-size: var(--font-size-body); } .concert-artist-card__play { padding-inline: 8px; font-size: 12px; } }

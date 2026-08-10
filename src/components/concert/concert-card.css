@@ -7,6 +7,7 @@
   border-radius: 16px;
   background: #171717;
   box-shadow: 0 8px 40px rgba(0, 0, 0, 0.4);
+  transition: transform var(--transition-fast), border-color var(--transition-fast), box-shadow var(--transition-fast);
 }
 
 .concert-featured-card__image-wrap,
@@ -140,6 +141,7 @@
 .concert-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 20px; }
 
 .concert-card {
+  position: relative;
   min-width: 0;
   min-height: 424px;
   overflow: hidden;
@@ -147,6 +149,18 @@
   border-radius: 16px;
   background: #171717;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+  transition: transform var(--transition-fast), border-color var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.concert-card__detail-link { display: block; color: inherit; }
+.concert-card__detail-link:focus-visible { outline: 2px solid var(--color-white); outline-offset: -3px; }
+
+.concert-card:hover,
+.concert-card:focus-within,
+.concert-featured-card:hover,
+.concert-featured-card:focus-within {
+  transform: translateY(-4px);
+  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.42), 0 0 12px rgba(255, 88, 224, 0.12), 0 0 28px rgba(255, 88, 224, 0.1);
 }
 
 .concert-card__image-wrap { height: 185px; background: #232323; }

@@ -6,6 +6,7 @@ import filledHeartIcon from "@/assets/icons/ic-heart-icon-1.svg";
 import heartIcon from "@/assets/icons/ic-heart-icon.svg";
 import locationIcon from "@/assets/icons/ic-location.svg";
 import { Button } from "@/components/common/button";
+import { Link, useNavigate } from "react-router-dom";
 import type { Concert } from "./concert-data";
 import "./concert-card.css";
 
@@ -24,33 +25,35 @@ interface ConcertGridProps {
 export function ConcertCard({ concert, isSaved, onToggleSaved }: ConcertCardProps) {
   return (
     <article className="concert-card">
-      <div className="concert-card__image-wrap">
-        <button
-          aria-label={`${concert.title} ${isSaved ? "저장 취소" : "저장"}`}
-          aria-pressed={isSaved}
-          className={`concert-card__save${isSaved ? " concert-card__save--active" : ""}`}
-          onClick={() => onToggleSaved(concert.id)}
-          type="button"
-        >
-          <img alt="" src={isSaved ? filledHeartIcon : heartIcon} />
-        </button>
-        <span className="concert-card__category">{concert.category}</span>
-      </div>
-      <div className="concert-card__content">
-        <h3>{concert.title}</h3>
-        <dl className="concert-card__metadata">
-          <div><img alt="" src={dateIcon} /><dd>{concert.date}</dd></div>
-          <div><img alt="" src={locationIcon} /><dd>{concert.location}</dd></div>
-          <div><img alt="" src={artistIcon} /><dd>출연: {concert.artists}</dd></div>
-        </dl>
-        <div className="concert-card__match">
-          <p>
-            <img alt="" src={aiCyanIcon} />
-            내 플레이리스트 아티스트 {concert.playlistArtistCount}팀 출연
-          </p>
-          <span>플레이리스트 연관도 {concert.playlistRelevance}%</span>
+      <Link className="concert-card__detail-link" to={`/concerts/${concert.id}`}>
+        <div className="concert-card__image-wrap">
+          <span className="concert-card__category">{concert.category}</span>
         </div>
-      </div>
+        <div className="concert-card__content">
+          <h3>{concert.title}</h3>
+          <dl className="concert-card__metadata">
+            <div><img alt="" src={dateIcon} /><dd>{concert.date}</dd></div>
+            <div><img alt="" src={locationIcon} /><dd>{concert.location}</dd></div>
+            <div><img alt="" src={artistIcon} /><dd>출연: {concert.artists}</dd></div>
+          </dl>
+          <div className="concert-card__match">
+            <p>
+              <img alt="" src={aiCyanIcon} />
+              내 플레이리스트 아티스트 {concert.playlistArtistCount}팀 출연
+            </p>
+            <span>플레이리스트 연관도 {concert.playlistRelevance}%</span>
+          </div>
+        </div>
+      </Link>
+      <button
+        aria-label={`${concert.title} ${isSaved ? "저장 취소" : "저장"}`}
+        aria-pressed={isSaved}
+        className={`concert-card__save${isSaved ? " concert-card__save--active" : ""}`}
+        onClick={() => onToggleSaved(concert.id)}
+        type="button"
+      >
+        <img alt="" src={isSaved ? filledHeartIcon : heartIcon} />
+      </button>
     </article>
   );
 }
@@ -85,6 +88,8 @@ interface FeaturedConcertCardProps {
 }
 
 export function FeaturedConcertCard({ concert, isSaved, onToggleSaved }: FeaturedConcertCardProps) {
+  const navigate = useNavigate();
+
   return (
     <article className="concert-featured-card">
       <div className="concert-featured-card__image-wrap">
@@ -106,7 +111,7 @@ export function FeaturedConcertCard({ concert, isSaved, onToggleSaved }: Feature
           <span>플레이리스트 연관도 {concert.playlistRelevance}%</span>
         </div>
         <div className="concert-featured-card__actions">
-          <Button className="concert-featured-card__detail-button" trailingIcon={<img alt="" src={arrowRightIcon} />}>
+          <Button className="concert-featured-card__detail-button" onClick={() => navigate(`/concerts/${concert.id}`)} trailingIcon={<img alt="" src={arrowRightIcon} />}>
             공연 상세 보기
           </Button>
           <button
