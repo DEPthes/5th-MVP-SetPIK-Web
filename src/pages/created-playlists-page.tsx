@@ -157,8 +157,7 @@ export function CreatedPlaylistsPage() {
             aria-expanded={showSortMenu}
             aria-haspopup="menu"
           >
-            <img src={imgSortIcon} alt="정렬" />
-            <span>{sortMode === "recent" ? "최근 생성한 순" : sortMode === "oldest" ? "오래된 생성 순" : sortMode === "alphabetical" ? "공연명 순" : "수록곡 많은 순"}</span>
+            <span>{sortMode === "recent" ? "최근 생성" : sortMode === "oldest" ? "오래된 생성" : sortMode === "alphabetical" ? "공연명" : "수록곡 많은"}</span>
             <img src={imgChevronDown} alt="펼치기" />
           </button>
 
@@ -259,6 +258,19 @@ export function CreatedPlaylistsPage() {
                         </button>
                       </div>
                     ))}
+                  </div>
+                  <div className="pre-study-playlist-page__card-footer">
+                    <div className="pre-study-playlist-page__card-footer-left">
+                      <span>{playlist.trackCount}곡 · {playlist.badgeText}</span>
+                    </div>
+                    <div className="pre-study-playlist-page__card-footer-right">
+                      <button type="button" className="pre-study-playlist-page__open-spotify">
+                        <img src={imgSpotifyIcon} alt="Spotify" />
+                        <span>Spotify에서 열기</span>
+                      </button>
+                      <Link to={`/concerts/${playlist.id}`} className="pre-study-playlist-page__view-concert">공연 상세 보기</Link>
+                      <button type="button" className="pre-study-playlist-page__delete-playlist">생성 기록 삭제</button>
+                    </div>
                   </div>
                 </div>
               )}
