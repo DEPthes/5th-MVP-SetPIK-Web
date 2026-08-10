@@ -410,7 +410,8 @@ Figma MCP 호출이 실패하거나 시간이 초과되면 화면 전체를 추�
 
 SetPik 화면을 구현할 때 다음 기준을 반드시 지킵니다.
 
-- `src/styles/global.css`가 불러오는 전역 스타일 구조를 유지합니다.
+- `src/styles/global.css`는 토큰·reset·타이포그래피·공통 Skeleton 효과만 불러옵니다.
+- 페이지와 기능 컴포넌트의 CSS는 해당 TSX 파일에서 직접 import합니다.
 - 색상, 폰트, 간격과 radius는 `src/styles/tokens.css`의 CSS 변수를 먼저 확인합니다.
 - 타이포그래피는 `src/styles/typography.css`의 전역 클래스를 우선 사용합니다.
 - 공통 레이아웃은 `src/styles/layout.css`와 기존 Layout 컴포넌트를 확인합니다.

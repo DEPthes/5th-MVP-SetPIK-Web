@@ -42,11 +42,11 @@
 <details>
 <summary><b style="font-size:1.7rem">🎨 스타일 가이드</b></summary>
 
-- `global.css`를 전역 스타일 진입점으로 사용
+- `global.css`는 토큰·reset·타이포그래피·공통 Skeleton 효과의 전역 진입점으로 사용
 - 색상·폰트·여백 등 공통 값은 `tokens.css`의 CSS 변수 사용
 - 타이포그래피는 `typography.css`의 전역 클래스 또는 폰트 토큰 사용
 - 반복되는 UI는 `components/common`의 공통 컴포넌트를 import하여 사용
-- 공통 UI 스타일은 `components.css`, 페이지 전용 스타일은 역할별 CSS 파일에 작성
+- 공통 UI와 페이지·기능 스타일은 소유 TSX가 역할별 CSS 파일을 직접 import
 - Inline style과 임의의 색상·폰트 크기 하드코딩 지양
 - Figma SVG 에셋은 `assets/icons`에서 직접 import하여 사용
 

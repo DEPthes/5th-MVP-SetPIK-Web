@@ -1,0 +1,50 @@
+.status-state {
+  display: flex;
+  min-height: 480px;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+  gap: 16px;
+  padding: 92px var(--layout-gutter) 96px;
+  text-align: center;
+}
+
+.status-state__content,
+.status-state__message {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.status-state__icon {
+  display: grid;
+  width: 56px;
+  height: 56px;
+  place-items: center;
+  border: 1px solid rgba(255, 107, 122, 0.2);
+  border-radius: 16px;
+  background: rgba(255, 107, 122, 0.1);
+}
+
+.status-state__icon img {
+  width: 22px;
+  height: 22px;
+}
+
+.status-state__message p {
+  margin: 0;
+  color: var(--color-footer-text);
+}
+
+.status-state__action {
+  display: inline-flex;
+  margin-top: 4px;
+}
+
+.status-state__action > .button {
+  min-height: 47px;
+  padding: 13px 25px;
+  border-radius: 20px;
+  font-size: var(--font-size-subtitle);
+}

@@ -83,54 +83,17 @@
   padding: 0 24px;
   border-radius: 16px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  --button-hover-shadow: 0 12px 24px rgba(0, 0, 0, 0.48);
   font-size: var(--font-size-subtitle);
   line-height: var(--line-height-default);
 }
 
-.login-card__button:hover:not(:disabled) {
-  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.48);
-}
-
 .login-card__button:active:not(:disabled) {
-  box-shadow: none;
   transform: scale(0.99);
 }
 
 @media (prefers-reduced-motion: reduce) {
   .login-card {
     animation: none;
-  }
-}
-
-@media (max-width: 768px) {
-  .login-page {
-    padding-block: 64px;
-  }
-
-  .login-card {
-    padding: 40px 32px;
-  }
-
-  .login-card__actions {
-    padding-bottom: 0;
-  }
-}
-
-@media (max-width: 480px) {
-  .login-card {
-    padding: 32px 24px;
-    border-radius: 20px;
-  }
-
-  .login-card__title {
-    font-size: var(--font-size-heading-2);
-  }
-
-  .login-card__description br {
-    display: none;
-  }
-
-  .login-card__button {
-    font-size: var(--font-size-body);
   }
 }

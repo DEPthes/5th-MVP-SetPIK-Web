@@ -1,0 +1,44 @@
+.onboarding-hero__mock-stack {
+  position: relative;
+  width: 352px;
+  height: 394px;
+  flex: 0 0 352px;
+}
+
+.onboarding-concert-card {
+  position: absolute;
+  display: grid;
+  width: 318px;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 20px;
+  background: #171717;
+  box-shadow: 0 15px 49px rgba(0, 0, 0, 0.5);
+}
+
+.onboarding-concert-card--layer-1 { top: 34px; right: 0; z-index: 1; }
+.onboarding-concert-card--layer-2 { top: 17px; right: 17px; z-index: 2; }
+.onboarding-concert-card--layer-3 {
+  top: 0;
+  right: 34px;
+  z-index: 3;
+  box-shadow: 0 29px 78px rgba(0, 0, 0, 0.7), 0 0 49px rgba(156, 3, 245, 0.25);
+}
+
+.onboarding-concert-card__image-wrap { position: relative; height: 269px; }
+.onboarding-concert-card__image-wrap::after { position: absolute; inset: 0; background: linear-gradient(to top, rgba(14, 14, 14, 0.8), transparent 60%); content: ""; }
+.onboarding-concert-card__image { width: 100%; height: 100%; object-fit: cover; }
+
+.onboarding-concert-card__content {
+  display: flex;
+  min-height: 88px;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 19px;
+}
+
+.onboarding-concert-card__artist { margin: 0; color: var(--color-white); font-size: var(--font-size-title); font-weight: var(--font-weight-bold); line-height: var(--line-height-default); }
+.onboarding-concert-card__location { display: flex; align-items: center; gap: 5px; margin: 4px 0 0; color: #b6b6b6; font-size: var(--font-size-body-small); font-weight: var(--font-weight-semibold); line-height: var(--line-height-default); }
+.onboarding-concert-card__location img { width: 14px; height: 14px; }
+.onboarding-concert-card__match { flex: 0 0 auto; margin-top: 1px; padding: 5px 12px; border-radius: var(--radius-pill); color: #c96bff; background: rgba(255, 88, 224, 0.2); font-size: var(--font-size-body); font-weight: var(--font-weight-semibold); line-height: var(--line-height-default); white-space: nowrap; }

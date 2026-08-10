@@ -1,6 +1,7 @@
 import { Navigate, Route, Routes } from "react-router-dom";
 import { AppLayout } from "@/components/layout/app-layout";
 import { ArtistSelectionPage } from "@/pages/artist-selection-page";
+import { ConcertDetailPage } from "@/pages/concert-detail-page";
 import { ConcertsPage } from "@/pages/concerts-page";
 import { LoginPage } from "@/pages/login-page";
 import { MyPage } from "@/pages/my-page";
@@ -22,6 +23,7 @@ export function App() {
         <Route path="preferences/playlists" element={<Navigate to="/onboarding/playlist-selection" replace />} />
         <Route path="pre-study-playlists" element={<PreStudyPlaylistPage />} />
         <Route path="concerts" element={<ConcertsPage />} />
+        <Route path="concerts/:concertId" element={<ConcertDetailPage />} />
         <Route path="mypage" element={<MyPage />} />
       </Route>
       <Route element={<AppLayout headerVariant="public" />}>

@@ -1,5 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import { SpotifyButton } from "@/components/common/spotify-button";
+import "@/styles/auth.css";
 
 export function LoginPage() {
   const navigate = useNavigate();

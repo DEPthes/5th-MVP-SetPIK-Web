@@ -1,0 +1,107 @@
+.artist-selection__toolbar {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 12px;
+  margin-top: 24px;
+}
+
+.artist-selection__search {
+  display: flex;
+  min-height: 40px;
+  align-items: center;
+  gap: 8px;
+  padding: 0 14px;
+  border-radius: var(--radius-pill);
+  color: var(--color-gray-500);
+  background: #171717;
+}
+
+.artist-selection__search img {
+  width: 16px;
+  height: 16px;
+}
+
+.artist-selection__search input {
+  width: 100%;
+  min-width: 0;
+  padding: 0;
+  border: 0;
+  outline: 0;
+  color: var(--color-white);
+  background: transparent;
+  font-size: var(--font-size-body-small);
+  line-height: var(--line-height-default);
+}
+
+.artist-selection__search input::placeholder {
+  color: var(--color-gray-500);
+}
+
+.artist-selection__search input[type="search"]::-webkit-search-cancel-button {
+  appearance: none;
+}
+
+.artist-selection__sort {
+  position: relative;
+}
+
+.artist-selection__sort-trigger {
+  display: inline-flex;
+  min-height: 40px;
+  align-items: center;
+  gap: 8px;
+  padding: 0 14px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: var(--radius-pill);
+  color: var(--color-gray-300);
+  background: #171717;
+  cursor: pointer;
+  font-size: var(--font-size-body-small);
+  font-weight: var(--font-weight-semibold);
+  line-height: var(--line-height-default);
+}
+
+.artist-selection__sort-trigger img {
+  width: 16px;
+  height: 16px;
+}
+
+.artist-selection__sort-menu {
+  position: absolute;
+  z-index: 2;
+  top: calc(100% + 6px);
+  right: 0;
+  display: grid;
+  min-width: 156px;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 20px;
+  background: #202020;
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.3);
+}
+
+.artist-selection__sort-menu button {
+  width: 100%;
+  padding: 10px 16px;
+  border: 0;
+  color: var(--color-footer-text);
+  background: transparent;
+  cursor: pointer;
+  font-size: var(--font-size-body);
+  font-weight: var(--font-weight-regular);
+  line-height: var(--line-height-default);
+  text-align: left;
+}
+
+.artist-selection__sort-menu button:hover,
+.artist-selection__sort-menu button[aria-selected="true"] {
+  color: var(--color-brand-300);
+  background: rgba(255, 88, 224, 0.1);
+}
+
+.artist-selection__search:focus-within,
+.artist-selection__sort-trigger:focus-visible,
+.artist-selection__sort-menu button:focus-visible {
+  outline: 2px solid var(--color-white);
+  outline-offset: 3px;
+}

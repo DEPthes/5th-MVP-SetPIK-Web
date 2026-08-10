@@ -1,4 +1,5 @@
 import type { HTMLAttributes, ReactNode } from "react";
+import "./badge.css";
 
 export type BadgeTone = "accent" | "brand" | "neutral";
 
