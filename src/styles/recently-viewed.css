@@ -1,0 +1,229 @@
+.recently-viewed-page {
+  background: #0E0E0E;
+  padding-bottom: 120px;
+}
+
+.recently-viewed-page__back {
+  margin-bottom: 40px;
+}
+
+.recently-viewed-page__back-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  color: #808080;
+  font-size: 1rem;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.recently-viewed-page__heading {
+  margin-bottom: 32px;
+}
+
+.recently-viewed-page__title {
+  color: #ffffff;
+  font-size: 36px;
+  font-weight: 700;
+  line-height: 1.5;
+  margin-bottom: 12px;
+}
+
+.recently-viewed-page__subtitle {
+  color: #b3b3b3;
+  font-size: 16px;
+  line-height: 1.5;
+}
+
+.recently-viewed-page__controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 24px;
+}
+
+.recently-viewed-page__search-box,
+.recently-viewed-page__sort-button,
+.recently-viewed-page__manage-button {
+  background: #171717;
+  border: 1.5px solid rgba(255, 255, 255, 0.09);
+  border-radius: 16px;
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  color: #b3b3b3;
+}
+
+.recently-viewed-page__search-box {
+  flex: 1;
+  min-width: 260px;
+  padding: 17.5px 21.5px;
+}
+
+.recently-viewed-page__search-input {
+  flex: 1;
+  border: none;
+  background: transparent;
+  color: #ffffff;
+  font-size: 0.9375rem;
+  outline: none;
+}
+
+.recently-viewed-page__search-input::placeholder {
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.recently-viewed-page__search-box img,
+.recently-viewed-page__sort-button img,
+.recently-viewed-page__manage-button img {
+  width: 16px;
+  height: 16px;
+}
+
+.recently-viewed-page__sort-button,
+.recently-viewed-page__manage-button {
+  min-width: 166px;
+  padding: 13px 17.5px;
+}
+
+.recently-viewed-page__manage-button {
+  min-width: 144px;
+}
+
+.recently-viewed-page__sort-button span,
+.recently-viewed-page__manage-button span {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: #b3b3b3;
+}
+
+.recently-viewed-page__summary-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 24px;
+}
+
+.recently-viewed-page__summary-row p {
+  color: #808080;
+  font-weight: 600;
+  font-size: 0.875rem;
+}
+
+.recently-viewed-page__card-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: center;
+  padding: 0 4px;
+}
+
+.recently-viewed-page__concert-card {
+  background: #171717;
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  border-radius: 16px;
+  width: 260px;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.recently-viewed-page__concert-thumb {
+  position: relative;
+  height: 270px;
+  background: linear-gradient(159deg, rgb(26, 10, 46) 8%, rgb(40, 12, 64) 92%);
+}
+
+.recently-viewed-page__concert-thumb-icon {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 202.5px;
+  height: 270px;
+  display: grid;
+  place-items: center;
+}
+
+.recently-viewed-page__concert-thumb-icon img {
+  width: 32px;
+  height: 32px;
+}
+
+.recently-viewed-page__concert-type {
+  position: absolute;
+  top: 16px;
+  right: 17.5px;
+  background: rgba(0, 0, 0, 0.55);
+  color: #b3b3b3;
+  font-size: 12px;
+  line-height: 1.5;
+  padding: 2px 8px;
+  border-radius: 4px;
+}
+
+.recently-viewed-page__concert-body {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 16px;
+}
+
+.recently-viewed-page__concert-info h2 {
+  color: #ffffff;
+  font-size: 1rem;
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+.recently-viewed-page__concert-info p {
+  color: #808080;
+  font-size: 0.875rem;
+  margin-bottom: 8px;
+}
+
+.recently-viewed-page__concert-meta {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 8px;
+}
+
+.recently-viewed-page__concert-meta img {
+  width: 10px;
+  height: 10px;
+}
+
+.recently-viewed-page__concert-meta span {
+  color: #6ffdf8;
+  font-size: 0.75rem;
+}
+
+.recently-viewed-page__concert-saved {
+  color: #4d4d4d;
+  font-size: 0.75rem;
+}
+
+.recently-viewed-page__concert-actions {
+  display: flex;
+  gap: 12px;
+  margin-top: 8px;
+}
+
+.recently-viewed-page__concert-detail-button,
+.recently-viewed-page__concert-delete-button {
+  border-radius: 16px;
+  font-size: 0.875rem;
+  font-weight: 600;
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  background: #262626;
+  color: #b3b3b3;
+  cursor: pointer;
+  padding: 9px 13px;
+}
+
+.recently-viewed-page__concert-delete-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
