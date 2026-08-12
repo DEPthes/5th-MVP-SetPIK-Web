@@ -1,11 +1,11 @@
 import { useMemo, useState } from "react";
-import checkIcon from "@/assets/icons/ic-prestudy-check.svg";
-import infoIcon from "@/assets/icons/ic-info-icon.svg";
-import infoAltIcon from "@/assets/icons/ic-info-icon-1.svg";
-import sparkleIcon from "@/assets/icons/ic-sparkle-icon.svg";
-import spotifyIcon from "@/assets/icons/spotify-icon.svg";
-import titleSearchIcon from "@/assets/icons/ic-search.svg";
-import trashIcon from "@/assets/icons/ic-trash-icon.svg";
+import checkIcon from "@/assets/icons/ic_check_white.svg";
+import infoIcon from "@/assets/icons/ic_info_pink.svg";
+import infoAltIcon from "@/assets/icons/ic_info.svg";
+import starIcon from "@/assets/icons/ic_star_cyan.svg";
+import spotifyIcon from "@/assets/icons/ic_spotify_white.svg";
+import titleSearchIcon from "@/assets/icons/ic_search.svg";
+import trashIcon from "@/assets/icons/ic_trash.svg";
 import { Button } from "@/components/common/button";
 import "@/styles/pre-study-playlist-create.css";
 
@@ -153,7 +153,7 @@ export function PreStudyPlaylistCreatePage() {
                 <div className="pre-study-create__artist-copy">
                   <div>
                     <h3>{artist.name}</h3>
-                    {artist.isNew ? <span className="pre-study-create__artist-badge pre-study-create__artist-badge--new"><img alt="" src={sparkleIcon} />새로운 아티스트</span> : null}
+                    {artist.isNew ? <span className="pre-study-create__artist-badge pre-study-create__artist-badge--new"><img alt="" src={starIcon} />새로운 아티스트</span> : null}
                     {artist.isPlaylistArtist ? <span className="pre-study-create__artist-badge">내 플레이리스트</span> : null}
                   </div>
                   <p>대표곡 <span className={knownSongExcluded ? "is-excluded" : ""}>{artist.representativeSong}</span>{knownSongExcluded ? <em>기존 곡 제외됨</em> : null}</p>
@@ -168,7 +168,7 @@ export function PreStudyPlaylistCreatePage() {
           <div>
             <div className="pre-study-create__summary-title">
               <h2>선택된 아티스트 {selectedArtists.length}명</h2>
-              <span><img alt="" src={sparkleIcon} />예상 수록곡 {estimatedTrackCount}곡</span>
+              <span><img alt="" src={starIcon} />예상 수록곡 {estimatedTrackCount}곡</span>
             </div>
             <p>선택한 아티스트의 곡으로 예습 플레이리스트를 만들어요.</p>
           </div>

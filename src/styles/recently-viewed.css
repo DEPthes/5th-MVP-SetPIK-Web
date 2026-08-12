@@ -1,229 +1,281 @@
 .recently-viewed-page {
-  background: #0E0E0E;
+  background: var(--color-background);
+  padding-top: 48px;
   padding-bottom: 120px;
-}
-
-.recently-viewed-page__back {
-  margin-bottom: 40px;
 }
 
 .recently-viewed-page__back-button {
   display: inline-flex;
   align-items: center;
-  gap: 12px;
-  color: #808080;
-  font-size: 1rem;
-  font-weight: 600;
-  text-decoration: none;
+  min-height: 44px;
+  gap: 6px;
+  color: var(--color-gray-500);
+  font-size: 1.25rem;
+  font-weight: var(--font-weight-semibold);
 }
+
+.recently-viewed-page__back-button img { width: 28px; height: 28px; }
 
 .recently-viewed-page__heading {
-  margin-bottom: 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 16px;
 }
 
-.recently-viewed-page__title {
-  color: #ffffff;
-  font-size: 36px;
-  font-weight: 700;
-  line-height: 1.5;
-  margin-bottom: 12px;
-}
-
-.recently-viewed-page__subtitle {
-  color: #b3b3b3;
-  font-size: 16px;
-  line-height: 1.5;
-}
+.recently-viewed-page__subtitle { color: var(--color-gray-300); }
 
 .recently-viewed-page__controls {
+  position: sticky;
+  z-index: 20;
+  top: 80px;
   display: flex;
-  flex-wrap: wrap;
+  align-items: flex-start;
   gap: 12px;
-  margin-bottom: 24px;
+  margin-top: 20px;
+  padding: 12px 0;
+  background: var(--color-background);
 }
 
 .recently-viewed-page__search-box,
 .recently-viewed-page__sort-button,
 .recently-viewed-page__manage-button {
-  background: #171717;
-  border: 1.5px solid rgba(255, 255, 255, 0.09);
-  border-radius: 16px;
+  min-height: 54px;
   display: inline-flex;
   align-items: center;
-  gap: 12px;
-  color: #b3b3b3;
+  border: 1.5px solid rgba(255, 255, 255, 0.09);
+  border-radius: 16px;
+  background: #171717;
+  color: var(--color-gray-300);
 }
 
 .recently-viewed-page__search-box {
+  min-width: 0;
   flex: 1;
-  min-width: 260px;
-  padding: 17.5px 21.5px;
+  gap: 12px;
+  padding: 0 21px;
 }
+
+.recently-viewed-page__search-box > img { width: 16px; height: 16px; }
 
 .recently-viewed-page__search-input {
-  flex: 1;
-  border: none;
+  width: 100%;
+  min-width: 0;
+  border: 0;
+  outline: 0;
   background: transparent;
-  color: #ffffff;
-  font-size: 0.9375rem;
-  outline: none;
+  color: var(--color-white);
+  font-size: var(--font-size-body);
 }
 
-.recently-viewed-page__search-input::placeholder {
-  color: rgba(255, 255, 255, 0.5);
+.recently-viewed-page__search-input::placeholder { color: rgba(255, 255, 255, 0.5); }
+
+.recently-viewed-page__sort-menu { position: relative; flex: 0 0 auto; width: fit-content; }
+
+.recently-viewed-page__sort-button {
+  justify-content: center;
+  gap: 8px;
+  padding: 0 17px;
+  cursor: pointer;
 }
 
-.recently-viewed-page__search-box img,
-.recently-viewed-page__sort-button img,
-.recently-viewed-page__manage-button img {
-  width: 16px;
-  height: 16px;
-}
-
-.recently-viewed-page__sort-button,
-.recently-viewed-page__manage-button {
-  min-width: 166px;
-  padding: 13px 17.5px;
-}
-
-.recently-viewed-page__manage-button {
-  min-width: 144px;
-}
-
+.recently-viewed-page__sort-button img:first-child { width: 14px; height: 14px; }
+.recently-viewed-page__sort-button img:last-child { width: 16px; height: 16px; }
 .recently-viewed-page__sort-button span,
-.recently-viewed-page__manage-button span {
-  font-size: 0.875rem;
-  font-weight: 600;
-  color: #b3b3b3;
+.recently-viewed-page__manage-button { font-size: var(--font-size-body-small); font-weight: var(--font-weight-semibold); white-space: nowrap; }
+.recently-viewed-page__sort-chevron--open { transform: rotate(180deg); }
+
+.recently-viewed-page__sort-options {
+  position: absolute;
+  z-index: 30;
+  top: calc(100% + 8px);
+  right: 0;
+  width: 166px;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 14px;
+  background: #262626;
+  box-shadow: 0 14px 30px rgba(0, 0, 0, 0.42);
 }
+
+.recently-viewed-page__sort-options button {
+  width: 100%;
+  min-height: 46px;
+  padding: 0 16px;
+  border: 0;
+  background: transparent;
+  color: var(--color-gray-300);
+  font-size: var(--font-size-body-small);
+  font-weight: var(--font-weight-semibold);
+  text-align: left;
+  cursor: pointer;
+}
+
+.recently-viewed-page__sort-options button:hover { background: rgba(255, 255, 255, 0.06); }
+.recently-viewed-page__sort-options button.is-selected { background: rgba(255, 88, 224, 0.1); color: var(--color-brand-300); }
+
+.recently-viewed-page__manage-button {
+  width: 144px;
+  gap: 8px;
+  justify-content: center;
+  padding: 0 17px;
+  cursor: pointer;
+}
+
+.recently-viewed-page__manage-button img { width: 15px; height: 15px; }
 
 .recently-viewed-page__summary-row {
   display: flex;
   align-items: center;
   gap: 12px;
-  margin-bottom: 24px;
+  min-height: 39px;
+  padding-top: 16px;
 }
 
-.recently-viewed-page__summary-row p {
-  color: #808080;
-  font-weight: 600;
-  font-size: 0.875rem;
-}
+.recently-viewed-page__summary-row p { color: var(--color-gray-500); font-size: var(--font-size-body); font-weight: var(--font-weight-semibold); }
+.recently-viewed-page__summary-row span { color: var(--color-gray-700); font-size: var(--font-size-body-small); }
 
 .recently-viewed-page__card-grid {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
+  display: grid;
+  grid-template-columns: repeat(5, 232px);
   justify-content: center;
-  padding: 0 4px;
+  gap: 10px;
+  padding-top: 24px;
 }
 
 .recently-viewed-page__concert-card {
-  background: #171717;
-  border: 1px solid rgba(255, 255, 255, 0.07);
-  border-radius: 16px;
-  width: 260px;
+  min-height: 490px;
+  overflow: hidden;
   display: flex;
   flex-direction: column;
-  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  border-radius: 16px;
+  background: #171717;
 }
+
+.recently-viewed-page__concert-card--disabled { opacity: 0.4; }
+.recently-viewed-page__concert-card-link {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+}
+.recently-viewed-page__concert-card-link:focus-visible { outline: 2px solid var(--color-white); outline-offset: -2px; }
 
 .recently-viewed-page__concert-thumb {
   position: relative;
   height: 270px;
-  background: linear-gradient(159deg, rgb(26, 10, 46) 8%, rgb(40, 12, 64) 92%);
-}
-
-.recently-viewed-page__concert-thumb-icon {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 202.5px;
-  height: 270px;
   display: grid;
   place-items: center;
+  overflow: hidden;
+  flex: 0 0 auto;
+  background: linear-gradient(159deg, #1a0a2e 8%, #280c40 92%);
 }
 
-.recently-viewed-page__concert-thumb-icon img {
-  width: 32px;
-  height: 32px;
-}
+.recently-viewed-page__concert-thumb--1 { background: linear-gradient(159deg, #09082d 8%, #15154b 92%); }
+.recently-viewed-page__concert-thumb--2 { background: linear-gradient(159deg, #082f69 8%, #09438e 92%); }
+.recently-viewed-page__concert-thumb--3 { background: linear-gradient(159deg, #032225 8%, #06383b 92%); }
+.recently-viewed-page__concert-thumb::after { position: absolute; inset: 0; background: linear-gradient(to top, rgba(0, 0, 0, 0.18), transparent 48%); content: ""; }
+.recently-viewed-page__concert-thumb > img { position: relative; z-index: 1; width: 32px; height: 17px; }
 
-.recently-viewed-page__concert-type {
+.recently-viewed-page__concert-status,
+.recently-viewed-page__concert-category {
   position: absolute;
+  z-index: 2;
   top: 16px;
-  right: 17.5px;
-  background: rgba(0, 0, 0, 0.55);
-  color: #b3b3b3;
-  font-size: 12px;
-  line-height: 1.5;
   padding: 2px 8px;
   border-radius: 4px;
+  background: rgba(0, 0, 0, 0.55);
+  color: var(--color-gray-300);
+  font-size: var(--font-size-caption);
 }
 
-.recently-viewed-page__concert-body {
+.recently-viewed-page__concert-status { left: 16px; }
+.recently-viewed-page__concert-category { right: 16px; }
+.recently-viewed-page__concert-thumb--2 .recently-viewed-page__concert-status { border: 1px solid rgba(242, 158, 46, 0.45); color: #f29e2e; }
+
+.recently-viewed-page__concert-content {
   display: flex;
+  flex: 1;
   flex-direction: column;
-  justify-content: space-between;
-  gap: 16px;
-  padding: 16px;
+  gap: 8px;
+  padding: 16px 16px 10px;
 }
 
-.recently-viewed-page__concert-info h2 {
-  color: #ffffff;
-  font-size: 1rem;
-  font-weight: 600;
-  margin-bottom: 8px;
+.recently-viewed-page__concert-content h2,
+.recently-viewed-page__concert-location,
+.recently-viewed-page__concert-match,
+.recently-viewed-page__concert-viewed-date {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
-.recently-viewed-page__concert-info p {
-  color: #808080;
-  font-size: 0.875rem;
-  margin-bottom: 8px;
-}
-
-.recently-viewed-page__concert-meta {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  margin-bottom: 8px;
-}
-
-.recently-viewed-page__concert-meta img {
-  width: 10px;
-  height: 10px;
-}
-
-.recently-viewed-page__concert-meta span {
-  color: #6ffdf8;
-  font-size: 0.75rem;
-}
-
-.recently-viewed-page__concert-saved {
-  color: #4d4d4d;
-  font-size: 0.75rem;
-}
+.recently-viewed-page__concert-content h2 { color: var(--color-white); font-size: var(--font-size-body); font-weight: var(--font-weight-semibold); }
+.recently-viewed-page__concert-location { color: var(--color-gray-500); font-size: var(--font-size-body-small); }
+.recently-viewed-page__concert-match { display: flex; align-items: center; gap: 6px; color: var(--color-accent-300); font-size: var(--font-size-caption); }
+.recently-viewed-page__concert-match img { width: 10px; height: 10px; flex: 0 0 auto; }
+.recently-viewed-page__concert-viewed-date { color: var(--color-gray-700); font-size: var(--font-size-caption); }
 
 .recently-viewed-page__concert-actions {
   display: flex;
+  align-items: center;
   gap: 12px;
-  margin-top: 8px;
+  padding: 0 16px 16px;
 }
 
-.recently-viewed-page__concert-detail-button,
-.recently-viewed-page__concert-delete-button {
-  border-radius: 16px;
-  font-size: 0.875rem;
-  font-weight: 600;
-  border: 1px solid rgba(255, 255, 255, 0.07);
-  background: #262626;
-  color: #b3b3b3;
-  cursor: pointer;
-  padding: 9px 13px;
-}
-
-.recently-viewed-page__concert-delete-button {
+.recently-viewed-page__concert-actions > a,
+.recently-viewed-page__concert-actions > button {
+  min-height: 38px;
   display: inline-flex;
   align-items: center;
+  justify-content: center;
   gap: 6px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 16px;
+  background: #262626;
+  color: var(--color-gray-300);
+  font-size: var(--font-size-caption);
+  font-weight: var(--font-weight-semibold);
+  white-space: nowrap;
+}
+
+.recently-viewed-page__concert-actions > a { padding: 0 13px; }
+
+.recently-viewed-page__concert-actions > button {
+  padding: 0 11px;
+  background: transparent;
+  cursor: pointer;
+}
+.recently-viewed-page__concert-actions > button img { width: 13px; height: 13px; }
+.recently-viewed-page__concert-card--disabled .recently-viewed-page__concert-card-link,
+.recently-viewed-page__concert-card--disabled .recently-viewed-page__concert-actions > a,
+.recently-viewed-page__concert-actions > button:disabled { cursor: not-allowed; }
+
+@media (max-width: 1350px) {
+  .recently-viewed-page__card-grid { grid-template-columns: repeat(4, 232px); }
+}
+
+@media (max-width: 1080px) {
+  .recently-viewed-page__card-grid { grid-template-columns: repeat(3, 232px); }
+}
+
+@media (max-width: 900px) {
+  .recently-viewed-page__controls { flex-wrap: wrap; }
+  .recently-viewed-page__search-box { min-width: 100%; }
+}
+
+@media (max-width: 760px) {
+  .recently-viewed-page__card-grid { grid-template-columns: repeat(2, 232px); }
+}
+
+@media (max-width: 600px) {
+  .recently-viewed-page__back-button { font-size: var(--font-size-body); }
+  .recently-viewed-page__controls { flex-direction: column; }
+  .recently-viewed-page__search-box,
+  .recently-viewed-page__sort-menu,
+  .recently-viewed-page__sort-button,
+  .recently-viewed-page__manage-button { width: 100%; }
+  .recently-viewed-page__sort-options { width: 100%; }
+  .recently-viewed-page__summary-row { align-items: flex-start; flex-direction: column; gap: 2px; }
+  .recently-viewed-page__card-grid { grid-template-columns: 232px; }
 }

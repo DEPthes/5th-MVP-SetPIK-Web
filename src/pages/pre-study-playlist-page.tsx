@@ -1,10 +1,10 @@
 import { useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import sparkleIcon from "@/assets/icons/ic-sparkle-icon-1.svg";
-import arrowRightIcon from "@/assets/icons/ic-arrow-right.svg";
-import chevronDownIcon from "@/assets/icons/ic-chevron-down.svg";
-import chevronUpIcon from "@/assets/icons/ic-chevron-up.svg";
-import searchIcon from "@/assets/icons/ic-search.svg";
+import sparkleIcon from "@/assets/icons/ic_sparkle_cyan.svg";
+import arrowRightIcon from "@/assets/icons/ic_arrow_right.svg";
+import chevronDownIcon from "@/assets/icons/ic_chevron_down.svg";
+import chevronUpIcon from "@/assets/icons/ic_chevron_up.svg";
+import searchIcon from "@/assets/icons/ic_search.svg";
 import { Button } from "@/components/common/button";
 import { BrowseConcertCard, SavedConcertCard, type PreStudyConcert } from "@/components/pre-study/pre-study-concert-card";
 import "@/styles/pre-study-playlists.css";
@@ -41,7 +41,7 @@ export function PreStudyPlaylistPage() {
   const [activeFilter, setActiveFilter] = useState("전체");
   const [isSortOpen, setIsSortOpen] = useState(false);
   const [query, setQuery] = useState("");
-  const [savedConcertIds, setSavedConcertIds] = useState<Set<string>>(() => new Set(["browse-2"]));
+  const [savedConcertIds, setSavedConcertIds] = useState<Set<string>>(() => new Set());
   const [sort, setSort] = useState(SORT_OPTIONS[0]);
 
   const visibleBrowseConcerts = useMemo(() => {
@@ -86,15 +86,14 @@ export function PreStudyPlaylistPage() {
             <span className="sr-only">공연 검색</span>
             <input onChange={(event) => setQuery(event.target.value)} placeholder="공연명, 아티스트명, 공연장 검색" type="search" value={query} />
           </label>
+          <div className="pre-study-page__filters" aria-label="공연 빠른 필터">
+            {FILTERS.map((filter) => (
+              <button aria-pressed={activeFilter === filter} className={activeFilter === filter ? "is-active" : ""} key={filter} onClick={() => setActiveFilter(filter)} type="button">
+                {filter}
+              </button>
+            ))}
+          </div>
         </div>
-      </div>
-
-      <div className="pre-study-page__filters page-content" aria-label="공연 빠른 필터">
-          {FILTERS.map((filter) => (
-            <button aria-pressed={activeFilter === filter} className={activeFilter === filter ? "is-active" : ""} key={filter} onClick={() => setActiveFilter(filter)} type="button">
-              {filter}
-            </button>
-          ))}
       </div>
 
       <section className="pre-study-page__section page-content" aria-labelledby="saved-concerts-title">

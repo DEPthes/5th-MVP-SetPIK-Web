@@ -7,7 +7,7 @@
 .pre-study-create__privacy h2 { display: block; color: var(--color-gray-300); font-size: var(--font-size-body); font-weight: var(--font-weight-semibold); line-height: var(--line-height-default); }
 .pre-study-create__title-input { display: flex; height: 62px; align-items: center; gap: 12px; margin-top: 10px; padding-inline: 20px; border: 1.5px solid rgba(255, 255, 255, 0.1); border-radius: 16px; background: #171717; }
 .pre-study-create__title-input:focus-within { border-color: rgba(255, 88, 224, 0.5); }
-.pre-study-create__title-input.is-error { border-color: var(--color-brand-300); background: #262626; }
+.pre-study-create__title-input.is-error { border-color: #ec3d3d; background: #262626; }
 .pre-study-create__title-input > img { width: 20px; height: 19px; flex: 0 0 auto; }
 .pre-study-create__title-input input { width: 100%; border: 0; outline: 0; color: var(--color-white); background: transparent; font-size: var(--font-size-subtitle); font-weight: var(--font-weight-semibold); }
 .pre-study-create__title-input input::placeholder { color: rgba(255, 255, 255, 0.5); }
