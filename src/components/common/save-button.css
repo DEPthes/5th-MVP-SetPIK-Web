@@ -1,0 +1,18 @@
+.save-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: var(--color-white);
+  background: rgba(14, 14, 14, 0.65);
+  cursor: pointer;
+  transition: border-color var(--transition-fast), color var(--transition-fast), background-color var(--transition-fast);
+}
+
+.save-button img { width: 18px; height: 17px; }
+.save-button--circle { width: 40px; height: 40px; padding: 0; border-radius: 50%; }
+.save-button--label { min-height: 54px; gap: 7px; padding: 0 21px; border-radius: 20px; background: transparent; font-size: var(--font-size-subtitle); font-weight: var(--font-weight-semibold); }
+.save-button--label img { width: 15px; height: 15px; }
+.save-button--active { border-color: rgba(255, 88, 224, 0.4); color: var(--color-brand-300); background: rgba(255, 88, 224, 0.2); }
+.save-button:hover { border-color: rgba(255, 88, 224, 0.4); }
+.save-button:focus-visible { outline: 2px solid var(--color-white); outline-offset: 3px; }

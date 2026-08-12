@@ -4,12 +4,11 @@ import arrowLeftIcon from "@/assets/icons/ic-arrow-left.svg";
 import calendarIcon from "@/assets/icons/ic-calendar-icon.svg";
 import chevronLeftIcon from "@/assets/icons/ic-chevron-left.svg";
 import externalLinkIcon from "@/assets/icons/ic-external-link-pink.svg";
-import filledHeartIcon from "@/assets/icons/ic-heart-icon-1.svg";
-import heartIcon from "@/assets/icons/ic-heart-icon.svg";
 import musicIcon from "@/assets/icons/ic-music-icon.svg";
 import playIcon from "@/assets/icons/ic-play-icon.svg";
 import sparkleIcon from "@/assets/icons/ic-sparkle-icon.svg";
 import { Button } from "@/components/common/button";
+import { SaveButton } from "@/components/common/save-button";
 import { ALL_CONCERTS } from "@/components/concert/concert-data";
 import "@/styles/concert-detail.css";
 
@@ -103,14 +102,7 @@ export function ConcertDetailPage() {
               <button className="concert-detail__action concert-detail__action--neutral" type="button">
                 <img alt="" src={calendarIcon} /> 캘린더에 저장
               </button>
-              <button
-                aria-pressed={isSaved}
-                className={`concert-detail__action concert-detail__action--neutral${isSaved ? " concert-detail__action--saved" : ""}`}
-                onClick={() => setIsSaved((saved) => !saved)}
-                type="button"
-              >
-                <img alt="" src={isSaved ? filledHeartIcon : heartIcon} /> {isSaved ? "저장됨" : "공연 저장"}
-              </button>
+              <SaveButton className="concert-detail__action concert-detail__action--neutral" isSaved={isSaved} label="공연 저장" onClick={() => setIsSaved((saved) => !saved)} variant="label" />
             </div>
           </div>
         </div>
