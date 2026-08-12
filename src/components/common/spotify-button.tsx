@@ -1,5 +1,5 @@
 import type { ComponentProps } from "react";
-import spotifyIcon from "@/assets/icons/spotify-icon.svg";
+import spotifyIcon from "@/assets/icons/ic_spotify_white.svg";
 import { Button } from "@/components/common/button";
 
 type SpotifyButtonProps = Omit<ComponentProps<typeof Button>, "leadingIcon" | "variant">;
