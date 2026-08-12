@@ -52,7 +52,6 @@ export function SavedConcertsPage() {
   const [searchTerm, setSearchTerm] = useState("");
 
   const savedConcertOrder = Array.from(savedConcertIds);
-  const savedConcerts = ALL_CONCERTS.filter((concert) => savedConcertIds.has(concert.id));
   const playlists = PLAYLISTS.map((playlist, index) => {
     const savedCount = playlist.concertIds.filter((id) => savedConcertIds.has(id)).length;
     const lastSavedIndex = playlist.concertIds
