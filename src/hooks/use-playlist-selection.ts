@@ -10,7 +10,7 @@ function getPreviewState(value: string | null): PlaylistLoadState | null {
 }
 
 export function usePlaylistSelection() {
-  const [searchParams] = useSearchParams();
+  const [searchParams, setSearchParams] = useSearchParams();
   const [loadState, setLoadState] = useState<PlaylistLoadState>("loading");
   const [selectedPlaylistId, setSelectedPlaylistId] = useState<string | null>(null);
   const [searchTerm, setSearchTerm] = useState("");
@@ -39,6 +39,9 @@ export function usePlaylistSelection() {
   );
 
   function retry() {
+    const nextSearchParams = new URLSearchParams(searchParams);
+    nextSearchParams.delete("state");
+    setSearchParams(nextSearchParams, { replace: true });
     setLoadState("loading");
   }
 
