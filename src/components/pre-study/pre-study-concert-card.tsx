@@ -4,7 +4,7 @@ import dateIcon from "@/assets/icons/ic-date-gray.svg";
 import externalLinkIcon from "@/assets/icons/ic-external-link.svg";
 import locationIcon from "@/assets/icons/ic-location.svg";
 import micIcon from "@/assets/icons/ic-mic.svg";
-import sparkleIcon from "@/assets/icons/sparkleIcon.svg";
+import sparkleIcon from "@/assets/icons/ic-sparkle-icon-1.svg";
 import ticketIcon from "@/assets/icons/ic-ticket-placeholder.svg";
 import { Button } from "@/components/common/button";
 import { SaveButton } from "@/components/common/save-button";
@@ -21,21 +21,25 @@ export interface PreStudyConcert {
   price?: number;
   reason?: string;
   rank?: number;
+  spotifyPlaylistUrl?: string;
   title: string;
 }
 
 interface SavedConcertCardProps {
   concert: PreStudyConcert;
+  onCreate: (id: string) => void;
+  onOpenPlaylist: (playlistUrl?: string) => void;
 }
 
 interface BrowseConcertCardProps {
   concert: PreStudyConcert;
   isSaved: boolean;
+  onCreate: (id: string) => void;
   onToggleSaved: (id: string) => void;
   recommended?: boolean;
 }
 
-export function SavedConcertCard({ concert }: SavedConcertCardProps) {
+export function SavedConcertCard({ concert, onCreate, onOpenPlaylist }: SavedConcertCardProps) {
   return (
     <article className="pre-study-saved-card">
       <div className={`pre-study-saved-card__poster pre-study-poster--${concert.gradient}`}>
@@ -47,9 +51,9 @@ export function SavedConcertCard({ concert }: SavedConcertCardProps) {
           <ConcertMetadata concert={concert} includeArtists />
         </div>
         <div className="pre-study-saved-card__actions">
-          <Button className="pre-study-saved-card__create" size="small">예습 플리 만들기</Button>
+          <Button className="pre-study-saved-card__create" onClick={() => onCreate(concert.id)} size="small">예습 플리 만들기</Button>
           {concert.playlistExists ? (
-            <Button className="pre-study-saved-card__open" leadingIcon={<img alt="" src={externalLinkIcon} />} size="small" variant="neutral">
+            <Button className="pre-study-saved-card__open" leadingIcon={<img alt="" src={externalLinkIcon} />} onClick={() => onOpenPlaylist(concert.spotifyPlaylistUrl)} size="small" variant="neutral">
               플리 바로가기
             </Button>
           ) : null}
@@ -60,7 +64,7 @@ export function SavedConcertCard({ concert }: SavedConcertCardProps) {
   );
 }
 
-export function BrowseConcertCard({ concert, isSaved, onToggleSaved, recommended = false }: BrowseConcertCardProps) {
+export function BrowseConcertCard({ concert, isSaved, onCreate, onToggleSaved, recommended = false }: BrowseConcertCardProps) {
   return (
     <article className={`pre-study-browse-card${recommended ? " pre-study-browse-card--recommended" : ""}`}>
       <div className={`pre-study-browse-card__poster pre-study-poster--${concert.gradient}`}>
@@ -75,7 +79,7 @@ export function BrowseConcertCard({ concert, isSaved, onToggleSaved, recommended
           {!recommended ? <p className="pre-study-browse-card__category-text">{concert.category}</p> : null}
           <ConcertMetadata concert={concert} includeArtists={recommended} />
         </div>
-        <Button className="pre-study-browse-card__create" size="small" trailingIcon={<img alt="" src={arrowRightIcon} />} variant="neutral">
+        <Button className="pre-study-browse-card__create" onClick={() => onCreate(concert.id)} size="small" trailingIcon={<img alt="" src={arrowRightIcon} />} variant="neutral">
           이 공연으로 만들기
         </Button>
       </div>

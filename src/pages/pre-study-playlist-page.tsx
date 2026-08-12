@@ -1,5 +1,6 @@
 import { useMemo, useState } from "react";
-import sparkleIcon from "@/assets/icons/sparkleIcon.svg";
+import { useNavigate } from "react-router-dom";
+import sparkleIcon from "@/assets/icons/ic-sparkle-icon-1.svg";
 import arrowRightIcon from "@/assets/icons/ic-arrow-right.svg";
 import chevronDownIcon from "@/assets/icons/ic-chevron-down.svg";
 import chevronUpIcon from "@/assets/icons/ic-chevron-up.svg";
@@ -36,6 +37,7 @@ const BROWSE_CONCERTS: PreStudyConcert[] = [
 ];
 
 export function PreStudyPlaylistPage() {
+  const navigate = useNavigate();
   const [activeFilter, setActiveFilter] = useState("전체");
   const [isSortOpen, setIsSortOpen] = useState(false);
   const [query, setQuery] = useState("");
@@ -66,6 +68,10 @@ export function PreStudyPlaylistPage() {
     });
   }
 
+  function openSpotifyPlaylist(playlistUrl?: string) {
+    if (playlistUrl) window.open(playlistUrl, "_blank", "noopener,noreferrer");
+  }
+
   return (
     <section className="pre-study-page" aria-labelledby="pre-study-title">
       <div className="pre-study-page__hero page-content">
@@ -94,7 +100,14 @@ export function PreStudyPlaylistPage() {
       <section className="pre-study-page__section page-content" aria-labelledby="saved-concerts-title">
         <SectionHeading count="3개" description="관심 공연으로 저장한 공연에서 예습 플리를 만들 수 있어요." id="saved-concerts-title" title="저장한 공연으로 만들기" action="전체 보기" />
         <div className="pre-study-page__saved-grid">
-          {SAVED_CONCERTS.map((concert) => <SavedConcertCard concert={concert} key={concert.id} />)}
+          {SAVED_CONCERTS.map((concert) => (
+            <SavedConcertCard
+              concert={concert}
+              key={concert.id}
+              onCreate={() => navigate("/pre-study-playlists/create")}
+              onOpenPlaylist={openSpotifyPlaylist}
+            />
+          ))}
         </div>
       </section>
 
@@ -102,7 +115,7 @@ export function PreStudyPlaylistPage() {
         <SectionHeading description="공연 홈의 연관도 매칭으로 추천한 공연이에요." icon id="recommended-concerts-title" title="내 취향에 맞는 공연" action="더 보기" />
         <div className="pre-study-page__recommended-grid">
           {RECOMMENDED_CONCERTS.map((concert) => (
-            <BrowseConcertCard concert={concert} isSaved={savedConcertIds.has(concert.id)} key={concert.id} onToggleSaved={toggleSavedConcert} recommended />
+            <BrowseConcertCard concert={concert} isSaved={savedConcertIds.has(concert.id)} key={concert.id} onCreate={() => navigate("/pre-study-playlists/create")} onToggleSaved={toggleSavedConcert} recommended />
           ))}
         </div>
       </section>
@@ -131,7 +144,7 @@ export function PreStudyPlaylistPage() {
         {visibleBrowseConcerts.length ? (
           <div className="pre-study-page__browse-grid">
             {visibleBrowseConcerts.map((concert) => (
-              <BrowseConcertCard concert={concert} isSaved={savedConcertIds.has(concert.id)} key={concert.id} onToggleSaved={toggleSavedConcert} />
+              <BrowseConcertCard concert={concert} isSaved={savedConcertIds.has(concert.id)} key={concert.id} onCreate={() => navigate("/pre-study-playlists/create")} onToggleSaved={toggleSavedConcert} />
             ))}
           </div>
         ) : <p className="pre-study-page__empty">검색 조건에 맞는 공연이 없어요.</p>}

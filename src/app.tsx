@@ -9,6 +9,7 @@ import { NotFoundPage } from "@/pages/not-found-page";
 import { OnboardingPage } from "@/pages/onboarding-page";
 import { PlaylistSelectionPage } from "@/pages/playlist-selection-page";
 import { PreStudyPlaylistPage } from "@/pages/pre-study-playlist-page";
+import { PreStudyPlaylistCreatePage } from "@/pages/pre-study-playlist-create-page";
 
 export function App() {
   return (
@@ -22,6 +23,7 @@ export function App() {
         <Route path="onboarding/artists" element={<ArtistSelectionPage />} />
         <Route path="preferences/playlists" element={<Navigate to="/onboarding/playlist-selection" replace />} />
         <Route path="pre-study-playlists" element={<PreStudyPlaylistPage />} />
+        <Route path="pre-study-playlists/create" element={<PreStudyPlaylistCreatePage />} />
         <Route path="concerts" element={<ConcertsPage />} />
         <Route path="concerts/:concertId" element={<ConcertDetailPage />} />
         <Route path="mypage" element={<MyPage />} />
