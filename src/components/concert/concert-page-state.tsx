@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
-import disconnectedIcon from "@/assets/icons/ic-disconnected.svg";
-import refreshIcon from "@/assets/icons/ic-refresh.svg";
+import disconnectedIcon from "@/assets/icons/ic_disconnected.svg";
+import refreshIcon from "@/assets/icons/ic_reload.svg";
 import { Button } from "@/components/common/button";
 import { StatusState } from "@/components/common/status-state";
 import { ConcertCardSkeleton } from "./concert-card";

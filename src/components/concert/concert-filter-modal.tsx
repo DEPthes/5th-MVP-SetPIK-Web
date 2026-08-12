@@ -1,5 +1,5 @@
 import { type Dispatch, type SetStateAction, useEffect, useState } from "react";
-import closeIcon from "@/assets/icons/ic-close.svg";
+import closeIcon from "@/assets/icons/ic_close.svg";
 import "./concert-filter-modal.css";
 import {
   CONCERT_TYPE_FILTER_OPTIONS,
