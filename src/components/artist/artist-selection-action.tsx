@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import arrowRightIcon from "@/assets/icons/ic-arrow-right.svg";
+import arrowRightIcon from "@/assets/icons/ic_arrow_right.svg";
 import { Button } from "@/components/common/button";
 
 export function ArtistSelectionAction({ selectedArtistCount }: { selectedArtistCount: number }) {

@@ -1,4 +1,4 @@
-import checkIcon from "@/assets/icons/ic-check.svg";
+import checkIcon from "@/assets/icons/ic_check_pink.svg";
 import type { Artist } from "./artist-data";
 import "./artist-card.css";
 

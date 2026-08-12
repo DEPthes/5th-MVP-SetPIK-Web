@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import disconnectedIcon from "@/assets/icons/ic-disconnected.svg";
+import disconnectedIcon from "@/assets/icons/ic_disconnected.svg";
 import { SpotifyButton } from "@/components/common/spotify-button";
 import { StatusState } from "@/components/common/status-state";
 import { ArtistCardSkeleton } from "./artist-card-skeleton";
