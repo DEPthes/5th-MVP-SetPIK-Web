@@ -1,6 +1,6 @@
 import { useMemo, useState } from "react";
 import { Link } from "react-router-dom";
-import "@/styles/pre-study-playlist.css";
+import "@/styles/created-playlists.css";
 
 const imgArrowLeft = "https://www.figma.com/api/mcp/asset/ca47f883-ea51-4741-bf7c-11d68da86bf3.svg";
 const imgSearchIcon = "https://www.figma.com/api/mcp/asset/7267fb0d-7221-4790-969b-c33cd3afca9b.svg";
@@ -10,6 +10,16 @@ const imgTicketIcon = "https://www.figma.com/api/mcp/asset/99e6c001-089c-4211-a5
 const imgSpotifyIcon = "https://www.figma.com/api/mcp/asset/bb792c07-0207-4ede-a380-282b9ee7fe2f.svg";
 const imgMusicNoteAlbum = "https://www.figma.com/api/mcp/asset/e51cc5fc-05ba-47e2-9068-f079bfbee646.svg";
 const imgPlayIcon = "https://www.figma.com/api/mcp/asset/2953d5e7-0981-4689-88f6-753384ebd7b2.svg";
+
+const TRACK_ICON_GRADIENTS = [
+  "linear-gradient(135deg, rgb(26, 10, 46) 0%, rgb(40, 12, 64) 100%)",
+  "linear-gradient(135deg, rgb(10, 26, 58) 0%, rgb(10, 40, 96) 100%)",
+  "linear-gradient(135deg, rgb(6, 32, 32) 0%, rgb(4, 48, 58) 100%)",
+  "linear-gradient(135deg, rgb(30, 26, 6) 0%, rgb(48, 40, 10) 100%)",
+  "linear-gradient(135deg, rgb(32, 8, 8) 0%, rgb(58, 12, 12) 100%)",
+  "linear-gradient(135deg, rgb(6, 32, 32) 0%, rgb(8, 48, 48) 100%)",
+  "linear-gradient(135deg, rgb(8, 8, 42) 0%, rgb(12, 12, 66) 100%)",
+];
 
 interface PlaylistTrack {
   id: string;
@@ -121,48 +131,49 @@ export function CreatedPlaylistsPage() {
   };
 
   return (
-    <section className="pre-study-playlist-page page-shell" aria-labelledby="created-playlists-title">
-      <div className="pre-study-playlist-page__back">
-        <Link to="/mypage" className="pre-study-playlist-page__back-button">
+    <section className="created-playlists-page page-shell" aria-labelledby="created-playlists-title">
+      <div className="created-playlists-page__back">
+        <Link to="/mypage" className="created-playlists-page__back-button">
           <img src={imgArrowLeft} alt="뒤로가기" />
           <span>마이페이지로</span>
         </Link>
       </div>
 
-      <div className="pre-study-playlist-page__header">
-        <h1 className="pre-study-playlist-page__title" id="created-playlists-title">
+      <div className="created-playlists-page__header">
+        <h1 className="created-playlists-page__title" id="created-playlists-title">
           공연별 예습 플레이리스트
         </h1>
-        <p className="pre-study-playlist-page__subtitle">
+        <p className="created-playlists-page__subtitle">
           공연 라인업을 바탕으로 생성한 예습 플레이리스트를 확인해 보세요.
         </p>
       </div>
 
-      <div className="pre-study-playlist-page__controls">
-        <label className="pre-study-playlist-page__search-box">
+      <div className="created-playlists-page__controls">
+        <label className="created-playlists-page__search-box">
           <img src={imgSearchIcon} alt="검색" />
           <input
             type="text"
             value={searchTerm}
             onChange={(event) => setSearchTerm(event.target.value)}
             placeholder="플레이리스트명, 공연명 검색"
-            className="pre-study-playlist-page__search-input"
+            className="created-playlists-page__search-input"
           />
         </label>
-        <div className="pre-study-playlist-page__sort-wrapper">
+        <div className="created-playlists-page__sort-wrapper">
           <button
             type="button"
-            className="pre-study-playlist-page__sort-button"
+            className="created-playlists-page__sort-button"
             onClick={() => setShowSortMenu((s) => !s)}
             aria-expanded={showSortMenu}
             aria-haspopup="menu"
           >
+            <img src={imgSortIcon} alt="" className="created-playlists-page__sort-icon" />
             <span>{sortMode === "recent" ? "최근 생성" : sortMode === "oldest" ? "오래된 생성" : sortMode === "alphabetical" ? "공연명" : "수록곡 많은"}</span>
             <img src={imgChevronDown} alt="펼치기" />
           </button>
 
           {showSortMenu && (
-            <div className="pre-study-playlist-page__sort-menu" role="menu">
+            <div className="created-playlists-page__sort-menu" role="menu">
               <button type="button" role="menuitem" onClick={() => { setSortMode("recent"); setShowSortMenu(false); }}>
                 최근 생성한 순
               </button>
@@ -180,96 +191,105 @@ export function CreatedPlaylistsPage() {
         </div>
       </div>
 
-      <div className="pre-study-playlist-page__summary-row">
+      <div className="created-playlists-page__summary-row">
         <p>생성한 예습 플레이리스트 {filteredPlaylists.length}개</p>
-        <button type="button" className="pre-study-playlist-page__collapse-all" onClick={toggleAllPlaylists}>
+        <button type="button" className="created-playlists-page__collapse-all" onClick={toggleAllPlaylists}>
           {allExpanded ? "모두 접기" : "모두 펼치기"}
         </button>
       </div>
 
-      <div className="pre-study-playlist-page__playlist-list">
-        {filteredPlaylists.map((playlist) => {
+      <div className="created-playlists-page__playlist-list">
+        {filteredPlaylists.map((playlist, playlistIndex) => {
           const isExpanded = expandedPlaylistIds.includes(playlist.id);
           return (
-            <article className="pre-study-playlist-page__playlist-card" key={playlist.id}>
-              <button type="button" className="pre-study-playlist-page__playlist-card-header" onClick={() => togglePlaylist(playlist.id)}>
-                <div className="pre-study-playlist-page__playlist-card-icon" style={{ backgroundImage: "linear-gradient(135deg, rgb(26, 10, 46) 0%, rgb(40, 12, 64) 100%)" }}>
+            <article
+              className={`created-playlists-page__playlist-card${isExpanded ? " created-playlists-page__playlist-card--expanded" : ""}`}
+              key={playlist.id}
+            >
+              <button type="button" className="created-playlists-page__playlist-card-header" onClick={() => togglePlaylist(playlist.id)}>
+                <div
+                  className="created-playlists-page__playlist-card-icon"
+                  style={{ backgroundImage: TRACK_ICON_GRADIENTS[playlistIndex % TRACK_ICON_GRADIENTS.length] }}
+                >
                   <img src={imgTicketIcon} alt="플레이리스트 아이콘" />
                 </div>
-                <div className="pre-study-playlist-page__playlist-card-meta">
-                  <div className="pre-study-playlist-page__playlist-card-title-row">
-                    <p className="pre-study-playlist-page__playlist-card-title">{playlist.title}</p>
-                    <span className="pre-study-playlist-page__playlist-card-tag">{playlist.subtitle}</span>
+                <div className="created-playlists-page__playlist-card-meta">
+                  <div className="created-playlists-page__playlist-card-title-row">
+                    <p className="created-playlists-page__playlist-card-title">{playlist.title}</p>
+                    <span className="created-playlists-page__playlist-card-tag">{playlist.subtitle}</span>
                   </div>
-                  <div className="pre-study-playlist-page__playlist-card-badges">
-                    <span className="pre-study-playlist-page__playlist-card-badge pre-study-playlist-page__playlist-card-badge--setpik">
-                      SetPik에만 저장됨
-                    </span>
-                    <span className="pre-study-playlist-page__playlist-card-badge pre-study-playlist-page__playlist-card-badge--spotify">
-                      <img src={imgSpotifyIcon} alt="Spotify" />
-                      {playlist.badgeText}
-                    </span>
+                  <div className="created-playlists-page__playlist-card-badges">
+                    {playlist.badgeType === "setpik" ? (
+                      <span className="created-playlists-page__playlist-card-badge created-playlists-page__playlist-card-badge--setpik">
+                        {playlist.badgeText}
+                      </span>
+                    ) : (
+                      <span className="created-playlists-page__playlist-card-badge created-playlists-page__playlist-card-badge--spotify">
+                        <img src={imgSpotifyIcon} alt="Spotify" />
+                        {playlist.badgeText}
+                      </span>
+                    )}
                   </div>
                 </div>
-                <div className={`pre-study-playlist-page__playlist-card-toggle${isExpanded ? " pre-study-playlist-page__playlist-card-toggle--expanded" : ""}`}>
+                <div className={`created-playlists-page__playlist-card-toggle${isExpanded ? " created-playlists-page__playlist-card-toggle--expanded" : ""}`}>
                   <img src={imgChevronDown} alt={isExpanded ? "접기" : "펼치기"} />
                 </div>
               </button>
 
               {isExpanded && (
-                <div className="pre-study-playlist-page__playlist-card-body">
-                  <div className="pre-study-playlist-page__playlist-card-body-header">
+                <div className="created-playlists-page__playlist-card-body">
+                  <div className="created-playlists-page__card-divider" />
+                  <div className="created-playlists-page__playlist-card-body-header">
                     <div>
-                      <p className="pre-study-playlist-page__body-heading">수록곡</p>
-                      <p className="pre-study-playlist-page__body-description">
+                      <p className="created-playlists-page__body-heading">수록곡</p>
+                      <p className="created-playlists-page__body-description">
                         이 예습 플레이리스트에 포함된 곡을 확인해 보세요. · 총 {playlist.trackCount}곡
                       </p>
                     </div>
-                    <span className="pre-study-playlist-page__body-badge">최근 생성한 순</span>
                   </div>
 
-                  <div className="pre-study-playlist-page__track-table">
-                    <div className="pre-study-playlist-page__track-table-header">
+                  <div className="created-playlists-page__track-table">
+                    <div className="created-playlists-page__track-table-header">
                       <span>#</span>
-                      <span className="pre-study-playlist-page__track-table-title">제목</span>
-                      <span className="pre-study-playlist-page__track-table-album">앨범</span>
-                      <span className="pre-study-playlist-page__track-table-date">추가된 날짜</span>
-                      <span className="pre-study-playlist-page__track-table-duration">시간</span>
-                      <span className="pre-study-playlist-page__track-table-actions" />
+                      <span className="created-playlists-page__track-table-title">제목</span>
+                      <span className="created-playlists-page__track-table-album">앨범</span>
+                      <span className="created-playlists-page__track-table-date">추가된 날짜</span>
+                      <span className="created-playlists-page__track-table-duration">시간</span>
+                      <span className="created-playlists-page__track-table-actions" />
                     </div>
-                    {playlist.tracks.map((track) => (
-                      <div className="pre-study-playlist-page__track-row" key={track.id}>
-                        <span>{playlist.tracks.indexOf(track) + 1}</span>
-                        <div className="pre-study-playlist-page__track-title-cell">
-                          <div className="pre-study-playlist-page__track-icon" style={{ backgroundImage: "linear-gradient(135deg, rgb(26, 10, 46) 0%, rgb(40, 12, 64) 100%)" }}>
+                    {playlist.tracks.map((track, index) => (
+                      <div className="created-playlists-page__track-row" key={track.id}>
+                        <span>{index + 1}</span>
+                        <div className="created-playlists-page__track-title-cell">
+                          <div className="created-playlists-page__track-icon" style={{ backgroundImage: TRACK_ICON_GRADIENTS[index % TRACK_ICON_GRADIENTS.length] }}>
                             <img src={imgMusicNoteAlbum} alt="트랙 아이콘" />
                           </div>
                           <div>
-                            <p className="pre-study-playlist-page__track-title">{track.title}</p>
-                            <p className="pre-study-playlist-page__track-artist">{track.artist}</p>
+                            <p className="created-playlists-page__track-title">{track.title}</p>
+                            <p className="created-playlists-page__track-artist">{track.artist}</p>
                           </div>
                         </div>
-                        <span className="pre-study-playlist-page__track-album">{track.album}</span>
-                        <span className="pre-study-playlist-page__track-date">{track.addedAt}</span>
-                        <span className="pre-study-playlist-page__track-duration">{track.duration}</span>
-                        <button type="button" className="pre-study-playlist-page__track-preview-button">
+                        <span className="created-playlists-page__track-album">{track.album}</span>
+                        <span className="created-playlists-page__track-date">{track.addedAt}</span>
+                        <span className="created-playlists-page__track-duration">{track.duration}</span>
+                        <button type="button" className="created-playlists-page__track-preview-button">
                           <img src={imgPlayIcon} alt="미리듣기" />
                           미리듣기
                         </button>
                       </div>
                     ))}
                   </div>
-                  <div className="pre-study-playlist-page__card-footer">
-                    <div className="pre-study-playlist-page__card-footer-left">
+                  <div className="created-playlists-page__card-footer">
+                    <div className="created-playlists-page__card-footer-left">
                       <span>{playlist.trackCount}곡 · {playlist.badgeText}</span>
                     </div>
-                    <div className="pre-study-playlist-page__card-footer-right">
-                      <button type="button" className="pre-study-playlist-page__open-spotify">
+                    <div className="created-playlists-page__card-footer-right">
+                      <button type="button" className="created-playlists-page__open-spotify">
                         <img src={imgSpotifyIcon} alt="Spotify" />
                         <span>Spotify에서 열기</span>
                       </button>
-                      <Link to={`/concerts/${playlist.id}`} className="pre-study-playlist-page__view-concert">공연 상세 보기</Link>
-                      <button type="button" className="pre-study-playlist-page__delete-playlist">생성 기록 삭제</button>
+                      <Link to={`/concerts/${playlist.id}`} className="created-playlists-page__view-concert">공연 상세 보기</Link>
+                      <button type="button" className="created-playlists-page__delete-playlist">생성 기록 삭제</button>
                     </div>
                   </div>
                 </div>
