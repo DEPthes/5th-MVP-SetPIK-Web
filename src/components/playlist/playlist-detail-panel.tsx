@@ -1,9 +1,10 @@
-import arrowRightIcon from "@/assets/icons/ic-arrow-right.svg";
-import checkIcon from "@/assets/icons/ic-check.svg";
-import dateIcon from "@/assets/icons/ic-date-pink.svg";
-import musicNoteIcon from "@/assets/icons/ic-note-pink.svg";
-import playlistIcon from "@/assets/icons/ic-playlist.svg";
-import timeIcon from "@/assets/icons/ic-time-pink.svg";
+import arrowRightIcon from "@/assets/icons/ic_arrow_right.svg";
+import checkIcon from "@/assets/icons/ic_check_pink.svg";
+import dateIcon from "@/assets/icons/ic_date_pink.svg";
+import musicNoteIcon from "@/assets/icons/ic_music2_pink.svg";
+import playlistIcon from "@/assets/icons/ic_playlist.svg";
+import timeGrayIcon from "@/assets/icons/ic_time_gray.svg";
+import timePinkIcon from "@/assets/icons/ic_time_pink.svg";
 import { Button } from "@/components/common/button";
 import { PlaylistCover } from "./playlist-cover";
 import {
@@ -49,7 +50,7 @@ function PlaylistTrackTable({ playlist }: { playlist: Playlist }) {
           <span role="columnheader">앨범</span>
           <span role="columnheader">추가된 날짜</span>
           <span role="columnheader">
-            <img className="playlist-track-table__duration-icon" src={timeIcon} alt="재생 시간" />
+            <img className="playlist-track-table__duration-icon" src={timeGrayIcon} alt="재생 시간" />
           </span>
         </div>
         <ol className="playlist-track-table__body">
@@ -94,7 +95,7 @@ function PlaylistDetail({ playlist }: { playlist: Playlist }) {
           <div className="playlist-detail__metadata">
             <span><img src={musicNoteIcon} alt="" />{playlist.trackCount}곡</span>
             <i aria-hidden="true">·</i>
-            <span><img src={timeIcon} alt="" />1시간 32분</span>
+            <span><img src={timePinkIcon} alt="" />1시간 32분</span>
             <i aria-hidden="true">·</i>
             <span><img src={dateIcon} alt="" />{playlist.updatedAt}</span>
           </div>
