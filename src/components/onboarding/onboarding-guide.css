@@ -99,6 +99,11 @@
   line-height: var(--line-height-default);
 }
 
+.onboarding-step-card p {
+  max-width: 232px;
+  white-space: pre-line;
+}
+
 .onboarding-section--features {
   padding-bottom: 112px;
 }
@@ -148,4 +153,5 @@
 
 .onboarding-feature-card__description {
   max-width: 345px;
+  white-space: pre-line;
 }
