@@ -48,6 +48,7 @@
   display: flex;
   gap: 40px;
   flex-wrap: wrap;
+  align-items: center;
 }
 
 .my-page__avatar-group {
@@ -131,6 +132,7 @@
   line-height: 1.5;
   padding: 5px 11px;
   cursor: pointer;
+  white-space: nowrap;
 }
 
 .my-page__status-pill {
@@ -267,6 +269,12 @@
   color: var(--color-accent-300);
   font-size: 0.75rem;
   line-height: 1.5;
+}
+
+.my-page__activity-tag--pink {
+  border-color: rgba(255, 88, 224, 0.25);
+  background: rgba(255, 88, 224, 0.08);
+  color: var(--color-brand-300);
 }
 
 .my-page__activity-description {

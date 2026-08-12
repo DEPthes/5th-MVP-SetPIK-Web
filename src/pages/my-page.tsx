@@ -1,12 +1,12 @@
 import { Link } from "react-router-dom";
 import { useSavedConcerts } from "@/contexts/saved-concerts-context";
 import { useRecentlyViewed } from "@/contexts/recently-viewed-context";
-import spotifyIcon from "@/assets/icons/spotify-icon.svg";
-import heartIcon from "@/assets/icons/ic-heart-icon.svg";
-import clockIcon from "@/assets/icons/ic-clock-icon.svg";
-import headphonesIcon from "@/assets/icons/ic-headphones-icon.svg";
-import chevronRightIcon from "@/assets/icons/ic-chevron-right.svg";
-import userIcon from "@/assets/icons/ic-user.svg";
+import spotifyIcon from "@/assets/icons/ic_spotify_green.svg";
+import heartIcon from "@/assets/icons/ic_heart_pink.svg";
+import clockIcon from "@/assets/icons/ic_time_cyan.svg";
+import headphonesIcon from "@/assets/icons/ic_headphone_cyan.svg";
+import chevronRightIcon from "@/assets/icons/ic_chevron_right.svg";
+import userIcon from "@/assets/icons/ic_user.svg";
 import "@/styles/my-page.css";
 
 export function MyPage() {
@@ -86,7 +86,10 @@ export function MyPage() {
                     <h3 className="text-title-2" style={{ color: "var(--color-white)" }}>
                       Spotify 계정 연결됨
                     </h3>
-                    <span className="my-page__status-pill">연결됨</span>
+                    <span className="my-page__status-pill">
+                      <span className="my-page__status-dot" />
+                      연결됨
+                    </span>
                   </div>
                   <p className="my-page__activity-description" style={{ color: "#b3b3b3", fontSize: "0.875rem" }}>
                     현재 Spotify 계정과 정상적으로 연동되어 있어요.
@@ -128,7 +131,7 @@ export function MyPage() {
                   <p className="my-page__activity-title-text" style={{ fontSize: "1.125rem", fontWeight: 600 }}>
                     저장한 관심 공연
                   </p>
-                  <span className="my-page__activity-tag">{savedConcertIds.size}개</span>
+                  <span className="my-page__activity-tag my-page__activity-tag--pink">{savedConcertIds.size}개</span>
                 </div>
                 <p className="my-page__activity-description">
                   관심 공연으로 저장한 공연을 한곳에서 확인해 보세요.
