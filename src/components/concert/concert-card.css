@@ -103,8 +103,7 @@
 
 .concert-featured-card__actions { display: flex; gap: 10px; margin-top: auto; }
 
-.concert-featured-card__detail-button,
-.concert-featured-card__save-button {
+.concert-featured-card__detail-button {
   display: inline-flex;
   min-height: 42px;
   align-items: center;
@@ -119,24 +118,6 @@
 
 .concert-featured-card__detail-button { border: 0; color: var(--color-white); background: var(--color-brand-300); }
 .concert-featured-card__detail-button img { width: 14px; height: 14px; filter: brightness(0) invert(1); }
-.concert-featured-card__save-button {
-  min-height: 54px;
-  padding: 0 21px;
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 20px;
-  color: var(--color-white);
-  background: transparent;
-  font-size: var(--font-size-subtitle);
-}
-
-.concert-featured-card__save-button img { width: 15px; height: 15px; }
-
-.concert-featured-card__save-button--active,
-.concert-featured-card__save-button[aria-pressed="true"] {
-  border-color: rgba(255, 88, 224, 0.4);
-  color: var(--color-brand-300);
-  background: rgba(255, 88, 224, 0.2);
-}
 
 .concert-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 20px; }
 
@@ -178,22 +159,6 @@
   z-index: 1;
   top: 12px;
   right: 12px;
-  display: inline-flex;
-  width: 40px;
-  height: 40px;
-  align-items: center;
-  justify-content: center;
-  padding: 0;
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  border-radius: 50%;
-  background: rgba(14, 14, 14, 0.65);
-  cursor: pointer;
-}
-
-.concert-card__save img { width: 18px; height: 17px; }
-.concert-card__save--active {
-  border-color: rgba(255, 88, 224, 0.4);
-  background: rgba(255, 88, 224, 0.2);
 }
 
 .concert-card__category {
