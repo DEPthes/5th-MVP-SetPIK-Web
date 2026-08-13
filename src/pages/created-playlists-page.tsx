@@ -1,15 +1,15 @@
 import { useMemo, useState } from "react";
 import { Link } from "react-router-dom";
+import chevronDownIcon from "@/assets/icons/ic_chevron_down.svg";
+import sortIcon from "@/assets/icons/ic_sort.svg";
+import spotifyGreenIcon from "@/assets/icons/ic_spotify_green.svg";
+import spotifyIcon from "@/assets/icons/ic_spotify_white.svg";
+import { PlaylistTrackTable } from "@/components/playlist/playlist-track-table";
 import "@/styles/created-playlists.css";
 
 const imgArrowLeft = "https://www.figma.com/api/mcp/asset/ca47f883-ea51-4741-bf7c-11d68da86bf3.svg";
 const imgSearchIcon = "https://www.figma.com/api/mcp/asset/7267fb0d-7221-4790-969b-c33cd3afca9b.svg";
-const imgSortIcon = "https://www.figma.com/api/mcp/asset/ba0af375-95b3-47f2-a3c7-d90b94d39b09.svg";
-const imgChevronDown = "https://www.figma.com/api/mcp/asset/5cc20bb6-775e-40a2-be66-19c854b17449.svg";
 const imgTicketIcon = "https://www.figma.com/api/mcp/asset/99e6c001-089c-4211-a5d2-447ad1db90ba.svg";
-const imgSpotifyIcon = "https://www.figma.com/api/mcp/asset/bb792c07-0207-4ede-a380-282b9ee7fe2f.svg";
-const imgMusicNoteAlbum = "https://www.figma.com/api/mcp/asset/e51cc5fc-05ba-47e2-9068-f079bfbee646.svg";
-const imgPlayIcon = "https://www.figma.com/api/mcp/asset/2953d5e7-0981-4689-88f6-753384ebd7b2.svg";
 
 const TRACK_ICON_GRADIENTS = [
   "linear-gradient(135deg, rgb(26, 10, 46) 0%, rgb(40, 12, 64) 100%)",
@@ -32,6 +32,7 @@ interface PlaylistTrack {
 
 interface PlaylistData {
   id: string;
+  concertId: string;
   title: string;
   subtitle: string;
   trackCount: number;
@@ -44,6 +45,7 @@ interface PlaylistData {
 const PLAYLISTS: PlaylistData[] = [
   {
     id: "seoul-music-festival",
+    concertId: "concert-1",
     title: "2026 서울 뮤직 페스티벌 예습 플리",
     subtitle: "2026 서울 뮤직 페스티벌 · 24곡 · 생성일 2026.07.20",
     trackCount: 7,
@@ -62,6 +64,7 @@ const PLAYLISTS: PlaylistData[] = [
   },
   {
     id: "silica-gel",
+    concertId: "concert-5",
     title: "실리카겔 단독 공연 예습 플리",
     subtitle: "실리카겔 단독 공연 2026 · 12곡 · 생성일 2026.07.18",
     trackCount: 12,
@@ -72,6 +75,7 @@ const PLAYLISTS: PlaylistData[] = [
   },
   {
     id: "hyukoh-world-tour",
+    concertId: "concert-8",
     title: "HYUKOH World Tour 예습 플리",
     subtitle: "HYUKOH World Tour — Seoul · 15곡 · 생성일 2026.07.15",
     trackCount: 15,
@@ -82,6 +86,7 @@ const PLAYLISTS: PlaylistData[] = [
   },
   {
     id: "summer-sonic",
+    concertId: "concert-11",
     title: "Summer Sonic Seoul 예습 플리",
     subtitle: "Summer Sonic Seoul 2026 · 30곡 · 생성일 2026.07.10",
     trackCount: 30,
@@ -167,23 +172,23 @@ export function CreatedPlaylistsPage() {
             aria-expanded={showSortMenu}
             aria-haspopup="menu"
           >
-            <img src={imgSortIcon} alt="" className="created-playlists-page__sort-icon" />
-            <span>{sortMode === "recent" ? "최근 생성" : sortMode === "oldest" ? "오래된 생성" : sortMode === "alphabetical" ? "공연명" : "수록곡 많은"}</span>
-            <img src={imgChevronDown} alt="펼치기" />
+            <img src={sortIcon} alt="" className="created-playlists-page__sort-icon" />
+            <span>{sortMode === "recent" ? "최근 생성한 순" : sortMode === "oldest" ? "오래된 생성 순" : sortMode === "alphabetical" ? "공연명 순" : "수록곡 많은 순"}</span>
+            <img src={chevronDownIcon} alt="펼치기" />
           </button>
 
           {showSortMenu && (
             <div className="created-playlists-page__sort-menu" role="menu">
-              <button type="button" role="menuitem" onClick={() => { setSortMode("recent"); setShowSortMenu(false); }}>
+              <button aria-selected={sortMode === "recent"} type="button" role="menuitem" onClick={() => { setSortMode("recent"); setShowSortMenu(false); }}>
                 최근 생성한 순
               </button>
-              <button type="button" role="menuitem" onClick={() => { setSortMode("oldest"); setShowSortMenu(false); }}>
+              <button aria-selected={sortMode === "oldest"} type="button" role="menuitem" onClick={() => { setSortMode("oldest"); setShowSortMenu(false); }}>
                 오래된 생성 순
               </button>
-              <button type="button" role="menuitem" onClick={() => { setSortMode("alphabetical"); setShowSortMenu(false); }}>
+              <button aria-selected={sortMode === "alphabetical"} type="button" role="menuitem" onClick={() => { setSortMode("alphabetical"); setShowSortMenu(false); }}>
                 공연명 순
               </button>
-              <button type="button" role="menuitem" onClick={() => { setSortMode("most-tracks"); setShowSortMenu(false); }}>
+              <button aria-selected={sortMode === "most-tracks"} type="button" role="menuitem" onClick={() => { setSortMode("most-tracks"); setShowSortMenu(false); }}>
                 수록곡 많은 순
               </button>
             </div>
@@ -218,21 +223,21 @@ export function CreatedPlaylistsPage() {
                     <p className="created-playlists-page__playlist-card-title">{playlist.title}</p>
                     <span className="created-playlists-page__playlist-card-tag">{playlist.subtitle}</span>
                   </div>
-                  <div className="created-playlists-page__playlist-card-badges">
-                    {playlist.badgeType === "setpik" ? (
-                      <span className="created-playlists-page__playlist-card-badge created-playlists-page__playlist-card-badge--setpik">
-                        {playlist.badgeText}
-                      </span>
-                    ) : (
-                      <span className="created-playlists-page__playlist-card-badge created-playlists-page__playlist-card-badge--spotify">
-                        <img src={imgSpotifyIcon} alt="Spotify" />
-                        {playlist.badgeText}
-                      </span>
-                    )}
-                  </div>
+                </div>
+                <div className="created-playlists-page__playlist-card-badges">
+                  {playlist.badgeType === "setpik" ? (
+                    <span className="created-playlists-page__playlist-card-badge created-playlists-page__playlist-card-badge--setpik">
+                      {playlist.badgeText}
+                    </span>
+                  ) : (
+                    <span className="created-playlists-page__playlist-card-badge created-playlists-page__playlist-card-badge--spotify">
+                      <img src={spotifyGreenIcon} alt="Spotify" />
+                      {playlist.badgeText}
+                    </span>
+                  )}
                 </div>
                 <div className={`created-playlists-page__playlist-card-toggle${isExpanded ? " created-playlists-page__playlist-card-toggle--expanded" : ""}`}>
-                  <img src={imgChevronDown} alt={isExpanded ? "접기" : "펼치기"} />
+                  <img src={chevronDownIcon} alt={isExpanded ? "접기" : "펼치기"} />
                 </div>
               </button>
 
@@ -248,47 +253,21 @@ export function CreatedPlaylistsPage() {
                     </div>
                   </div>
 
-                  <div className="created-playlists-page__track-table">
-                    <div className="created-playlists-page__track-table-header">
-                      <span>#</span>
-                      <span className="created-playlists-page__track-table-title">제목</span>
-                      <span className="created-playlists-page__track-table-album">앨범</span>
-                      <span className="created-playlists-page__track-table-date">추가된 날짜</span>
-                      <span className="created-playlists-page__track-table-duration">시간</span>
-                      <span className="created-playlists-page__track-table-actions" />
-                    </div>
-                    {playlist.tracks.map((track, index) => (
-                      <div className="created-playlists-page__track-row" key={track.id}>
-                        <span>{index + 1}</span>
-                        <div className="created-playlists-page__track-title-cell">
-                          <div className="created-playlists-page__track-icon" style={{ backgroundImage: TRACK_ICON_GRADIENTS[index % TRACK_ICON_GRADIENTS.length] }}>
-                            <img src={imgMusicNoteAlbum} alt="트랙 아이콘" />
-                          </div>
-                          <div>
-                            <p className="created-playlists-page__track-title">{track.title}</p>
-                            <p className="created-playlists-page__track-artist">{track.artist}</p>
-                          </div>
-                        </div>
-                        <span className="created-playlists-page__track-album">{track.album}</span>
-                        <span className="created-playlists-page__track-date">{track.addedAt}</span>
-                        <span className="created-playlists-page__track-duration">{track.duration}</span>
-                        <button type="button" className="created-playlists-page__track-preview-button">
-                          <img src={imgPlayIcon} alt="미리듣기" />
-                          미리듣기
-                        </button>
-                      </div>
-                    ))}
-                  </div>
+                  <PlaylistTrackTable
+                    coverBackgrounds={TRACK_ICON_GRADIENTS}
+                    showPreviewButton
+                    tracks={playlist.tracks}
+                  />
                   <div className="created-playlists-page__card-footer">
                     <div className="created-playlists-page__card-footer-left">
                       <span>{playlist.trackCount}곡 · {playlist.badgeText}</span>
                     </div>
                     <div className="created-playlists-page__card-footer-right">
                       <button type="button" className="created-playlists-page__open-spotify">
-                        <img src={imgSpotifyIcon} alt="Spotify" />
+                        <img src={spotifyIcon} alt="Spotify" />
                         <span>Spotify에서 열기</span>
                       </button>
-                      <Link to={`/concerts/${playlist.id}`} className="created-playlists-page__view-concert">공연 상세 보기</Link>
+                      <Link to={`/concerts/${playlist.concertId}`} className="created-playlists-page__view-concert">공연 상세 보기</Link>
                       <button type="button" className="created-playlists-page__delete-playlist">생성 기록 삭제</button>
                     </div>
                   </div>
