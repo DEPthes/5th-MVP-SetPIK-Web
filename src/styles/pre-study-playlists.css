@@ -27,12 +27,12 @@
 .pre-study-page__browse-header { position: relative; z-index: 5; display: flex; align-items: flex-end; justify-content: space-between; }
 .pre-study-page__sort { position: relative; z-index: 10; }
 .pre-study-page__sort.is-open { z-index: 20; }
-.pre-study-page__sort-trigger { display: inline-flex; min-height: 44px; align-items: center; gap: 8px; padding: 10px 16px; border: 1px solid rgba(255, 255, 255, 0.12); border-radius: 20px; color: var(--color-gray-300); background: #262626; cursor: pointer; font-size: var(--font-size-body-small); }
+.pre-study-page__sort-trigger { display: inline-flex; min-height: 48px; align-items: center; gap: 8px; padding: 0 17px; border: 1.5px solid rgba(255, 255, 255, 0.1); border-radius: 20px; color: var(--color-gray-300); background: #1e1e1e; cursor: pointer; font-size: var(--font-size-body-small); font-weight: var(--font-weight-semibold); white-space: nowrap; }
 .pre-study-page__sort-trigger img { width: 14px; height: 14px; }
-.pre-study-page__sort-menu { position: absolute; z-index: 30; top: calc(100% + 8px); right: 0; display: grid; width: 164px; overflow: hidden; border: 1px solid rgba(255, 255, 255, 0.15); border-radius: 16px; background: #262626; box-shadow: 0 12px 32px rgba(0, 0, 0, 0.55); }
-.pre-study-page__sort-menu button { min-height: 42px; padding: 10px 16px; border: 0; color: var(--color-gray-300); background: transparent; cursor: pointer; font-size: var(--font-size-body-small); text-align: left; }
+.pre-study-page__sort-menu { position: absolute; z-index: 30; top: calc(100% + 8px); right: 0; display: grid; width: 176px; overflow: hidden; border: 1px solid rgba(255, 255, 255, 0.12); border-radius: 16px; background: #262626; box-shadow: 0 12px 32px rgba(0, 0, 0, 0.55); }
+.pre-study-page__sort-menu button { min-height: 46px; padding: 0 16px; border: 0; color: var(--color-gray-300); background: transparent; cursor: pointer; font-size: var(--font-size-body-small); font-weight: var(--font-weight-semibold); text-align: left; }
 .pre-study-page__sort-menu button:hover,
-.pre-study-page__sort-menu button[aria-selected="true"] { color: var(--color-brand-300); background: rgba(255, 88, 224, 0.12); }
+.pre-study-page__sort-menu button[aria-selected="true"] { color: var(--color-brand-300); background: rgba(255, 88, 224, 0.16); }
 .pre-study-page__browse-grid { position: relative; z-index: 1; display: grid; grid-template-columns: repeat(5, 220px); gap: 10px; margin-top: 24px; }
 .pre-study-page__empty { margin-top: 32px; color: var(--color-gray-500); }
 .pre-study-page__search-cta-section { margin-top: 80px; }

@@ -5,6 +5,7 @@ import arrowRightIcon from "@/assets/icons/ic_arrow_right.svg";
 import chevronDownIcon from "@/assets/icons/ic_chevron_down.svg";
 import chevronUpIcon from "@/assets/icons/ic_chevron_up.svg";
 import searchIcon from "@/assets/icons/ic_search.svg";
+import sortIcon from "@/assets/icons/ic_sort.svg";
 import { Button } from "@/components/common/button";
 import { BrowseConcertCard, SavedConcertCard, type PreStudyConcert } from "@/components/pre-study/pre-study-concert-card";
 import "@/styles/pre-study-playlists.css";
@@ -127,6 +128,7 @@ export function PreStudyPlaylistPage() {
           </div>
           <div className={`pre-study-page__sort${isSortOpen ? " is-open" : ""}`}>
             <button aria-expanded={isSortOpen} aria-haspopup="listbox" className="pre-study-page__sort-trigger" onClick={() => setIsSortOpen((isOpen) => !isOpen)} type="button">
+              <img alt="" src={sortIcon} />
               {sort}<img alt="" src={isSortOpen ? chevronUpIcon : chevronDownIcon} />
             </button>
             {isSortOpen ? (
