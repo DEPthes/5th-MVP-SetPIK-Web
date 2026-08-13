@@ -18,7 +18,10 @@ export function Header({ variant, userInitial = "U" }: HeaderProps) {
   const { pathname } = useLocation();
   const isConcertsPage = pathname.startsWith("/concerts");
   const isPreStudyPlaylistPage = pathname.startsWith("/pre-study-playlists");
-  const isMyPage = pathname.startsWith("/mypage");
+  const isMyPage = pathname.startsWith("/mypage")
+    || pathname.startsWith("/saved-concerts")
+    || pathname.startsWith("/recently-viewed")
+    || pathname.startsWith("/created-playlists");
 
   return (
     <header className="site-header">
