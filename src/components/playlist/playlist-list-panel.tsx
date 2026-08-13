@@ -1,11 +1,11 @@
-import chevronRightIcon from "@/assets/icons/ic-chevron-right.svg";
-import checkIcon from "@/assets/icons/ic-check.svg";
-import closeIcon from "@/assets/icons/ic-close.svg";
-import errorIcon from "@/assets/icons/ic-icon.svg";
-import externalLinkIcon from "@/assets/icons/ic-external-link.svg";
-import playlistIcon from "@/assets/icons/ic-playlist.svg";
-import refreshIcon from "@/assets/icons/ic-refresh.svg";
-import searchIcon from "@/assets/icons/ic-search.svg";
+import chevronRightIcon from "@/assets/icons/ic_chevron_right.svg";
+import checkIcon from "@/assets/icons/ic_check_pink.svg";
+import closeIcon from "@/assets/icons/ic_close.svg";
+import failIcon from "@/assets/icons/ic_fail.svg";
+import externalLinkIcon from "@/assets/icons/ic_externallink.svg";
+import playlistIcon from "@/assets/icons/ic_playlist.svg";
+import refreshIcon from "@/assets/icons/ic_reload.svg";
+import searchIcon from "@/assets/icons/ic_search.svg";
 import { Button } from "@/components/common/button";
 import { PlaylistCover } from "./playlist-cover";
 import {
@@ -58,9 +58,9 @@ function PlaylistLoadStatus({
   return (
     <div className="playlist-selection__status">
       <span
-        className={`playlist-selection__status-icon${isError ? " playlist-selection__status-icon--error" : ""}`}
+        className={`playlist-selection__status-icon playlist-selection__status-icon--${state}`}
       >
-        <img src={isError ? errorIcon : playlistIcon} alt="" />
+        <img src={isError ? failIcon : playlistIcon} alt="" />
       </span>
       <h2>{isError ? "플레이리스트를 불러오지 못했습니다." : "불러올 플레이리스트가 없습니다."}</h2>
       <p>

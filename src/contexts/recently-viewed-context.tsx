@@ -1,17 +1,9 @@
-import { createContext, useCallback, useContext, useEffect, useMemo, useState, type ReactNode } from "react";
+import { useCallback, useEffect, useMemo, useState, type ReactNode } from "react";
 import { ALL_CONCERTS } from "@/components/concert/concert-data";
+import { RecentlyViewedContext } from "@/hooks/use-recently-viewed";
 import { getStorageItem, setStorageItem } from "@/utils/storage";
 
 const STORAGE_KEY = "recentlyViewedConcertIds";
-
-interface RecentlyViewedContextValue {
-  recentlyViewedConcertIds: string[];
-  addRecentlyViewedConcert: (concertId: string) => void;
-  removeRecentlyViewedConcert: (concertId: string) => void;
-  clearRecentlyViewedConcerts: () => void;
-}
-
-const RecentlyViewedContext = createContext<RecentlyViewedContextValue | undefined>(undefined);
 
 function loadRecentlyViewedConcertIds() {
   const stored = getStorageItem<string[]>(STORAGE_KEY, []);
@@ -47,12 +39,4 @@ export function RecentlyViewedProvider({ children }: { children: ReactNode }) {
   );
 
   return <RecentlyViewedContext.Provider value={value}>{children}</RecentlyViewedContext.Provider>;
-}
-
-export function useRecentlyViewed() {
-  const context = useContext(RecentlyViewedContext);
-  if (!context) {
-    throw new Error("useRecentlyViewed must be used within a RecentlyViewedProvider");
-  }
-  return context;
 }

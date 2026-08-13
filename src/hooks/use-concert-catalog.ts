@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
-import { useSavedConcerts } from "@/contexts/saved-concerts-context";
+import { useSavedConcerts } from "@/hooks/use-saved-concerts";
 import {
   ALL_CONCERTS,
   CONCERT_BATCH_SIZE,

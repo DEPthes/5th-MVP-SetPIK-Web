@@ -1,4 +1,4 @@
-import arrowRightIcon from "@/assets/icons/ic-arrow-right.svg";
+import arrowRightIcon from "@/assets/icons/ic_arrow_right.svg";
 import { SpotifyButton } from "@/components/common/spotify-button";
 import "./onboarding-cta.css";
 

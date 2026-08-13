@@ -1,6 +1,6 @@
 import type { ButtonHTMLAttributes } from "react";
-import filledHeartIcon from "@/assets/icons/ic-heart-icon-1.svg";
-import heartIcon from "@/assets/icons/ic-heart-icon.svg";
+import filledHeartIcon from "@/assets/icons/ic_heart_pink.svg";
+import heartIcon from "@/assets/icons/ic_heart.svg";
 import "./save-button.css";
 
 interface SaveButtonProps extends Omit<ButtonHTMLAttributes<HTMLButtonElement>, "children"> {

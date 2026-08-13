@@ -1,8 +1,8 @@
 import type { RefObject } from "react";
-import chevronDownIcon from "@/assets/icons/ic-chevron-down.svg";
-import chevronUpIcon from "@/assets/icons/ic-chevron-up.svg";
-import filterIcon from "@/assets/icons/ic-filter.svg";
-import searchIcon from "@/assets/icons/ic-search.svg";
+import chevronDownIcon from "@/assets/icons/ic_chevron_down.svg";
+import chevronUpIcon from "@/assets/icons/ic_chevron_up.svg";
+import filterIcon from "@/assets/icons/ic_filter.svg";
+import searchIcon from "@/assets/icons/ic_search.svg";
 import { SORT_OPTIONS, type ConcertFilterState, type ConcertSort } from "./concert-data";
 import { ConcertFilterModal } from "./concert-filter-modal";
 import "./concert-toolbar.css";

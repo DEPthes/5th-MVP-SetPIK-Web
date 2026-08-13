@@ -1,11 +1,12 @@
-import arrowRightIcon from "@/assets/icons/ic-arrow-right.svg";
-import checkIcon from "@/assets/icons/ic-check.svg";
-import dateIcon from "@/assets/icons/ic-date-pink.svg";
-import musicNoteIcon from "@/assets/icons/ic-note-pink.svg";
-import playlistIcon from "@/assets/icons/ic-playlist.svg";
-import timeIcon from "@/assets/icons/ic-time-pink.svg";
+import arrowRightIcon from "@/assets/icons/ic_arrow_right.svg";
+import checkIcon from "@/assets/icons/ic_check_pink.svg";
+import dateIcon from "@/assets/icons/ic_date_pink.svg";
+import musicNoteIcon from "@/assets/icons/ic_music2_pink.svg";
+import playlistIcon from "@/assets/icons/ic_playlist.svg";
+import timePinkIcon from "@/assets/icons/ic_time_pink.svg";
 import { Button } from "@/components/common/button";
 import { PlaylistCover } from "./playlist-cover";
+import { PlaylistTrackTable } from "./playlist-track-table";
 import {
   MOCK_PLAYLIST_TRACKS,
   type Playlist,
@@ -35,47 +36,6 @@ function SelectionPlaceholder() {
   );
 }
 
-function PlaylistTrackTable({ playlist }: { playlist: Playlist }) {
-  return (
-    <div className="playlist-detail__tracks">
-      <div className="playlist-detail__tracks-heading">
-        <h3>수록곡</h3>
-      </div>
-      <div className="playlist-track-table" role="table" aria-label={`${playlist.title} 수록곡`}>
-        <div className="playlist-track-table__header" role="row">
-          <span role="columnheader">#</span>
-          <span aria-hidden="true" />
-          <span role="columnheader">제목</span>
-          <span role="columnheader">앨범</span>
-          <span role="columnheader">추가된 날짜</span>
-          <span role="columnheader">
-            <img className="playlist-track-table__duration-icon" src={timeIcon} alt="재생 시간" />
-          </span>
-        </div>
-        <ol className="playlist-track-table__body">
-          {MOCK_PLAYLIST_TRACKS.map((track, index) => (
-            <li key={track.title} role="row">
-              <span role="cell">{index + 1}</span>
-              <span
-                aria-hidden="true"
-                className="playlist-track-table__cover"
-                style={track.coverUrl ? { backgroundImage: `url(${track.coverUrl})` } : undefined}
-              />
-              <span className="playlist-track-table__title" role="cell">
-                <strong>{track.title}</strong>
-                <small>{track.artist}</small>
-              </span>
-              <span className="playlist-track-table__album" role="cell">{track.album}</span>
-              <span role="cell">{track.addedAt}</span>
-              <span role="cell">{track.duration}</span>
-            </li>
-          ))}
-        </ol>
-      </div>
-    </div>
-  );
-}
-
 function PlaylistDetail({ playlist }: { playlist: Playlist }) {
   return (
     <div className="playlist-detail">
@@ -94,13 +54,18 @@ function PlaylistDetail({ playlist }: { playlist: Playlist }) {
           <div className="playlist-detail__metadata">
             <span><img src={musicNoteIcon} alt="" />{playlist.trackCount}곡</span>
             <i aria-hidden="true">·</i>
-            <span><img src={timeIcon} alt="" />1시간 32분</span>
+            <span><img src={timePinkIcon} alt="" />1시간 32분</span>
             <i aria-hidden="true">·</i>
             <span><img src={dateIcon} alt="" />{playlist.updatedAt}</span>
           </div>
         </div>
       </div>
-      <PlaylistTrackTable playlist={playlist} />
+      <div className="playlist-detail__tracks">
+        <div className="playlist-detail__tracks-heading">
+          <h3>수록곡</h3>
+        </div>
+        <PlaylistTrackTable tracks={MOCK_PLAYLIST_TRACKS} />
+      </div>
     </div>
   );
 }

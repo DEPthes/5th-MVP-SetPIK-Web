@@ -1,8 +1,8 @@
-import aiCyanIcon from "@/assets/icons/ic-ai-cyan.svg";
-import artistIcon from "@/assets/icons/ic-artist.svg";
-import arrowRightIcon from "@/assets/icons/ic-arrow-right.svg";
-import dateIcon from "@/assets/icons/ic-date-gray.svg";
-import locationIcon from "@/assets/icons/ic-location.svg";
+import aiCyanIcon from "@/assets/icons/ic_shine_cyan.svg";
+import artistIcon from "@/assets/icons/ic_artist.svg";
+import arrowRightIcon from "@/assets/icons/ic_arrow_right.svg";
+import dateIcon from "@/assets/icons/ic_date_gray.svg";
+import locationIcon from "@/assets/icons/ic_location.svg";
 import { Button } from "@/components/common/button";
 import { SaveButton } from "@/components/common/save-button";
 import { Link, useNavigate } from "react-router-dom";
@@ -87,7 +87,7 @@ export function FeaturedConcertCard({ concert, isSaved, onToggleSaved }: Feature
         <span>가장 잘 맞는 공연</span>
       </div>
       <div className="concert-featured-card__content">
-        <p className="concert-featured-card__category">페스티벌</p>
+        <p className="concert-featured-card__category">{concert.category}</p>
         <h3>{concert.title}</h3>
         <dl className="concert-featured-card__metadata">
           <div><img alt="" src={dateIcon} /><dd>{concert.date}</dd></div>

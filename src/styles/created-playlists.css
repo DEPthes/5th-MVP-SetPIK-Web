@@ -46,12 +46,16 @@
 }
 
 .created-playlists-page__controls {
+  position: sticky;
+  z-index: 30;
+  top: 80px;
   display: flex;
   width: 100%;
   gap: 12px;
   align-items: stretch;
-  padding-top: 40px;
+  padding: 12px 0;
   flex-wrap: wrap;
+  background: var(--color-background);
 }
 
 .created-playlists-page__sort-wrapper {
@@ -64,25 +68,28 @@
   position: absolute;
   top: calc(100% + 8px);
   right: 0;
-  min-width: 200px;
-  background: #171717;
+  width: 176px;
+  overflow: hidden;
+  background: #262626;
   border: 1.5px solid rgba(255, 255, 255, 0.09);
-  border-radius: 16px;
-  padding: 8px;
+  border-radius: 20px;
+  padding: 0;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
   z-index: 40;
   display: grid;
-  gap: 4px;
+  gap: 0;
 }
 
 .created-playlists-page__sort-menu button {
   display: inline-flex;
   width: 100%;
-  justify-content: center;
-  padding: 10px 12px;
+  min-height: 48px;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 0 16px;
   background: transparent;
   border: none;
-  border-radius: 999px;
+  border-radius: 0;
   color: var(--color-gray-300);
   font-size: 14px;
   font-weight: var(--font-weight-semibold);
@@ -90,9 +97,10 @@
 }
 
 .created-playlists-page__sort-menu button:hover,
-.created-playlists-page__sort-menu button:focus {
-  background: rgba(255, 255, 255, 0.06);
-  color: var(--color-white);
+.created-playlists-page__sort-menu button:focus,
+.created-playlists-page__sort-menu button[aria-selected="true"] {
+  background: rgba(255, 88, 224, 0.14);
+  color: var(--color-brand-300);
 }
 
 .created-playlists-page__search-box {
@@ -127,7 +135,7 @@
 
 .created-playlists-page__sort-button {
   display: inline-flex;
-  height: 100%;
+  min-height: 54px;
   align-items: center;
   gap: 8px;
   padding: 0 17.5px;
@@ -256,6 +264,7 @@
 
 .created-playlists-page__playlist-card-badges {
   display: flex;
+  flex: 0 0 auto;
   flex-wrap: nowrap;
   gap: 10px;
   align-items: center;

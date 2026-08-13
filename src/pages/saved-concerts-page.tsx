@@ -1,14 +1,16 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { ALL_CONCERTS } from "@/components/concert/concert-data";
-import { useSavedConcerts } from "@/contexts/saved-concerts-context";
-import arrowLeftIcon from "@/assets/icons/ic-arrow-left.svg";
-import searchIcon from "@/assets/icons/ic-search-icon.svg";
-import sortIcon from "@/assets/icons/ic-filter.svg";
-import chevronDownIcon from "@/assets/icons/ic-chevron-down.svg";
-import ticketIcon from "@/assets/icons/ic-ticket-icon.svg";
-import sparkleIcon from "@/assets/icons/ic-sparkle-icon.svg";
-import heartIcon from "@/assets/icons/ic-heart-icon.svg";
+import { useSavedConcerts } from "@/hooks/use-saved-concerts";
+import arrowLeftIcon from "@/assets/icons/ic_chevron_left_thick.svg";
+import searchIcon from "@/assets/icons/ic_search.svg";
+import sortIcon from "@/assets/icons/ic_sort.svg";
+import chevronDownIcon from "@/assets/icons/ic_chevron_down.svg";
+import chevronUpPinkIcon from "@/assets/icons/ic_chevron_up_pink.svg";
+import musicIcon from "@/assets/icons/ic_music1.svg";
+import ticketIcon from "@/assets/icons/ic_TicketIcon_gray.svg";
+import sparkleIcon from "@/assets/icons/ic_shine_cyan.svg";
+import heartIcon from "@/assets/icons/ic_heart_pink.svg";
 import "@/styles/saved-concerts.css";
 
 interface PlaylistInfo {
@@ -29,7 +31,7 @@ const PLAYLISTS: PlaylistInfo[] = [
     id: "indie-pop",
     title: "인디 팝 모음",
     description: "28곡 · 생성일 2026.06.30",
-    concertIds: ["concert-5", "concert-6", "concert-7"],
+    concertIds: ["concert-5", "concert-6"],
   },
   {
     id: "alternative",
@@ -41,20 +43,28 @@ const PLAYLISTS: PlaylistInfo[] = [
     id: "korean-indie",
     title: "한국 인디 모음",
     description: "31곡 · 생성일 2026.04.20",
-    concertIds: ["concert-11", "concert-12"],
+    concertIds: ["concert-11"],
   },
 ];
 
+const SORT_OPTIONS = [
+  { value: "recent", label: "최근 저장한 순" },
+  { value: "name", label: "이름순" },
+  { value: "count", label: "저장한 공연 많은순" },
+] as const;
+
+type SortMode = (typeof SORT_OPTIONS)[number]["value"];
+
 export function SavedConcertsPage() {
   const { savedConcertIds, toggleSavedConcert } = useSavedConcerts();
-  const [expandedPlaylistIds, setExpandedPlaylistIds] = useState<string[]>([]);
-  const [sortMode, setSortMode] = useState<"recent" | "alphabetical">("recent");
+  const [expandedPlaylistIds, setExpandedPlaylistIds] = useState<string[]>([PLAYLISTS[0].id]);
+  const [sortMode, setSortMode] = useState<SortMode>("recent");
+  const [isSortOpen, setIsSortOpen] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
 
   const savedConcertOrder = Array.from(savedConcertIds);
-  const savedConcerts = ALL_CONCERTS.filter((concert) => savedConcertIds.has(concert.id));
   const playlists = PLAYLISTS.map((playlist, index) => {
-    const savedCount = playlist.concertIds.filter((id) => savedConcertIds.has(id)).length;
+    const savedCount = playlist.concertIds.length;
     const lastSavedIndex = playlist.concertIds
       .map((concertId) => savedConcertOrder.indexOf(concertId))
       .filter((index) => index >= 0)
@@ -68,15 +78,18 @@ export function SavedConcertsPage() {
       originalIndex: index,
     };
   })
-    .filter((playlist) => playlist.title.includes(searchTerm))
+    .filter((playlist) => playlist.title.toLocaleLowerCase().includes(searchTerm.trim().toLocaleLowerCase()))
     .sort((a, b) => {
       if (sortMode === "recent") {
         if (a.lastSavedIndex === b.lastSavedIndex) return a.originalIndex - b.originalIndex;
         return b.lastSavedIndex - a.lastSavedIndex;
       }
-      return a.title.localeCompare(b.title, "ko");
+      if (sortMode === "name") return a.title.localeCompare(b.title, "ko");
+      if (a.savedCount === b.savedCount) return a.originalIndex - b.originalIndex;
+      return b.savedCount - a.savedCount;
     });
   const allExpanded = playlists.every((playlist) => playlist.isExpanded);
+  const activeSortLabel = SORT_OPTIONS.find((option) => option.value === sortMode)?.label;
 
   const togglePlaylist = (playlistId: string) => {
     setExpandedPlaylistIds((current) =>
@@ -92,15 +105,11 @@ export function SavedConcertsPage() {
     }
   };
 
-  const toggleSortMode = () => {
-    setSortMode((current) => (current === "recent" ? "alphabetical" : "recent"));
-  };
-
   return (
     <section className="saved-concerts-page page-shell" aria-labelledby="saved-concerts-title">
       <div className="saved-concerts-page__back">
         <Link to="/mypage" className="saved-concerts-page__back-button">
-          <img src={arrowLeftIcon} alt="뒤로가기" />
+          <img src={arrowLeftIcon} alt="" />
           <span>마이페이지로</span>
         </Link>
       </div>
@@ -125,15 +134,42 @@ export function SavedConcertsPage() {
             className="saved-concerts-page__search-input"
           />
         </label>
-        <button type="button" className="saved-concerts-page__sort-button" onClick={toggleSortMode}>
-          <img src={sortIcon} alt="정렬" />
-          <span>{sortMode === "recent" ? "최근 저장한 순" : "가나다 순"}</span>
-          <img src={chevronDownIcon} alt="정렬 옵션" />
-        </button>
+        <div className="saved-concerts-page__sort-menu">
+          <button
+            aria-expanded={isSortOpen}
+            aria-haspopup="listbox"
+            className="saved-concerts-page__sort-button"
+            onClick={() => setIsSortOpen((current) => !current)}
+            type="button"
+          >
+            <img src={sortIcon} alt="" />
+            <span>{activeSortLabel}</span>
+            <img src={chevronDownIcon} alt="" className={isSortOpen ? "saved-concerts-page__sort-chevron--open" : ""} />
+          </button>
+          {isSortOpen ? (
+            <div aria-label="플레이리스트 정렬" className="saved-concerts-page__sort-options" role="listbox">
+              {SORT_OPTIONS.map((option) => (
+                <button
+                  aria-selected={sortMode === option.value}
+                  className={sortMode === option.value ? "is-selected" : ""}
+                  key={option.value}
+                  onClick={() => {
+                    setSortMode(option.value);
+                    setIsSortOpen(false);
+                  }}
+                  role="option"
+                  type="button"
+                >
+                  {option.label}
+                </button>
+              ))}
+            </div>
+          ) : null}
+        </div>
       </div>
 
       <div className="saved-concerts-page__summary-row">
-        <p>저장한 플레이리스트 {playlists.filter((playlist) => playlist.savedCount > 0).length}개</p>
+        <p>저장한 플레이리스트 {playlists.length}개</p>
         <button type="button" className="saved-concerts-page__expand-all" onClick={toggleAllPlaylists}>
           {allExpanded ? "모두 접기" : "모두 펼치기"}
         </button>
@@ -141,12 +177,18 @@ export function SavedConcertsPage() {
 
       <div className="saved-concerts-page__playlist-list">
         {playlists.map((playlist) => (
-          <article className="saved-concerts-page__playlist-card" key={playlist.id}>
-            <div className="saved-concerts-page__playlist-card-header" role="button" onClick={() => togglePlaylist(playlist.id)}>
-              <div className="saved-concerts-page__playlist-card-icon">
-                <div className="saved-concerts-page__playlist-card-icon-bg">
-                  <img src={ticketIcon} alt="플레이리스트 아이콘" />
-                </div>
+          <article className={[
+            "saved-concerts-page__playlist-card",
+            playlist.isExpanded ? "saved-concerts-page__playlist-card--expanded" : "",
+          ].filter(Boolean).join(" ")} key={playlist.id}>
+            <button
+              type="button"
+              aria-expanded={playlist.isExpanded}
+              className="saved-concerts-page__playlist-card-header"
+              onClick={() => togglePlaylist(playlist.id)}
+            >
+              <div className={`saved-concerts-page__playlist-card-icon-bg saved-concerts-page__playlist-card-icon-bg--${playlist.originalIndex}`}>
+                <img src={musicIcon} alt="" />
               </div>
               <div className="saved-concerts-page__playlist-card-meta">
                 <div className="saved-concerts-page__playlist-card-title-row">
@@ -155,14 +197,12 @@ export function SavedConcertsPage() {
                 </div>
                 <p className="saved-concerts-page__playlist-card-description">{playlist.description}</p>
               </div>
-              <div className="saved-concerts-page__playlist-card-toggle">
-                <img
-                  src={chevronDownIcon}
-                  alt={playlist.isExpanded ? "접기" : "펼치기"}
-                  className={playlist.isExpanded ? "saved-concerts-page__rotate-icon" : ""}
-                />
-              </div>
-            </div>
+              <img
+                src={playlist.isExpanded ? chevronUpPinkIcon : chevronDownIcon}
+                alt=""
+                className="saved-concerts-page__playlist-card-toggle"
+              />
+            </button>
 
             {playlist.isExpanded && (
               <div className="saved-concerts-page__playlist-card-body">
@@ -180,29 +220,59 @@ export function SavedConcertsPage() {
                   {playlist.savedCount === 0 ? (
                     <div className="saved-concerts-page__empty-state">이 플레이리스트에서 저장한 공연이 없습니다.</div>
                   ) : (
-                    ALL_CONCERTS.filter((concert) => playlist.concertIds.includes(concert.id) && savedConcertIds.has(concert.id)).map((concert) => (
-                      <article className="saved-concerts-page__concert-card" key={concert.id}>
-                        <div className="saved-concerts-page__concert-card-thumb">
-                          <img src={ticketIcon} alt="공연 카드 아이콘" />
-                        </div>
-                        <div className="saved-concerts-page__concert-card-content">
-                          <p className="saved-concerts-page__concert-card-title">{concert.title}</p>
-                          <p className="saved-concerts-page__concert-card-meta">{concert.date} · {concert.location}</p>
-                          <div className="saved-concerts-page__concert-card-tags">
-                            <img src={sparkleIcon} alt="Sparkle" />
-                            <span>내 플레이리스트 아티스트 {concert.playlistArtistCount}팀 출연</span>
+                    ALL_CONCERTS.filter((concert) => playlist.concertIds.includes(concert.id)).map((concert, index) => {
+                      const isEnded = index === 3;
+
+                      return (
+                      <article
+                        aria-disabled={isEnded}
+                        className={[
+                          "saved-concerts-page__concert-card",
+                          isEnded ? "saved-concerts-page__concert-card--disabled" : "",
+                        ].filter(Boolean).join(" ")}
+                        key={concert.id}
+                      >
+                        <Link
+                          aria-disabled={isEnded}
+                          className="saved-concerts-page__concert-card-link"
+                          onClick={isEnded ? (event) => event.preventDefault() : undefined}
+                          tabIndex={isEnded ? -1 : undefined}
+                          to={`/concerts/${concert.id}`}
+                        >
+                          <div className={`saved-concerts-page__concert-card-thumb saved-concerts-page__concert-card-thumb--${index}`}>
+                            {index >= 2 ? <span className="saved-concerts-page__concert-card-status">{index === 2 ? "매진" : "종료"}</span> : null}
+                            <span className="saved-concerts-page__concert-card-category">
+                              {index === 0 ? "페스티벌" : index === 1 ? "단독 공연" : "콘서트"}
+                            </span>
+                            <img src={ticketIcon} alt="" />
                           </div>
-                          <p className="saved-concerts-page__concert-card-date">저장일 2026.07.20</p>
-                        </div>
+                          <div className="saved-concerts-page__concert-card-content">
+                            <p className="saved-concerts-page__concert-card-title">{concert.title}</p>
+                            <p className="saved-concerts-page__concert-card-meta">{concert.date} · {concert.location}</p>
+                            <p className="saved-concerts-page__concert-card-match">
+                              <img src={sparkleIcon} alt="" />
+                              {index === 2 ? "인디 록 취향과 높은 관련" : `내 플레이리스트 아티스트 ${concert.playlistArtistCount}팀 출연`}
+                            </p>
+                            <p className="saved-concerts-page__concert-card-date">저장일 2026.07.{20 - index}</p>
+                          </div>
+                        </Link>
                         <div className="saved-concerts-page__concert-card-actions">
-                          <button type="button">공연 상세 보기</button>
-                          <button type="button" className="saved-concerts-page__concert-card-action-saved" onClick={() => toggleSavedConcert(concert.id)}>
-                            <img src={heartIcon} alt="저장됨" />
+                          <Link
+                            aria-disabled={isEnded}
+                            onClick={isEnded ? (event) => event.preventDefault() : undefined}
+                            tabIndex={isEnded ? -1 : undefined}
+                            to={`/concerts/${concert.id}`}
+                          >
+                            공연 상세 보기
+                          </Link>
+                          <button type="button" className="saved-concerts-page__concert-card-action-saved" disabled={isEnded} onClick={() => toggleSavedConcert(concert.id)}>
+                            <img src={heartIcon} alt="" />
                             저장됨
                           </button>
                         </div>
                       </article>
-                    ))
+                      );
+                    })
                   )}
                 </div>
               </div>

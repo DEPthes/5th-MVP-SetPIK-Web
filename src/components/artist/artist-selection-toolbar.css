@@ -1,24 +1,30 @@
 .artist-selection__toolbar {
+  position: sticky;
+  z-index: 20;
+  top: 80px;
   display: grid;
   grid-template-columns: minmax(0, 1fr) auto;
   gap: 12px;
-  margin-top: 24px;
+  margin-top: 12px;
+  padding-block: 12px;
+  background: var(--color-footer-background);
 }
 
 .artist-selection__search {
   display: flex;
-  min-height: 40px;
+  min-height: 48px;
   align-items: center;
-  gap: 8px;
-  padding: 0 14px;
-  border-radius: var(--radius-pill);
+  gap: 10px;
+  padding: 11px 17px 11px 16px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 20px;
   color: var(--color-gray-500);
-  background: #171717;
+  background: #1e1e1e;
 }
 
 .artist-selection__search img {
-  width: 16px;
-  height: 16px;
+  width: 15px;
+  height: 15px;
 }
 
 .artist-selection__search input {
@@ -29,7 +35,8 @@
   outline: 0;
   color: var(--color-white);
   background: transparent;
-  font-size: var(--font-size-body-small);
+  font-size: var(--font-size-body);
+  font-weight: var(--font-weight-regular);
   line-height: var(--line-height-default);
 }
 
@@ -47,7 +54,7 @@
 
 .artist-selection__sort-trigger {
   display: inline-flex;
-  min-height: 40px;
+  min-height: 48px;
   align-items: center;
   gap: 8px;
   padding: 0 14px;

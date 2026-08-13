@@ -1,7 +1,7 @@
 import { Link, useLocation } from "react-router-dom";
-import notificationIcon from "@/assets/icons/ic-noti.svg";
-import setPikLogo from "@/assets/icons/set-pik.svg";
-import spotifyIcon from "@/assets/icons/spotify-icon.svg";
+import notificationIcon from "@/assets/icons/ic_notification.svg";
+import setPikLogo from "@/assets/icons/ic_setpik_logo.svg";
+import spotifyIcon from "@/assets/icons/ic_spotify_white.svg";
 import { IconButton } from "@/components/common/icon-button";
 import "./header.css";
 
@@ -18,7 +18,10 @@ export function Header({ variant, userInitial = "U" }: HeaderProps) {
   const { pathname } = useLocation();
   const isConcertsPage = pathname.startsWith("/concerts");
   const isPreStudyPlaylistPage = pathname.startsWith("/pre-study-playlists");
-  const isMyPage = pathname.startsWith("/mypage");
+  const isMyPage = pathname.startsWith("/mypage")
+    || pathname.startsWith("/saved-concerts")
+    || pathname.startsWith("/recently-viewed")
+    || pathname.startsWith("/created-playlists");
 
   return (
     <header className="site-header">

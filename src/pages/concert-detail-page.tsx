@@ -1,12 +1,13 @@
 import { useRef, useState } from "react";
 import { Link, Navigate, useParams } from "react-router-dom";
-import arrowLeftIcon from "@/assets/icons/ic-arrow-left.svg";
-import calendarIcon from "@/assets/icons/ic-calendar-icon.svg";
-import chevronLeftIcon from "@/assets/icons/ic-chevron-left.svg";
-import externalLinkIcon from "@/assets/icons/ic-external-link-pink.svg";
-import musicIcon from "@/assets/icons/ic-music-icon.svg";
-import playIcon from "@/assets/icons/ic-play-icon.svg";
-import sparkleIcon from "@/assets/icons/ic-sparkle-icon.svg";
+import arrowLeftIcon from "@/assets/icons/ic_chevron_left_thick.svg";
+import calendarIcon from "@/assets/icons/ic_calendar.svg";
+import chevronLeftIcon from "@/assets/icons/ic_chevron_left_thick.svg";
+import externalLinkIcon from "@/assets/icons/ic_externallink_pink.svg";
+import musicIcon from "@/assets/icons/ic_music1.svg";
+import musicCyanIcon from "@/assets/icons/ic_music1_cyan.svg";
+import playIcon from "@/assets/icons/ic_play.svg";
+import starIcon from "@/assets/icons/ic_star_cyan.svg";
 import { Button } from "@/components/common/button";
 import { SaveButton } from "@/components/common/save-button";
 import { ALL_CONCERTS } from "@/components/concert/concert-data";
@@ -68,7 +69,7 @@ export function ConcertDetailPage() {
         <header className="concert-detail__heading">
           <h1 id="concert-detail-title">{concert.title}</h1>
           <div className="concert-detail__recommendation" aria-label="AI 추천 이유">
-            <span className="concert-detail__recommendation-label"><img alt="" src={sparkleIcon} />AI 추천 이유</span>
+            <span className="concert-detail__recommendation-label"><img alt="" src={starIcon} />AI 추천 이유</span>
             <ul>
               <li>플레이리스트 연관도 {concert.playlistRelevance}%</li>
               <li>내 취향과 높은 관련</li>
@@ -97,7 +98,7 @@ export function ConcertDetailPage() {
                 예매 페이지로 이동 <img alt="" src={externalLinkIcon} />
               </a>
               <Link className="concert-detail__action concert-detail__action--playlist" to="/pre-study-playlists">
-                <img alt="" src={musicIcon} /> 예습 플리 만들기
+                <img alt="" src={musicCyanIcon} /> 예습 플리 만들기
               </Link>
               <button className="concert-detail__action concert-detail__action--neutral" type="button">
                 <img alt="" src={calendarIcon} /> 캘린더에 저장
@@ -126,7 +127,7 @@ export function ConcertDetailPage() {
               <article className="concert-artist-card" key={artist.name}>
                 <div className={`concert-artist-card__image concert-artist-card__image--${artist.gradient}`}>
                   <strong>{artist.initial}</strong>
-                  <span><img alt="" src={sparkleIcon} />내 플레이리스트</span>
+                  <span><img alt="" src={starIcon} />내 플레이리스트</span>
                 </div>
                 <div className="concert-artist-card__content">
                   <h3>{artist.name}</h3>

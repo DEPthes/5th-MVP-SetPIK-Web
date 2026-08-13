@@ -1,4 +1,4 @@
-import locationIcon from "@/assets/icons/ic-location.svg";
+import locationIcon from "@/assets/icons/ic_location_thick.svg";
 import "./onboarding-card.css";
 
 interface OnboardingConcertCardProps {

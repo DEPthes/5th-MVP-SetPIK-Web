@@ -1,7 +1,7 @@
 import type { ReactNode, RefObject } from "react";
-import aiCyanIcon from "@/assets/icons/ic-ai-cyan.svg";
-import artistIcon from "@/assets/icons/ic-artist.svg";
-import playlistIcon from "@/assets/icons/ic-playlist.svg";
+import aiCyanIcon from "@/assets/icons/ic_shine_cyan.svg";
+import artistIcon from "@/assets/icons/ic_artist.svg";
+import playlistIcon from "@/assets/icons/ic_playlist.svg";
 import { ConcertGrid, FeaturedConcertCard } from "./concert-card";
 import { ALL_CONCERTS, type Concert } from "./concert-data";
 

@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import setPikLogo from "@/assets/icons/set-pik.svg";
+import setPikLogo from "@/assets/icons/ic_setpik_logo.svg";
 import "./footer.css";
 
 const QUICK_LINKS = [

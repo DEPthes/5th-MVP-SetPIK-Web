@@ -1,6 +1,6 @@
-import chevronDownIcon from "@/assets/icons/ic-chevron-down.svg";
-import chevronUpIcon from "@/assets/icons/ic-chevron-up.svg";
-import searchIcon from "@/assets/icons/ic-search.svg";
+import chevronDownIcon from "@/assets/icons/ic_chevron_down.svg";
+import chevronUpIcon from "@/assets/icons/ic_chevron_up.svg";
+import searchIcon from "@/assets/icons/ic_search.svg";
 import { ARTIST_SORT_OPTIONS, type ArtistSortOption } from "./artist-data";
 import "./artist-selection-toolbar.css";
 

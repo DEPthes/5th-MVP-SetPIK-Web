@@ -30,8 +30,9 @@
   width: 64px;
   height: 64px;
   place-items: center;
-  border-radius: 50%;
-  background: #262626;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 16px;
+  background: #1e1e1e;
 }
 
 .playlist-selection__placeholder-icon img {
@@ -57,8 +58,8 @@
 
 .playlist-selection__next-button {
   align-self: flex-end;
-  min-width: 165px;
-  min-height: 62px;
+  min-width: 152px;
+  min-height: 57px;
   margin-top: 32px;
   border-radius: 12px;
   color: var(--color-white);
@@ -200,6 +201,7 @@
   display: grid;
   grid-template-columns: 44px 44px minmax(0, 6fr) minmax(0, 6fr) minmax(112px, 4fr) 44px;
   align-items: center;
+  text-align: left;
 }
 
 .playlist-track-table__header {
@@ -211,18 +213,9 @@
   font-weight: var(--font-weight-semibold);
 }
 
-.playlist-track-table__header > span:first-child,
-.playlist-track-table__body li > span:first-child {
-  text-align: center;
-}
-
 .playlist-track-table__header img {
   width: 16px;
   height: 16px;
-}
-
-.playlist-track-table__duration-icon {
-  filter: brightness(0) invert(1);
 }
 
 .playlist-track-table__body {
