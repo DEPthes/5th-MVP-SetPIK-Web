@@ -201,6 +201,7 @@
   display: grid;
   grid-template-columns: 44px 44px minmax(0, 6fr) minmax(0, 6fr) minmax(112px, 4fr) 44px;
   align-items: center;
+  text-align: left;
 }
 
 .playlist-track-table__header {
@@ -210,11 +211,6 @@
   color: var(--color-gray-500);
   font-size: var(--font-size-body);
   font-weight: var(--font-weight-semibold);
-}
-
-.playlist-track-table__header > span:first-child,
-.playlist-track-table__body li > span:first-child {
-  text-align: center;
 }
 
 .playlist-track-table__header img {
