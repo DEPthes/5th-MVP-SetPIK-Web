@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
-import { useSavedConcerts } from "@/contexts/saved-concerts-context";
-import { useRecentlyViewed } from "@/contexts/recently-viewed-context";
+import { useSavedConcerts } from "@/hooks/use-saved-concerts";
+import { useRecentlyViewed } from "@/hooks/use-recently-viewed";
 import spotifyIcon from "@/assets/icons/ic_spotify_green.svg";
 import heartIcon from "@/assets/icons/ic_heart_pink.svg";
 import clockIcon from "@/assets/icons/ic_time_cyan.svg";

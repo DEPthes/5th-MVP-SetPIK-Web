@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { ALL_CONCERTS } from "@/components/concert/concert-data";
-import { useSavedConcerts } from "@/contexts/saved-concerts-context";
+import { useSavedConcerts } from "@/hooks/use-saved-concerts";
 import arrowLeftIcon from "@/assets/icons/ic_chevron_left_thick.svg";
 import searchIcon from "@/assets/icons/ic_search.svg";
 import sortIcon from "@/assets/icons/ic_sort.svg";
