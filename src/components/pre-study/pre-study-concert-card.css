@@ -28,8 +28,8 @@
 .pre-study-saved-card__open .button__icon > img { width: 12px; height: 12px; }
 .pre-study-saved-card__content > p { min-height: 28px; margin: 0; color: var(--color-gray-700); font-size: var(--font-size-caption); line-height: 18px; }
 
-.pre-study-browse-card { display: flex; width: 100%; min-height: 315px; flex-direction: column; }
-.pre-study-browse-card__poster { position: relative; display: grid; height: 130px; flex: 0 0 auto; place-items: center; border-bottom: 1px solid rgba(255, 255, 255, 0.07); }
+.pre-study-browse-card { display: flex; width: 100%; min-height: 400px; flex-direction: column; }
+.pre-study-browse-card__poster { position: relative; display: grid; height: 180px; flex: 0 0 auto; place-items: center; border-bottom: 1px solid rgba(255, 255, 255, 0.07); }
 .pre-study-browse-card__poster > img { width: 52px; height: 52px; opacity: 0.18; }
 .pre-study-browse-card__reason,
 .pre-study-browse-card__category { position: absolute; top: 12px; left: 12px; padding: 5px 9px; border: 1px solid rgba(111, 253, 248, 0.22); border-radius: var(--radius-pill); color: var(--color-accent-300); background: rgba(111, 253, 248, 0.1); font-size: var(--font-size-caption); line-height: var(--line-height-default); white-space: nowrap; }
@@ -39,8 +39,8 @@
 .pre-study-browse-card__poster > strong { position: absolute; right: 13px; bottom: 14px; color: rgba(255, 255, 255, 0.06); font-size: 32px; font-weight: var(--font-weight-bold); line-height: 1; }
 .pre-study-browse-card__save { position: absolute; z-index: 1; top: 12px; right: 12px; width: 32px; height: 32px; border-radius: 20px; }
 .pre-study-browse-card__save img { width: 15px; height: 15px; }
-.pre-study-browse-card__content { display: flex; min-height: 184px; flex: 1; flex-direction: column; justify-content: space-between; gap: 12px; padding: 16px; }
-.pre-study-browse-card h3 { overflow: hidden; font-size: var(--font-size-body-small); font-weight: var(--font-weight-semibold); line-height: var(--line-height-default); text-overflow: ellipsis; white-space: nowrap; }
+.pre-study-browse-card__content { display: flex; min-height: 0; flex: 1; flex-direction: column; justify-content: space-between; gap: 16px; padding: 20px; }
+.pre-study-browse-card h3 { overflow: hidden; font-size: var(--font-size-subtitle); font-weight: var(--font-weight-semibold); line-height: var(--line-height-default); text-overflow: ellipsis; white-space: nowrap; }
 .pre-study-browse-card__category-text { margin-top: 4px; color: var(--color-gray-700); font-size: var(--font-size-caption); line-height: var(--line-height-default); }
 .pre-study-browse-card .pre-study-concert-metadata { margin-top: 6px; gap: 4px; }
 .pre-study-browse-card .pre-study-concert-metadata dd { color: var(--color-gray-500); font-size: var(--font-size-caption); }
