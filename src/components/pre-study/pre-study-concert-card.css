@@ -7,7 +7,7 @@
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
 }
 
-.pre-study-saved-card { display: flex; width: 300px; min-height: 440px; flex-direction: column; }
+.pre-study-saved-card { display: flex; width: 100%; min-height: 440px; flex-direction: column; }
 .pre-study-saved-card__poster { display: grid; height: 180px; flex: 0 0 auto; place-items: center; border-bottom: 1px solid rgba(255, 255, 255, 0.07); }
 .pre-study-saved-card__poster img { width: 22px; height: 22px; opacity: 0.35; }
 .pre-study-poster--cyan { background: linear-gradient(153deg, #062020, #04303a); }
@@ -28,7 +28,7 @@
 .pre-study-saved-card__open .button__icon > img { width: 12px; height: 12px; }
 .pre-study-saved-card__content > p { min-height: 28px; margin: 0; color: var(--color-gray-700); font-size: var(--font-size-caption); line-height: 18px; }
 
-.pre-study-browse-card { display: flex; width: 220px; min-height: 315px; flex-direction: column; }
+.pre-study-browse-card { display: flex; width: 100%; min-height: 315px; flex-direction: column; }
 .pre-study-browse-card__poster { position: relative; display: grid; height: 130px; flex: 0 0 auto; place-items: center; border-bottom: 1px solid rgba(255, 255, 255, 0.07); }
 .pre-study-browse-card__poster > img { width: 52px; height: 52px; opacity: 0.18; }
 .pre-study-browse-card__reason,
@@ -46,8 +46,3 @@
 .pre-study-browse-card .pre-study-concert-metadata dd { color: var(--color-gray-500); font-size: var(--font-size-caption); }
 .pre-study-browse-card__create { min-height: 42px; gap: 8px; padding-inline: 10px; border-color: rgba(255, 255, 255, 0.09); border-radius: 20px; color: var(--color-gray-300); background: #262626; font-size: var(--font-size-body-small); white-space: nowrap; }
 .pre-study-browse-card__create .button__icon > img { width: 14px; height: 14px; }
-
-@media (max-width: 700px) {
-  .pre-study-saved-card { width: 100%; }
-  .pre-study-browse-card { width: 100%; }
-}
