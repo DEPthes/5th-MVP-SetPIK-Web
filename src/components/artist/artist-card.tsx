@@ -5,11 +5,10 @@ import "./artist-card.css";
 interface ArtistCardProps {
   artist: Artist;
   isSelected: boolean;
-  reserveTagSpace: boolean;
   onToggle: (artistId: string) => void;
 }
 
-export function ArtistCard({ artist, isSelected, reserveTagSpace, onToggle }: ArtistCardProps) {
+export function ArtistCard({ artist, isSelected, onToggle }: ArtistCardProps) {
   return (
     <button
       aria-pressed={isSelected}
@@ -29,7 +28,6 @@ export function ArtistCard({ artist, isSelected, reserveTagSpace, onToggle }: Ar
       </span>
       <span className="artist-card__content">
         {artist.isMainArtist ? <span className="artist-card__tag">주요 아티스트</span> : null}
-        {!artist.isMainArtist && reserveTagSpace ? <span aria-hidden="true" className="artist-card__tag-placeholder" /> : null}
         <strong>{artist.name}</strong>
         <small>{artist.description}</small>
       </span>

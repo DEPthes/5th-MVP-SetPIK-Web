@@ -151,8 +151,7 @@
 .artist-selection__grid,
 .artist-selection__skeleton-grid {
   display: grid;
-  grid-template-columns: repeat(5, 227px);
-  justify-content: center;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 220px), 1fr));
   gap: 20px;
   margin-top: 12px;
 }
