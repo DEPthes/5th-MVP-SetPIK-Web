@@ -1,9 +1,16 @@
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "@/hooks/use-auth";
 import arrowRightIcon from "@/assets/icons/ic_arrow_right.svg";
 import { Button } from "@/components/common/button";
 
 export function ArtistSelectionAction({ selectedArtistCount }: { selectedArtistCount: number }) {
   const navigate = useNavigate();
+  const { completeOnboarding } = useAuth();
+
+  function handleComplete() {
+    completeOnboarding();
+    navigate("/concerts?state=loading");
+  }
 
   return (
     <div
@@ -20,7 +27,7 @@ export function ArtistSelectionAction({ selectedArtistCount }: { selectedArtistC
       <Button
         className="artist-selection__next-button button--selection-cta"
         disabled={!selectedArtistCount}
-        onClick={() => navigate("/concerts?state=loading")}
+        onClick={handleComplete}
         trailingIcon={<img src={arrowRightIcon} alt="" />}
       >
         선택한 아티스트로 공연 찾기

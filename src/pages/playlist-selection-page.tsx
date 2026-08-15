@@ -1,4 +1,5 @@
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "@/hooks/use-auth";
 import { BackButton } from "@/components/common/back-button";
 import { PlaylistDetailPanel } from "@/components/playlist/playlist-detail-panel";
 import { PlaylistListPanel } from "@/components/playlist/playlist-list-panel";
@@ -7,6 +8,7 @@ import "@/styles/playlist-selection.css";
 
 export function PlaylistSelectionPage() {
   const navigate = useNavigate();
+  const { setOnboardingStep } = useAuth();
   const {
     currentState,
     filteredPlaylists,
@@ -40,7 +42,10 @@ export function PlaylistSelectionPage() {
           />
           <PlaylistDetailPanel
             currentState={currentState}
-            onNext={() => navigate("/onboarding/artists")}
+            onNext={() => {
+              setOnboardingStep("artist");
+              navigate("/onboarding/artists");
+            }}
             selectedPlaylist={selectedPlaylist}
           />
         </div>

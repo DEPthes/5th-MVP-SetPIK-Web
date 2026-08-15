@@ -1,4 +1,5 @@
 import { Link, useLocation } from "react-router-dom";
+import { useAuth } from "@/hooks/use-auth";
 import notificationIcon from "@/assets/icons/ic_notification.svg";
 import setPikLogo from "@/assets/icons/ic_setpik_logo.svg";
 import spotifyIcon from "@/assets/icons/ic_spotify_white.svg";
@@ -16,6 +17,7 @@ function getNavigationClassName(isActive: boolean) {
 
 export function Header({ variant, userInitial = "U" }: HeaderProps) {
   const { pathname } = useLocation();
+  const { isOnboardingComplete } = useAuth();
   const isConcertsPage = pathname.startsWith("/concerts");
   const isPreStudyPlaylistPage = pathname.startsWith("/pre-study-playlists");
   const isMyPage = pathname.startsWith("/mypage")
@@ -26,7 +28,11 @@ export function Header({ variant, userInitial = "U" }: HeaderProps) {
   return (
     <header className="site-header">
       <div className="site-header__inner">
-        <Link className="site-logo" to="/" aria-label="SetPik 홈">
+        <Link
+          className="site-logo"
+          to={variant === "authenticated" && isOnboardingComplete ? "/concerts" : "/"}
+          aria-label="SetPik 홈"
+        >
           <img src={setPikLogo} alt="" />
         </Link>
 
