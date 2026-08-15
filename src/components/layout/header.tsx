@@ -24,6 +24,9 @@ export function Header({ variant, userInitial = "U" }: HeaderProps) {
     || pathname.startsWith("/saved-concerts")
     || pathname.startsWith("/recently-viewed")
     || pathname.startsWith("/created-playlists");
+  const isOnboardingSelectionPage = pathname === "/onboarding/playlist-selection"
+    || pathname === "/onboarding/artists"
+    || pathname === "/preferences/playlists";
 
   return (
     <header className="site-header">
@@ -43,29 +46,31 @@ export function Header({ variant, userInitial = "U" }: HeaderProps) {
           </Link>
         ) : (
           <>
-            <nav className="site-nav" aria-label="주요 메뉴">
-              <Link
-                className={getNavigationClassName(isConcertsPage)}
-                to="/concerts"
-                aria-current={isConcertsPage ? "page" : undefined}
-              >
-                공연 홈
-              </Link>
-              <Link
-                className={getNavigationClassName(isPreStudyPlaylistPage)}
-                to="/pre-study-playlists"
-                aria-current={isPreStudyPlaylistPage ? "page" : undefined}
-              >
-                예습 플리 생성
-              </Link>
-              <Link
-                className={getNavigationClassName(isMyPage)}
-                to="/mypage"
-                aria-current={isMyPage ? "page" : undefined}
-              >
-                마이페이지
-              </Link>
-            </nav>
+            {!isOnboardingSelectionPage ? (
+              <nav className="site-nav" aria-label="주요 메뉴">
+                <Link
+                  className={getNavigationClassName(isConcertsPage)}
+                  to="/concerts"
+                  aria-current={isConcertsPage ? "page" : undefined}
+                >
+                  공연 홈
+                </Link>
+                <Link
+                  className={getNavigationClassName(isPreStudyPlaylistPage)}
+                  to="/pre-study-playlists"
+                  aria-current={isPreStudyPlaylistPage ? "page" : undefined}
+                >
+                  예습 플리 생성
+                </Link>
+                <Link
+                  className={getNavigationClassName(isMyPage)}
+                  to="/mypage"
+                  aria-current={isMyPage ? "page" : undefined}
+                >
+                  마이페이지
+                </Link>
+              </nav>
+            ) : null}
 
             <div className="site-header__actions">
               <IconButton className="notification-button" aria-label="알림 확인">
