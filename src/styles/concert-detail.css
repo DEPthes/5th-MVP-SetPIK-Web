@@ -1,9 +1,6 @@
 .concert-detail { background: #0e0e0e; }
 .concert-detail__inner, .concert-lineup__inner { width: min(100%, var(--layout-viewport-max)); margin-inline: auto; padding-inline: var(--layout-gutter); }
 .concert-detail__inner { padding-block: 40px 100px; }
-.concert-detail__back { display: inline-flex; align-items: center; gap: 6px; color: var(--color-gray-500); font-size: var(--font-size-subtitle); font-weight: var(--font-weight-semibold); line-height: var(--line-height-default); }
-.concert-detail__back img { width: 16px; height: 16px; }
-.concert-detail__back:hover { color: var(--color-white); }
 .concert-detail__heading { padding-top: 24px; }
 .concert-detail__heading h1 { font-size: var(--font-size-heading-1); font-weight: var(--font-weight-bold); line-height: var(--line-height-default); }
 .concert-detail__recommendation { display: flex; align-items: center; flex-wrap: wrap; gap: 16px; margin-top: 16px; }

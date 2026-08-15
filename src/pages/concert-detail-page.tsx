@@ -1,6 +1,5 @@
 import { useRef, useState } from "react";
 import { Link, Navigate, useParams } from "react-router-dom";
-import arrowLeftIcon from "@/assets/icons/ic_chevron_left_thick.svg";
 import chevronLeftIcon from "@/assets/icons/ic_chevron_left_thick.svg";
 import externalLinkIcon from "@/assets/icons/ic_externallink_pink.svg";
 import musicIcon from "@/assets/icons/ic_music1.svg";
@@ -8,6 +7,7 @@ import musicCyanIcon from "@/assets/icons/ic_music1_cyan.svg";
 import playIcon from "@/assets/icons/ic_play.svg";
 import starIcon from "@/assets/icons/ic_star_cyan.svg";
 import { Button } from "@/components/common/button";
+import { BackLink } from "@/components/common/back-link";
 import { SaveButton } from "@/components/common/save-button";
 import { ALL_CONCERTS } from "@/components/concert/concert-data";
 import "@/styles/concert-detail.css";
@@ -60,10 +60,7 @@ export function ConcertDetailPage() {
   return (
     <section className="concert-detail" aria-labelledby="concert-detail-title">
       <div className="concert-detail__inner">
-        <Link className="concert-detail__back" to="/concerts">
-          <img alt="" src={arrowLeftIcon} />
-          공연 목록으로
-        </Link>
+        <BackLink to="/concerts">공연 목록으로</BackLink>
 
         <header className="concert-detail__heading">
           <h1 id="concert-detail-title">{concert.title}</h1>

@@ -2,7 +2,7 @@ import { useMemo, useState } from "react";
 import { Link } from "react-router-dom";
 import { ALL_CONCERTS, type Concert } from "@/components/concert/concert-data";
 import { useRecentlyViewed } from "@/hooks/use-recently-viewed";
-import arrowLeftIcon from "@/assets/icons/ic_chevron_left_thick.svg";
+import { BackLink } from "@/components/common/back-link";
 import searchIcon from "@/assets/icons/ic_search.svg";
 import sortIcon from "@/assets/icons/ic_sort.svg";
 import chevronDownIcon from "@/assets/icons/ic_chevron_down.svg";
@@ -57,10 +57,7 @@ export function RecentlyViewedPage() {
 
   return (
     <section className="recently-viewed-page page-shell" aria-labelledby="recently-viewed-title">
-      <Link to="/mypage" className="recently-viewed-page__back-button">
-        <img src={arrowLeftIcon} alt="" />
-        <span>마이페이지로</span>
-      </Link>
+      <BackLink to="/mypage">마이페이지로</BackLink>
 
       <div className="recently-viewed-page__heading">
         <h1 className="text-heading-1" id="recently-viewed-title">최근 본 공연</h1>

@@ -6,6 +6,7 @@ import starIcon from "@/assets/icons/ic_star_cyan.svg";
 import spotifyIcon from "@/assets/icons/ic_spotify_white.svg";
 import titleSearchIcon from "@/assets/icons/ic_search.svg";
 import trashIcon from "@/assets/icons/ic_trash.svg";
+import { BackLink } from "@/components/common/back-link";
 import { Button } from "@/components/common/button";
 import "@/styles/pre-study-playlist-create.css";
 
@@ -90,6 +91,8 @@ export function PreStudyPlaylistCreatePage() {
   return (
     <section className="pre-study-create" aria-labelledby="pre-study-create-title">
       <div className="pre-study-create__inner">
+        <BackLink to="/pre-study-playlists">예습 플리 생성으로 돌아가기</BackLink>
+
         <header className="pre-study-create__heading">
           <h1 id="pre-study-create-title">예습 플레이리스트 만들기</h1>
           <p>공연 라인업에서 듣고 싶은 아티스트를 선택하고 Spotify에 저장할 예습 플레이리스트를 만들어 보세요.</p>

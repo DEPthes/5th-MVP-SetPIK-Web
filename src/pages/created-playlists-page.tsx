@@ -4,10 +4,10 @@ import chevronDownIcon from "@/assets/icons/ic_chevron_down.svg";
 import sortIcon from "@/assets/icons/ic_sort.svg";
 import spotifyGreenIcon from "@/assets/icons/ic_spotify_green.svg";
 import spotifyIcon from "@/assets/icons/ic_spotify_white.svg";
+import { BackLink } from "@/components/common/back-link";
 import { PlaylistTrackTable } from "@/components/playlist/playlist-track-table";
 import "@/styles/created-playlists.css";
 
-const imgArrowLeft = "https://www.figma.com/api/mcp/asset/ca47f883-ea51-4741-bf7c-11d68da86bf3.svg";
 const imgSearchIcon = "https://www.figma.com/api/mcp/asset/7267fb0d-7221-4790-969b-c33cd3afca9b.svg";
 const imgTicketIcon = "https://www.figma.com/api/mcp/asset/99e6c001-089c-4211-a5d2-447ad1db90ba.svg";
 
@@ -138,10 +138,7 @@ export function CreatedPlaylistsPage() {
   return (
     <section className="created-playlists-page page-shell" aria-labelledby="created-playlists-title">
       <div className="created-playlists-page__back">
-        <Link to="/mypage" className="created-playlists-page__back-button">
-          <img src={imgArrowLeft} alt="뒤로가기" />
-          <span>마이페이지로</span>
-        </Link>
+        <BackLink to="/mypage">마이페이지로</BackLink>
       </div>
 
       <div className="created-playlists-page__header">

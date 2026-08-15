@@ -8,22 +8,6 @@
   display: flex;
 }
 
-.created-playlists-page__back-button {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  min-height: 44px;
-  color: var(--color-gray-500);
-  text-decoration: none;
-  font-size: 20px;
-  font-weight: var(--font-weight-semibold);
-}
-
-.created-playlists-page__back-button img {
-  width: 28px;
-  height: 28px;
-}
-
 .created-playlists-page__header {
   display: flex;
   flex-direction: column;

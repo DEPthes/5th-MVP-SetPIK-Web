@@ -9,10 +9,6 @@
   padding: 80px var(--layout-gutter);
 }
 
-.playlist-selection__back-button {
-  color: var(--color-gray-300);
-}
-
 .playlist-selection__heading {
   margin-top: 0;
   text-align: center;

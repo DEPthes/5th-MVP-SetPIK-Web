@@ -4,18 +4,6 @@
   padding-bottom: 120px;
 }
 
-.recently-viewed-page__back-button {
-  display: inline-flex;
-  align-items: center;
-  min-height: 44px;
-  gap: 6px;
-  color: var(--color-gray-500);
-  font-size: 1.25rem;
-  font-weight: var(--font-weight-semibold);
-}
-
-.recently-viewed-page__back-button img { width: 28px; height: 28px; }
-
 .recently-viewed-page__heading {
   display: flex;
   flex-direction: column;
@@ -269,7 +257,6 @@
 }
 
 @media (max-width: 600px) {
-  .recently-viewed-page__back-button { font-size: var(--font-size-body); }
   .recently-viewed-page__controls { flex-direction: column; }
   .recently-viewed-page__search-box,
   .recently-viewed-page__sort-menu,
