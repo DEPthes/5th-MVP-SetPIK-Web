@@ -1,7 +1,7 @@
 .concert-featured-card {
   display: grid;
   grid-template-columns: minmax(280px, 380px) minmax(0, 1fr);
-  min-height: 394px;
+  min-height: 0;
   overflow: hidden;
   border: 1px solid rgba(255, 255, 255, 0.08);
   border-radius: 16px;
@@ -112,7 +112,7 @@
 .concert-featured-card__match img { width: 12px; height: 12px; }
 .concert-featured-card__match span { color: #767676; font-weight: var(--font-weight-regular); }
 
-.concert-featured-card__actions { display: flex; gap: 8px; margin-top: auto; }
+.concert-featured-card__actions { display: flex; gap: 8px; margin-top: 24px; }
 
 .concert-featured-card__detail-button {
   display: inline-flex;
