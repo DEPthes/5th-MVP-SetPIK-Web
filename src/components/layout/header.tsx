@@ -1,9 +1,7 @@
 import { Link, useLocation } from "react-router-dom";
 import { useAuth } from "@/hooks/use-auth";
-import notificationIcon from "@/assets/icons/ic_notification.svg";
 import setPikLogo from "@/assets/icons/ic_setpik_logo.svg";
 import spotifyIcon from "@/assets/icons/ic_spotify_white.svg";
-import { IconButton } from "@/components/common/icon-button";
 import "./header.css";
 
 interface HeaderProps {
@@ -73,9 +71,6 @@ export function Header({ variant, userInitial = "U" }: HeaderProps) {
             ) : null}
 
             <div className="site-header__actions">
-              <IconButton className="notification-button" aria-label="알림 확인">
-                <img src={notificationIcon} width="20" height="20" alt="" />
-              </IconButton>
               <button className="profile-button" type="button" aria-label="프로필 메뉴 열기">
                 {userInitial.slice(0, 1).toUpperCase()}
               </button>

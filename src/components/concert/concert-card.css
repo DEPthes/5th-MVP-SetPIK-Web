@@ -14,6 +14,8 @@
   position: relative;
   overflow: hidden;
   background: #262626;
+  background-position: center;
+  background-size: cover;
 }
 
 .concert-featured-card__image-wrap > span {

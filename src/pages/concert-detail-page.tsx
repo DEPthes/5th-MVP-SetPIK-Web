@@ -1,7 +1,6 @@
 import { useRef, useState } from "react";
 import { Link, Navigate, useParams } from "react-router-dom";
 import arrowLeftIcon from "@/assets/icons/ic_chevron_left_thick.svg";
-import calendarIcon from "@/assets/icons/ic_calendar.svg";
 import chevronLeftIcon from "@/assets/icons/ic_chevron_left_thick.svg";
 import externalLinkIcon from "@/assets/icons/ic_externallink_pink.svg";
 import musicIcon from "@/assets/icons/ic_music1.svg";
@@ -100,9 +99,6 @@ export function ConcertDetailPage() {
               <Link className="concert-detail__action concert-detail__action--playlist" to="/pre-study-playlists">
                 <img alt="" src={musicCyanIcon} /> 예습 플리 만들기
               </Link>
-              <button className="concert-detail__action concert-detail__action--neutral" type="button">
-                <img alt="" src={calendarIcon} /> 캘린더에 저장
-              </button>
               <SaveButton className="concert-detail__action concert-detail__action--neutral" isSaved={isSaved} label="공연 저장" onClick={() => setIsSaved((saved) => !saved)} variant="label" />
             </div>
           </div>
