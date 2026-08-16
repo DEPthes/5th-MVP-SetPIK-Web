@@ -32,6 +32,10 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     }));
   }
 
+  function logout() {
+    setAuthState(DEFAULT_AUTH_STATE);
+  }
+
   function setOnboardingStep(step: AuthState["onboardingStep"]) {
     setAuthState((currentState) => ({
       ...currentState,
@@ -53,6 +57,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         ...authState,
         completeOnboarding,
         login,
+        logout,
         setOnboardingStep,
       }}
     >

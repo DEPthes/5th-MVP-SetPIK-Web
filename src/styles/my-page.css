@@ -183,10 +183,82 @@
   padding: 24px;
 }
 
+.my-page__account-card--disconnected {
+  padding: 0;
+}
+
+.my-page__avatar-ring--spotify-disconnected {
+  width: 56px;
+  height: 56px;
+  border-radius: 16px;
+  border-color: rgba(255, 255, 255, 0.08);
+  background: #262626;
+}
+
 .my-page__account-description {
   display: flex;
   flex-direction: column;
   gap: 8px;
+}
+
+.my-page__spotify-check-status {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 4px;
+  font-size: 0.875rem;
+  line-height: 1.5;
+}
+
+.my-page__spotify-check-status img {
+  flex: 0 0 auto;
+}
+
+.my-page__spotify-check-status--connected {
+  color: #1db954;
+}
+
+.my-page__spotify-check-status--disconnected {
+  color: #ec3d3d;
+}
+
+.my-page__spotify-disconnected-pill {
+  padding: 5px 11px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.05);
+  color: #808080;
+  font-size: 0.75rem;
+  line-height: 1.5;
+}
+
+.my-page__account-card--disconnected .my-page__account-description {
+  gap: 20px;
+}
+
+.my-page__spotify-disconnected-description {
+  padding-top: 8px;
+}
+
+.my-page__spotify-connect-button {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: fit-content;
+  padding: 12px 24px;
+  border: 0;
+  border-radius: 20px;
+  background: #ff58e0;
+  color: var(--color-white);
+  font-size: 0.875rem;
+  font-weight: 600;
+  line-height: 1.5;
+  cursor: pointer;
+}
+
+.my-page__spotify-connect-button img {
+  width: 20px;
+  height: 20px;
 }
 
 .my-page__account-actions {

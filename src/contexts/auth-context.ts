@@ -11,6 +11,7 @@ export interface AuthState {
 export interface AuthContextValue extends AuthState {
   completeOnboarding: () => void;
   login: () => void;
+  logout: () => void;
   setOnboardingStep: (step: OnboardingStep) => void;
 }
 

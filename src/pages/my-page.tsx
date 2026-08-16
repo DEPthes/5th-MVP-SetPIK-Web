@@ -1,7 +1,14 @@
+import { useState } from "react";
 import { Link } from "react-router-dom";
+import { useAuth } from "@/hooks/use-auth";
 import { useSavedConcerts } from "@/hooks/use-saved-concerts";
 import { useRecentlyViewed } from "@/hooks/use-recently-viewed";
+import { getSpotifyConnectionHealth } from "@/services/spotify-connection";
 import spotifyIcon from "@/assets/icons/ic_spotify_green.svg";
+import spotifyDisconnectedIcon from "@/assets/icons/ic_spotify_gray.svg";
+import spotifyWhiteIcon from "@/assets/icons/ic_spotify_white.svg";
+import checkCircleGreenIcon from "@/assets/icons/ic_check_circle_green.svg";
+import failIcon from "@/assets/icons/ic_fail.svg";
 import heartIcon from "@/assets/icons/ic_heart_pink.svg";
 import clockIcon from "@/assets/icons/ic_time_cyan.svg";
 import headphonesIcon from "@/assets/icons/ic_headphone_cyan.svg";
@@ -10,8 +17,31 @@ import userIcon from "@/assets/icons/ic_user.svg";
 import "@/styles/my-page.css";
 
 export function MyPage() {
+  const { logout } = useAuth();
   const { savedConcertIds } = useSavedConcerts();
   const { recentlyViewedConcertIds } = useRecentlyViewed();
+  const [spotifyConnectionStatus, setSpotifyConnectionStatus] = useState<"idle" | "connected" | "connection-lost" | "unlinked">("idle");
+
+  function logoutAfterStatusMessage() {
+    window.setTimeout(logout, 900);
+  }
+
+  function handleSpotifyConnectionCheck() {
+    const isConnected = getSpotifyConnectionHealth();
+
+    if (isConnected) {
+      setSpotifyConnectionStatus("connected");
+      return;
+    }
+
+    setSpotifyConnectionStatus("connection-lost");
+    logoutAfterStatusMessage();
+  }
+
+  function handleSpotifyUnlink() {
+    setSpotifyConnectionStatus("unlinked");
+    logoutAfterStatusMessage();
+  }
 
   return (
     <section className="my-page page-shell" aria-labelledby="mypage-title">
@@ -74,36 +104,79 @@ export function MyPage() {
             <h2 className="text-heading-2">계정 연동 관리</h2>
           </div>
           <article className="my-page__card" aria-label="계정 연동 관리">
-            <div className="my-page__account-card">
-              <div className="my-page__account-icon">
-                <div className="my-page__avatar-ring" style={{ width: 56, height: 56, borderRadius: 16, borderColor: "rgba(29,185,84,0.2)", background: "rgba(29,185,84,0.08)" }}>
-                  <img src={spotifyIcon} alt="Spotify 아이콘" className="my-page__avatar-icon" style={{ width: 28, height: 28 }} />
-                </div>
-              </div>
-              <div className="my-page__account-description">
-                <div>
-                  <div className="my-page__activity-title">
-                    <h3 className="text-title-2" style={{ color: "var(--color-white)" }}>
-                      Spotify 계정 연결됨
-                    </h3>
-                    <span className="my-page__status-pill">
-                      <span className="my-page__status-dot" />
-                      연결됨
-                    </span>
+            {spotifyConnectionStatus === "connection-lost" ? (
+              <div className="my-page__account-card my-page__account-card--disconnected">
+                <div className="my-page__account-icon">
+                  <div className="my-page__avatar-ring my-page__avatar-ring--spotify-disconnected">
+                    <img src={spotifyDisconnectedIcon} alt="Spotify 아이콘" className="my-page__avatar-icon" style={{ width: 28, height: 28 }} />
                   </div>
-                  <p className="my-page__activity-description" style={{ color: "#b3b3b3", fontSize: "0.875rem" }}>
-                    현재 Spotify 계정과 정상적으로 연동되어 있어요.
-                  </p>
-                  <p className="my-page__activity-description" style={{ color: "#4d4d4d", fontSize: "0.875rem" }}>
-                    연결된 계정: user@spotify.com
-                  </p>
                 </div>
-                <div className="my-page__account-actions">
-                  <button type="button" className="my-page__account-action">연동 상태 확인</button>
-                  <button type="button" className="my-page__account-action my-page__account-action--danger">연동 해제</button>
+                <div className="my-page__account-description">
+                  <div>
+                    <div className="my-page__activity-title">
+                      <h3 className="text-title-2" style={{ color: "var(--color-white)" }}>
+                        Spotify 계정이 연결되어 있지 않아요.
+                      </h3>
+                      <span className="my-page__spotify-disconnected-pill">연결 끊김</span>
+                    </div>
+                    <p className="my-page__activity-description my-page__spotify-disconnected-description">
+                      플레이리스트 분석과 저장 기능을 사용하려면 Spotify 계정을 연결해 주세요.
+                    </p>
+                  </div>
+                  <button type="button" className="my-page__spotify-connect-button" onClick={logout}>
+                    <img src={spotifyWhiteIcon} alt="" aria-hidden="true" />
+                    <span>Spotify 연동하기</span>
+                  </button>
                 </div>
               </div>
-            </div>
+            ) : (
+              <div className="my-page__account-card">
+                <div className="my-page__account-icon">
+                  <div className="my-page__avatar-ring" style={{ width: 56, height: 56, borderRadius: 16, borderColor: "rgba(29,185,84,0.2)", background: "rgba(29,185,84,0.08)" }}>
+                    <img src={spotifyIcon} alt="Spotify 아이콘" className="my-page__avatar-icon" style={{ width: 28, height: 28 }} />
+                  </div>
+                </div>
+                <div className="my-page__account-description">
+                  <div>
+                    <div className="my-page__activity-title">
+                      <h3 className="text-title-2" style={{ color: "var(--color-white)" }}>
+                        Spotify 계정 연결됨
+                      </h3>
+                      <span className="my-page__status-pill">
+                        <span className="my-page__status-dot" />
+                        연결됨
+                      </span>
+                    </div>
+                    <p className="my-page__activity-description" style={{ color: "#b3b3b3", fontSize: "0.875rem" }}>
+                      현재 Spotify 계정과 정상적으로 연동되어 있어요.
+                    </p>
+                    <p className="my-page__activity-description" style={{ color: "#4d4d4d", fontSize: "0.875rem" }}>
+                      연결된 계정: user@spotify.com
+                    </p>
+                    {spotifyConnectionStatus === "connected" && (
+                      <div className="my-page__spotify-check-status my-page__spotify-check-status--connected" role="status">
+                        <img src={checkCircleGreenIcon} alt="" aria-hidden="true" />
+                        <p>Spotify 계정이 정상적으로 연결되어 있어요.</p>
+                      </div>
+                    )}
+                    {spotifyConnectionStatus === "unlinked" && (
+                      <div className="my-page__spotify-check-status my-page__spotify-check-status--disconnected" role="alert">
+                        <img src={failIcon} alt="" aria-hidden="true" />
+                        <p>Spotify 계정 연동이 해제되었어요.</p>
+                      </div>
+                    )}
+                  </div>
+                  <div className="my-page__account-actions">
+                    <button type="button" className="my-page__account-action" onClick={handleSpotifyConnectionCheck}>
+                      연동 상태 확인
+                    </button>
+                    <button type="button" className="my-page__account-action my-page__account-action--danger" onClick={handleSpotifyUnlink}>
+                      연동 해제
+                    </button>
+                  </div>
+                </div>
+              </div>
+            )}
           </article>
         </div>
       </div>
