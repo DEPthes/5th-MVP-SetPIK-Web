@@ -102,7 +102,7 @@
   color: #767676;
   background: transparent;
   cursor: pointer;
-  font-size: var(--font-size-title);
+  font-size: var(--font-size-subtitle);
   font-weight: var(--font-weight-bold);
 }
 

@@ -3,9 +3,6 @@ import arrowRightIcon from "@/assets/icons/ic_arrow_right.svg";
 import dateIcon from "@/assets/icons/ic_date_gray.svg";
 import externalLinkIcon from "@/assets/icons/ic_externallink.svg";
 import locationIcon from "@/assets/icons/ic_location.svg";
-import micIcon from "@/assets/icons/ic_mic.svg";
-import sparkleIcon from "@/assets/icons/ic_sparkle_cyan.svg";
-import ticketIcon from "@/assets/icons/ic_TicketIcon_gray.svg";
 import { Button } from "@/components/common/button";
 import { SaveButton } from "@/components/common/save-button";
 import "./pre-study-concert-card.css";
@@ -43,7 +40,6 @@ export function SavedConcertCard({ concert, onCreate, onOpenPlaylist }: SavedCon
   return (
     <article className="pre-study-saved-card">
       <div className={`pre-study-saved-card__poster pre-study-poster--${concert.gradient}`}>
-        <img alt="" src={micIcon} />
       </div>
       <div className="pre-study-saved-card__content">
         <div>
@@ -68,9 +64,7 @@ export function BrowseConcertCard({ concert, isSaved, onCreate, onToggleSaved, r
   return (
     <article className={`pre-study-browse-card${recommended ? " pre-study-browse-card--recommended" : ""}`}>
       <div className={`pre-study-browse-card__poster pre-study-poster--${concert.gradient}`}>
-        <img alt="" src={ticketIcon} />
-        {recommended && concert.reason ? <span className="pre-study-browse-card__reason"><img alt="" src={sparkleIcon} />{concert.reason}</span> : <span className="pre-study-browse-card__category">{concert.category}</span>}
-        {recommended && concert.rank ? <strong>{String(concert.rank).padStart(2, "0")}</strong> : null}
+        {recommended && concert.reason ? <span className="pre-study-browse-card__reason">{concert.reason}</span> : <span className="pre-study-browse-card__category">{concert.category}</span>}
         <SaveButton className="pre-study-browse-card__save" isSaved={isSaved} label={concert.title} onClick={() => onToggleSaved(concert.id)} />
       </div>
       <div className="pre-study-browse-card__content">

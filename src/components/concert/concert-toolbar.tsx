@@ -3,6 +3,7 @@ import chevronDownIcon from "@/assets/icons/ic_chevron_down.svg";
 import chevronUpIcon from "@/assets/icons/ic_chevron_up.svg";
 import filterIcon from "@/assets/icons/ic_filter.svg";
 import searchIcon from "@/assets/icons/ic_search.svg";
+import sortIcon from "@/assets/icons/ic_sort.svg";
 import { SORT_OPTIONS, type ConcertFilterState, type ConcertSort } from "./concert-data";
 import { ConcertFilterModal } from "./concert-filter-modal";
 import "./concert-toolbar.css";
@@ -86,6 +87,7 @@ export function ConcertToolbar({
             onClick={() => onSortOpenChange(!isSortOpen)}
             type="button"
           >
+            <img alt="" src={sortIcon} />
             {selectedSortLabel}
             <img alt="" src={isSortOpen ? chevronUpIcon : chevronDownIcon} />
           </button>
