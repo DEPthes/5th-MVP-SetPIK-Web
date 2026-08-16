@@ -58,6 +58,11 @@
   color: rgba(255, 255, 255, 0.5);
 }
 
+.saved-concerts-page__search-box:focus-within {
+  border-color: rgba(255, 88, 224, 0.5);
+  box-shadow: 0 0 0 1px rgba(255, 88, 224, 0.12), 0 0 16px rgba(255, 88, 224, 0.08);
+}
+
 .saved-concerts-page__sort-button {
   flex: 0 0 auto;
   justify-content: center;

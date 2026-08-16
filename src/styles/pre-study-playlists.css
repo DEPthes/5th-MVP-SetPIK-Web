@@ -7,6 +7,7 @@
 .pre-study-page__search img { width: 16px; height: 16px; }
 .pre-study-page__search input { width: 100%; border: 0; outline: 0; color: var(--color-white); background: transparent; font-size: var(--font-size-body); }
 .pre-study-page__search input::placeholder { color: var(--color-gray-500); }
+.pre-study-page__search:focus-within { border-color: rgba(255, 88, 224, 0.5); box-shadow: 0 0 0 1px rgba(255, 88, 224, 0.12), 0 0 16px rgba(255, 88, 224, 0.08); }
 .pre-study-page__filters { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 8px; }
 .pre-study-page__filters button { min-height: 39px; padding: 8px 16px; border: 1px solid rgba(255, 255, 255, 0.1); border-radius: var(--radius-pill); color: var(--color-gray-300); background: #171717; cursor: pointer; font-size: var(--font-size-body-small); }
 .pre-study-page__filters button.is-active { border-color: var(--color-brand-300); color: var(--color-white); background: var(--color-brand-300); box-shadow: 0 0 14px rgba(255, 88, 224, 0.25); }

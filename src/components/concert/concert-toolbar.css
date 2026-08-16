@@ -49,6 +49,11 @@
   color: #4a4a4a;
 }
 
+.concert-home__search-field:focus-within {
+  border-color: rgba(255, 88, 224, 0.5);
+  box-shadow: 0 0 0 1px rgba(255, 88, 224, 0.12), 0 0 16px rgba(255, 88, 224, 0.08);
+}
+
 .concert-home__filter-button,
 .concert-home__sort-trigger {
   display: inline-flex;
