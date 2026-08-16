@@ -2,7 +2,6 @@ import { useRef, useState } from "react";
 import { Link, Navigate, useParams } from "react-router-dom";
 import chevronLeftIcon from "@/assets/icons/ic_chevron_left_thick.svg";
 import externalLinkIcon from "@/assets/icons/ic_externallink_pink.svg";
-import musicIcon from "@/assets/icons/ic_music1.svg";
 import musicCyanIcon from "@/assets/icons/ic_music1_cyan.svg";
 import playIcon from "@/assets/icons/ic_play.svg";
 import starIcon from "@/assets/icons/ic_star_cyan.svg";
@@ -76,8 +75,6 @@ export function ConcertDetailPage() {
 
         <div className="concert-detail__overview">
           <div className="concert-detail__poster" aria-label={`${concert.title} 공연 포스터`}>
-            <img alt="" src={musicIcon} />
-            <p>공연 이미지가 없습니다</p>
           </div>
 
           <div className="concert-detail__information">
@@ -119,8 +116,6 @@ export function ConcertDetailPage() {
             {ARTISTS.map((artist) => (
               <article className="concert-artist-card" key={artist.name}>
                 <div className={`concert-artist-card__image concert-artist-card__image--${artist.gradient}`}>
-                  <strong>{artist.initial}</strong>
-                  <span><img alt="" src={starIcon} />내 플레이리스트</span>
                 </div>
                 <div className="concert-artist-card__content">
                   <h3>{artist.name}</h3>
