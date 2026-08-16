@@ -2,7 +2,7 @@
   position: sticky;
   z-index: 20;
   top: 80px;
-  margin-top: 36px;
+  margin-top: 20px;
   padding-block: 12px;
   background: var(--color-footer-background);
 }
