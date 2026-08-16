@@ -143,7 +143,7 @@ export function CreatedPlaylistsPage() {
 
       <div className="created-playlists-page__header">
         <h1 className="created-playlists-page__title" id="created-playlists-title">
-          공연별 예습 플레이리스트
+          생성한 예습 플레이리스트
         </h1>
         <p className="created-playlists-page__subtitle">
           공연 라인업을 바탕으로 생성한 예습 플레이리스트를 확인해 보세요.

@@ -19,6 +19,7 @@
 .pre-study-concert-metadata dd { min-width: 0; margin: 0; overflow: hidden; color: var(--color-gray-300); font-size: var(--font-size-body-small); line-height: var(--line-height-default); text-overflow: ellipsis; white-space: nowrap; }
 .pre-study-saved-card__actions { display: flex; align-items: stretch; gap: 10px; }
 .pre-study-saved-card__create { min-width: 0; flex: 1 1 0; min-height: 42px; padding: 6px 10px; border: 0; border-radius: 20px; background: var(--color-brand-300); line-height: 18px; }
+.pre-study-saved-card__create:hover { background: var(--color-brand-300); box-shadow: 0 0 20px rgba(255, 88, 224, 0.45), 0 0 36px rgba(255, 88, 224, 0.2); filter: brightness(1.08); }
 .pre-study-saved-card__open { min-width: 0; flex: 1 1 0; min-height: 42px; gap: 6px; padding: 6px 10px; border-radius: 20px; color: var(--color-white); background: #262626; font-size: var(--font-size-body-small); line-height: 18px; white-space: nowrap; }
 .pre-study-saved-card__open .button__icon > img { width: 12px; height: 12px; }
 .pre-study-saved-card__content > p { min-height: 28px; margin: 0; color: var(--color-gray-700); font-size: var(--font-size-caption); line-height: 18px; }
@@ -39,4 +40,5 @@
 .pre-study-browse-card .pre-study-concert-metadata { margin-top: 6px; gap: 4px; }
 .pre-study-browse-card .pre-study-concert-metadata dd { color: var(--color-gray-500); font-size: var(--font-size-caption); }
 .pre-study-browse-card__create { min-height: 42px; gap: 8px; padding-inline: 10px; border-color: rgba(255, 255, 255, 0.09); border-radius: 20px; color: var(--color-gray-300); background: #262626; font-size: var(--font-size-body-small); white-space: nowrap; }
+.pre-study-browse-card__create:hover { border-color: rgba(255, 255, 255, 0.3); color: var(--color-white); background: rgba(255, 255, 255, 0.14); box-shadow: 0 0 18px rgba(255, 255, 255, 0.1); }
 .pre-study-browse-card__create .button__icon > img { width: 14px; height: 14px; }

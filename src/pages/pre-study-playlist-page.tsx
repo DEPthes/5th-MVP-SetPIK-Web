@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useMemo, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import sparkleIcon from "@/assets/icons/ic_sparkle_cyan.svg";
 import arrowRightIcon from "@/assets/icons/ic_arrow_right.svg";
@@ -55,6 +55,7 @@ const BROWSE_CONCERTS: PreStudyConcert[] = [
 
 export function PreStudyPlaylistPage() {
   const navigate = useNavigate();
+  const searchInputRef = useRef<HTMLInputElement>(null);
   const [activeFilter, setActiveFilter] = useState("전체");
   const [isSortOpen, setIsSortOpen] = useState(false);
   const [query, setQuery] = useState("");
@@ -94,6 +95,13 @@ export function PreStudyPlaylistPage() {
     if (playlistUrl) window.open(playlistUrl, "_blank", "noopener,noreferrer");
   }
 
+  function focusSearch() {
+    const searchInput = searchInputRef.current;
+    if (!searchInput) return;
+
+    searchInput.focus({ preventScroll: true });
+  }
+
   return (
     <section className="pre-study-page" aria-labelledby="pre-study-title">
       <div className="pre-study-page__hero page-content">
@@ -106,7 +114,7 @@ export function PreStudyPlaylistPage() {
           <label className="pre-study-page__search">
             <img alt="" src={searchIcon} />
             <span className="sr-only">공연 검색</span>
-            <input onChange={(event) => setQuery(event.target.value)} placeholder="공연명, 아티스트명, 공연장 검색" type="search" value={query} />
+            <input onChange={(event) => setQuery(event.target.value)} placeholder="공연명, 아티스트명, 공연장 검색" ref={searchInputRef} type="search" value={query} />
           </label>
           <div className="pre-study-page__filters" aria-label="공연 빠른 필터">
             {FILTERS.map((filter) => (
@@ -183,7 +191,7 @@ export function PreStudyPlaylistPage() {
               <p>검색을 통해 더 많은 공연으로 예습 플레이리스트를 만들 수 있습니다.</p>
             </div>
           </div>
-          <Button trailingIcon={<img alt="" src={arrowRightIcon} />}>공연 검색하기</Button>
+          <Button onClick={focusSearch} trailingIcon={<img alt="" src={arrowRightIcon} />}>공연 검색하기</Button>
         </div>
       </section>
     </section>

@@ -82,6 +82,15 @@
   font-size: 0.75rem;
   line-height: 1.5;
   padding: 5px 11px;
+  cursor: pointer;
+  transition: border-color var(--transition-fast), background-color var(--transition-fast), box-shadow var(--transition-fast), color var(--transition-fast);
+}
+
+.my-page__avatar-action:hover {
+  border-color: rgba(255, 255, 255, 0.24);
+  color: var(--color-white);
+  background: rgba(255, 255, 255, 0.14);
+  box-shadow: 0 0 18px rgba(255, 255, 255, 0.08);
 }
 
 .my-page__info-list {
@@ -133,6 +142,15 @@
   padding: 5px 11px;
   cursor: pointer;
   white-space: nowrap;
+  transition: border-color var(--transition-fast), background-color var(--transition-fast), box-shadow var(--transition-fast), color var(--transition-fast);
+}
+
+.my-page__small-button:hover,
+.my-page__pill-button:hover {
+  border-color: rgba(255, 255, 255, 0.24);
+  color: var(--color-white);
+  background: #333333;
+  box-shadow: 0 0 18px rgba(255, 255, 255, 0.08);
 }
 
 .my-page__status-pill {
@@ -187,11 +205,24 @@
   line-height: 1.5;
   padding: 13.5px 21.5px;
   cursor: pointer;
+  transition: border-color var(--transition-fast), background-color var(--transition-fast), box-shadow var(--transition-fast), color var(--transition-fast);
+}
+
+.my-page__account-action:hover {
+  border-color: rgba(111, 253, 248, 0.6);
+  background: rgba(111, 253, 248, 0.12);
+  box-shadow: 0 0 18px rgba(111, 253, 248, 0.16);
 }
 
 .my-page__account-action--danger {
   border-color: rgba(236, 61, 61, 0.25);
   color: var(--color-error-500);
+}
+
+.my-page__account-action--danger:hover {
+  border-color: rgba(236, 61, 61, 0.6);
+  background: rgba(236, 61, 61, 0.12);
+  box-shadow: 0 0 18px rgba(236, 61, 61, 0.16);
 }
 
 .my-page__activity-section {
@@ -221,6 +252,13 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
+  transition: border-color var(--transition-fast), background-color var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.my-page__activity-card:hover,
+.my-page__playlist-card:hover {
+  border-color: rgba(255, 255, 255, 0.24);
+  box-shadow: 0 0 18px rgba(255, 255, 255, 0.08);
 }
 
 .my-page__activity-card-content {
@@ -299,6 +337,7 @@
   justify-content: space-between;
   gap: 20px;
   min-width: 0;
+  transition: border-color var(--transition-fast), background-color var(--transition-fast), box-shadow var(--transition-fast);
 }
 
 .my-page__playlist-info {

@@ -70,6 +70,15 @@
   gap: 8px;
   padding: 0 17px;
   cursor: pointer;
+  transition: border-color var(--transition-fast), background-color var(--transition-fast), box-shadow var(--transition-fast), color var(--transition-fast);
+}
+
+.recently-viewed-page__sort-button:hover,
+.recently-viewed-page__manage-button:hover {
+  border-color: rgba(255, 255, 255, 0.3);
+  color: var(--color-white);
+  background: #1e1e1e;
+  box-shadow: 0 0 18px rgba(255, 255, 255, 0.1);
 }
 
 .recently-viewed-page__sort-button img:first-child { width: 14px; height: 14px; }
@@ -104,7 +113,8 @@
   cursor: pointer;
 }
 
-.recently-viewed-page__sort-options button:hover { background: rgba(255, 255, 255, 0.06); }
+.recently-viewed-page__sort-options button { transition: background-color var(--transition-fast), color var(--transition-fast); }
+.recently-viewed-page__sort-options button:hover { color: var(--color-white); background: rgba(255, 255, 255, 0.1); }
 .recently-viewed-page__sort-options button.is-selected { background: rgba(255, 88, 224, 0.1); color: var(--color-brand-300); }
 
 .recently-viewed-page__manage-button {
@@ -113,6 +123,7 @@
   justify-content: center;
   padding: 0 17px;
   cursor: pointer;
+  transition: border-color var(--transition-fast), background-color var(--transition-fast), box-shadow var(--transition-fast), color var(--transition-fast);
 }
 
 .recently-viewed-page__manage-button img { width: 15px; height: 15px; }
@@ -238,6 +249,17 @@
   padding: 0 11px;
   background: transparent;
   cursor: pointer;
+}
+.recently-viewed-page__concert-actions > a,
+.recently-viewed-page__concert-actions > button {
+  transition: border-color var(--transition-fast), background-color var(--transition-fast), box-shadow var(--transition-fast), color var(--transition-fast);
+}
+.recently-viewed-page__concert-card:not(.recently-viewed-page__concert-card--disabled) .recently-viewed-page__concert-actions > a:hover,
+.recently-viewed-page__concert-actions > button:not(:disabled):hover {
+  border-color: rgba(255, 255, 255, 0.3);
+  color: var(--color-white);
+  background: #333333;
+  box-shadow: 0 0 18px rgba(255, 255, 255, 0.1);
 }
 .recently-viewed-page__concert-actions > button img { width: 13px; height: 13px; }
 .recently-viewed-page__concert-card--disabled .recently-viewed-page__concert-card-link,
