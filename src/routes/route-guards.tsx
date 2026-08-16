@@ -9,13 +9,13 @@ export function PublicAccessRoute() {
 }
 
 export function SelectionAccessRoute() {
-  const { isAuthenticated, isOnboardingComplete } = useAuth();
+  const { isAuthenticated } = useAuth();
 
   if (!isAuthenticated) {
     return <Navigate replace to="/login" />;
   }
 
-  return isOnboardingComplete ? <Navigate replace to="/concerts" /> : <Outlet />;
+  return <Outlet />;
 }
 
 export function ArtistSelectionAccessRoute() {
@@ -25,11 +25,7 @@ export function ArtistSelectionAccessRoute() {
     return <Navigate replace to="/login" />;
   }
 
-  if (isOnboardingComplete) {
-    return <Navigate replace to="/concerts" />;
-  }
-
-  return onboardingStep === "artist"
+  return isOnboardingComplete || onboardingStep === "artist"
     ? <Outlet />
     : <Navigate replace to="/onboarding/playlist-selection" />;
 }
