@@ -112,13 +112,23 @@ export function Header({ variant }: HeaderProps) {
                 type="button"
                 aria-label="프로필 메뉴 열기"
               >
-                <img src={profile.profileImage ?? userIcon} alt="" aria-hidden="true" />
+                <img
+                  src={profile.profileImage ?? userIcon}
+                  alt=""
+                  aria-hidden="true"
+                  className={profile.profileImage ? "profile-button__image--uploaded" : ""}
+                />
               </button>
               {isProfileMenuOpen ? (
                 <div className="profile-dropdown" role="menu" aria-label="프로필 메뉴">
                   <div className="profile-dropdown__user">
                     <div className="profile-dropdown__avatar">
-                      <img src={profile.profileImage ?? userIcon} alt="" aria-hidden="true" />
+                      <img
+                        src={profile.profileImage ?? userIcon}
+                        alt=""
+                        aria-hidden="true"
+                        className={profile.profileImage ? "profile-dropdown__image--uploaded" : ""}
+                      />
                     </div>
                     <div className="profile-dropdown__user-info">
                       <strong>{profile.nickname}</strong>

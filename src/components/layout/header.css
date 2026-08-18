@@ -122,11 +122,18 @@
   color: var(--color-white);
   background: linear-gradient(135deg, #1a0830 0%, #2a1040 100%);
   cursor: pointer;
+  overflow: hidden;
 }
 
 .profile-button img {
   width: 18px;
   height: 18px;
+}
+
+.profile-button__image--uploaded {
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover;
 }
 
 .profile-dropdown {
@@ -161,11 +168,18 @@
   border-radius: 50%;
   color: var(--color-white);
   background: linear-gradient(135deg, #1a0830 0%, #2a1040 100%);
+  overflow: hidden;
 }
 
 .profile-dropdown__avatar img {
   width: 18px;
   height: 18px;
+  object-fit: cover;
+}
+
+.profile-dropdown__image--uploaded {
+  width: 100% !important;
+  height: 100% !important;
   object-fit: cover;
 }
 
