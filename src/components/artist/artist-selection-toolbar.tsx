@@ -1,6 +1,7 @@
 import chevronDownIcon from "@/assets/icons/ic_chevron_down.svg";
 import chevronUpIcon from "@/assets/icons/ic_chevron_up.svg";
 import searchIcon from "@/assets/icons/ic_search.svg";
+import sortIcon from "@/assets/icons/ic_sort.svg";
 import { ARTIST_SORT_OPTIONS, type ArtistSortOption } from "./artist-data";
 import "./artist-selection-toolbar.css";
 
@@ -43,6 +44,7 @@ export function ArtistSelectionToolbar({
           onClick={() => onSortMenuOpenChange(!isSortMenuOpen)}
           type="button"
         >
+          <img src={sortIcon} alt="" />
           <span>{sortOptionLabel}</span>
           <img src={isSortMenuOpen ? chevronUpIcon : chevronDownIcon} alt="" />
         </button>

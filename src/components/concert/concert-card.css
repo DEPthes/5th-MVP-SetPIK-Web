@@ -1,7 +1,7 @@
 .concert-featured-card {
   display: grid;
   grid-template-columns: minmax(280px, 380px) minmax(0, 1fr);
-  min-height: 394px;
+  min-height: 0;
   overflow: hidden;
   border: 1px solid rgba(255, 255, 255, 0.08);
   border-radius: 16px;
@@ -14,6 +14,8 @@
   position: relative;
   overflow: hidden;
   background: #262626;
+  background-position: center;
+  background-size: cover;
 }
 
 .concert-featured-card__image-wrap > span {
@@ -112,7 +114,7 @@
 .concert-featured-card__match img { width: 12px; height: 12px; }
 .concert-featured-card__match span { color: #767676; font-weight: var(--font-weight-regular); }
 
-.concert-featured-card__actions { display: flex; gap: 8px; margin-top: auto; }
+.concert-featured-card__actions { display: flex; gap: 8px; margin-top: 24px; }
 
 .concert-featured-card__detail-button {
   display: inline-flex;
@@ -125,9 +127,12 @@
   cursor: pointer;
   font-size: var(--font-size-body);
   font-weight: var(--font-weight-bold);
+  transition: background-color var(--transition-fast), box-shadow var(--transition-fast), filter var(--transition-fast), transform var(--transition-fast);
 }
 
 .concert-featured-card__detail-button { border: 0; color: var(--color-white); background: var(--color-brand-300); box-shadow: 0 0 10px rgba(255, 88, 224, 0.3); }
+.concert-featured-card__detail-button:hover { background: var(--color-brand-300); box-shadow: 0 0 22px rgba(255, 88, 224, 0.55), 0 0 42px rgba(255, 88, 224, 0.24); filter: brightness(1.08); }
+.concert-featured-card__detail-button:active { background: var(--color-brand-500); box-shadow: 0 0 10px rgba(255, 88, 224, 0.25); transform: translateY(0) scale(0.98); }
 .concert-featured-card__detail-button img { width: 14px; height: 14px; filter: brightness(0) invert(1); }
 
 .concert-featured-card__save-button {
@@ -136,6 +141,47 @@
   padding: 0 16px;
   border-radius: 20px;
   font-size: var(--font-size-body-small);
+}
+
+.concert-card__save:hover,
+.concert-featured-card__save-button:hover {
+  border-color: rgba(255, 255, 255, 0.3);
+  color: var(--color-white);
+  background: rgba(255, 255, 255, 0.14);
+  box-shadow: 0 0 18px rgba(255, 255, 255, 0.1);
+}
+
+.concert-card__save,
+.concert-featured-card__save-button {
+  transition: border-color var(--transition-fast), color var(--transition-fast), background-color var(--transition-fast), box-shadow var(--transition-fast), transform var(--transition-fast);
+}
+
+.concert-card__save:active,
+.concert-featured-card__save-button:active {
+  transform: scale(0.96);
+  background: rgba(14, 14, 14, 0.82);
+  box-shadow: none;
+}
+
+.concert-card__save.save-button--active,
+.concert-featured-card__save-button.save-button--active {
+  border-color: rgba(255, 88, 224, 0.4);
+  color: var(--color-brand-300);
+  background: rgba(255, 88, 224, 0.2);
+}
+
+.concert-card__save.save-button--active:hover,
+.concert-featured-card__save-button.save-button--active:hover {
+  border-color: rgba(255, 88, 224, 0.4);
+  color: var(--color-brand-300);
+  background: rgba(255, 88, 224, 0.2);
+  box-shadow: 0 0 18px rgba(255, 88, 224, 0.18);
+}
+
+.concert-card__save.save-button--active:active,
+.concert-featured-card__save-button.save-button--active:active {
+  background: rgba(255, 88, 224, 0.14);
+  box-shadow: none;
 }
 
 .concert-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 20px; }

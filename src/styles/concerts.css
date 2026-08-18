@@ -38,40 +38,41 @@
 
 .concert-home__criteria {
   display: flex;
-  min-height: 94px;
+  min-height: 68px;
   align-items: center;
   gap: 12px;
   margin-top: 48px;
-  padding: 16px 17px;
+  padding: 12px 16px;
   border: 1px solid rgba(255, 255, 255, 0.08);
-  border-radius: 16px;
+  border-radius: var(--radius-medium);
   background: #171717;
 }
 
 .concert-home__playlist-cover {
-  width: 40px;
-  height: 40px;
+  width: 36px;
+  height: 36px;
   flex: 0 0 auto;
-  border-radius: 10px;
-  background: #262626;
+  border-radius: 16px;
+  background: #232323;
 }
 
 .concert-home__criteria-copy {
   display: grid;
-  min-width: 146px;
-  gap: 4px;
+  gap: 2px;
 }
 
 .concert-home__criteria-copy p {
-  color: #767676;
-  font-size: var(--font-size-body);
-  font-weight: var(--font-weight-semibold);
+  color: var(--color-gray-500);
+  font-size: var(--font-size-caption);
+  font-weight: var(--font-weight-regular);
+  line-height: var(--line-height-default);
 }
 
 .concert-home__criteria-copy strong {
   color: var(--color-white);
-  font-size: var(--font-size-title);
-  font-weight: var(--font-weight-bold);
+  font-size: var(--font-size-body);
+  font-weight: var(--font-weight-semibold);
+  line-height: var(--line-height-default);
 }
 
 .concert-home__criteria-metadata {
@@ -97,13 +98,14 @@
 
 .concert-home__criteria > button {
   margin-left: auto;
-  padding: 8px;
+  padding: 4px 0;
   border: 0;
-  color: #767676;
+  color: var(--color-gray-300);
   background: transparent;
   cursor: pointer;
-  font-size: var(--font-size-title);
-  font-weight: var(--font-weight-bold);
+  font-size: var(--font-size-body-small);
+  font-weight: var(--font-weight-semibold);
+  line-height: var(--line-height-default);
 }
 
 .concert-home__criteria > button:hover {
