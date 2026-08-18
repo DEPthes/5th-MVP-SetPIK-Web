@@ -9,6 +9,7 @@ import chevronDownIcon from "@/assets/icons/ic_chevron_down.svg";
 import sparkleIcon from "@/assets/icons/ic_sparkle_cyan.svg";
 import trashIcon from "@/assets/icons/ic_trash.svg";
 import kebabMenuIcon from "@/assets/icons/ic_kebab_menu.svg";
+import { RecentlyViewedDeleteModal } from "@/components/common/recently-viewed-delete-modal";
 import "@/styles/recently-viewed.css";
 
 const SORT_OPTIONS = [
@@ -32,6 +33,7 @@ export function RecentlyViewedPage() {
   const [searchTerm, setSearchTerm] = useState("");
   const [sortMode, setSortMode] = useState<SortMode>("recent");
   const [isSortOpen, setIsSortOpen] = useState(false);
+  const [deleteTarget, setDeleteTarget] = useState<Concert | null>(null);
   const { recentlyViewedConcertIds, removeRecentlyViewedConcert } = useRecentlyViewed();
 
   const recentConcerts = useMemo(
@@ -152,7 +154,7 @@ export function RecentlyViewedPage() {
                   공연 상세 보기
                 </Link>
                 <button
-                  onClick={() => removeRecentlyViewedConcert(concert.id)}
+                  onClick={() => setDeleteTarget(concert)}
                   type="button"
                 >
                   <img src={trashIcon} alt="" />
@@ -163,6 +165,16 @@ export function RecentlyViewedPage() {
           );
         })}
       </div>
+
+      {deleteTarget ? (
+        <RecentlyViewedDeleteModal
+          onCancel={() => setDeleteTarget(null)}
+          onConfirm={() => {
+            removeRecentlyViewedConcert(deleteTarget.id);
+            setDeleteTarget(null);
+          }}
+        />
+      ) : null}
     </section>
   );
 }
