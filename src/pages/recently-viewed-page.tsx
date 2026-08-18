@@ -8,6 +8,8 @@ import sortIcon from "@/assets/icons/ic_sort.svg";
 import chevronDownIcon from "@/assets/icons/ic_chevron_down.svg";
 import sparkleIcon from "@/assets/icons/ic_sparkle_cyan.svg";
 import trashIcon from "@/assets/icons/ic_trash.svg";
+import checkedCircleIcon from "@/assets/icons/ic_check_circle_pink.svg";
+import uncheckedCircleIcon from "@/assets/icons/ic_check_circle_gray.svg";
 import kebabMenuIcon from "@/assets/icons/ic_kebab_menu.svg";
 import { RecentlyViewedDeleteModal } from "@/components/common/recently-viewed-delete-modal";
 import "@/styles/recently-viewed.css";
@@ -33,7 +35,10 @@ export function RecentlyViewedPage() {
   const [searchTerm, setSearchTerm] = useState("");
   const [sortMode, setSortMode] = useState<SortMode>("recent");
   const [isSortOpen, setIsSortOpen] = useState(false);
+  const [isSelectionMode, setIsSelectionMode] = useState(false);
+  const [selectedConcertIds, setSelectedConcertIds] = useState<string[]>([]);
   const [deleteTarget, setDeleteTarget] = useState<Concert | null>(null);
+  const [isBulkDeleteModalOpen, setIsBulkDeleteModalOpen] = useState(false);
   const { recentlyViewedConcertIds, removeRecentlyViewedConcert } = useRecentlyViewed();
 
   const recentConcerts = useMemo(
@@ -54,6 +59,45 @@ export function RecentlyViewedPage() {
   }, [recentConcerts, searchTerm, sortMode]);
 
   const activeSortLabel = SORT_OPTIONS.find((option) => option.value === sortMode)?.label;
+
+  function toggleSelectionMode() {
+    setIsSelectionMode((current) => !current);
+    setSelectedConcertIds([]);
+  }
+
+  function toggleConcertSelection(concertId: string) {
+    setSelectedConcertIds((current) => (
+      current.includes(concertId)
+        ? current.filter((id) => id !== concertId)
+        : [...current, concertId]
+    ));
+  }
+
+  function handleConcertCardClick(concertId: string) {
+    if (!isSelectionMode) return;
+
+    toggleConcertSelection(concertId);
+  }
+
+  function closeDeleteModal() {
+    setDeleteTarget(null);
+    setIsBulkDeleteModalOpen(false);
+  }
+
+  function confirmDelete() {
+    if (deleteTarget) {
+      removeRecentlyViewedConcert(deleteTarget.id);
+      setSelectedConcertIds((current) => current.filter((id) => id !== deleteTarget.id));
+    }
+
+    if (isBulkDeleteModalOpen) {
+      selectedConcertIds.forEach((concertId) => removeRecentlyViewedConcert(concertId));
+      setSelectedConcertIds([]);
+      setIsSelectionMode(false);
+    }
+
+    closeDeleteModal();
+  }
 
   return (
     <section className="recently-viewed-page page-shell" aria-labelledby="recently-viewed-title">
@@ -109,32 +153,87 @@ export function RecentlyViewedPage() {
           ) : null}
         </div>
 
-        <button className="recently-viewed-page__manage-button" type="button">
-          <img src={kebabMenuIcon} alt="" />
-          조회 기록 관리
-        </button>
+        <div className="recently-viewed-page__selection-actions">
+          <button
+            aria-pressed={isSelectionMode}
+            className="recently-viewed-page__manage-button"
+            onClick={toggleSelectionMode}
+            type="button"
+          >
+            <img src={kebabMenuIcon} alt="" />
+            선택 삭제
+          </button>
+          {isSelectionMode ? (
+            <button
+              aria-label="선택한 공연 기록 삭제"
+              className="recently-viewed-page__bulk-delete-button"
+              disabled={selectedConcertIds.length === 0}
+              onClick={() => setIsBulkDeleteModalOpen(true)}
+              type="button"
+            >
+              <img src={trashIcon} alt="" />
+            </button>
+          ) : null}
+        </div>
       </div>
 
       <div className="recently-viewed-page__summary-row">
-        <p>최근 본 공연 {visibleConcerts.length}개</p>
-        <span>{sortMode === "recent" ? "최근 조회한 순으로 표시하고 있어요." : "이름순으로 표시하고 있어요."}</span>
+        <div className="recently-viewed-page__summary-copy">
+          <p>최근 본 공연 {visibleConcerts.length}개</p>
+          <span>{sortMode === "recent" ? "최근 조회한 순으로 표시하고 있어요." : "이름순으로 표시하고 있어요."}</span>
+        </div>
       </div>
 
       <div className="recently-viewed-page__card-grid">
         {visibleConcerts.map((concert, index) => {
           const { category, status, variant } = getCardPresentation(index);
+          const isSelected = selectedConcertIds.includes(concert.id);
 
           return (
             <article
-              className="recently-viewed-page__concert-card"
+              className={[
+                "recently-viewed-page__concert-card",
+                isSelectionMode ? "recently-viewed-page__concert-card--selecting" : "",
+                isSelected ? "recently-viewed-page__concert-card--selected" : "",
+              ].filter(Boolean).join(" ")}
               key={concert.id}
             >
-              <Link
-                className="recently-viewed-page__concert-card-link"
-                to={`/concerts/${concert.id}`}
+              {isSelectionMode ? (
+                <button
+                  aria-label={`${concert.title} ${isSelected ? "선택 해제" : "선택"}`}
+                  aria-pressed={isSelected}
+                  className="recently-viewed-page__selection-checkbox"
+                  onClick={() => toggleConcertSelection(concert.id)}
+                  type="button"
+                >
+                  <img src={isSelected ? checkedCircleIcon : uncheckedCircleIcon} alt="" />
+                </button>
+              ) : null}
+              <div
+                className="recently-viewed-page__concert-card-body"
+                onClick={isSelectionMode ? () => handleConcertCardClick(concert.id) : undefined}
+                onKeyDown={isSelectionMode ? (event) => {
+                  if (event.key === "Enter" || event.key === " ") {
+                    event.preventDefault();
+                    handleConcertCardClick(concert.id);
+                  }
+                } : undefined}
+                role={isSelectionMode ? "button" : undefined}
+                tabIndex={isSelectionMode ? 0 : undefined}
               >
                 <div className="recently-viewed-page__concert-thumb">
-                  {status ? <span className="recently-viewed-page__concert-status">{status}</span> : null}
+                  {status ? (
+                    <span
+                      className={[
+                        "recently-viewed-page__concert-status",
+                        status === "매진"
+                          ? "recently-viewed-page__concert-status--sold-out"
+                          : "recently-viewed-page__concert-status--ended",
+                      ].join(" ")}
+                    >
+                      {status}
+                    </span>
+                  ) : null}
                   <span className="recently-viewed-page__concert-category">{category}</span>
                 </div>
                 <div className="recently-viewed-page__concert-content">
@@ -146,7 +245,7 @@ export function RecentlyViewedPage() {
                   </p>
                   <p className="recently-viewed-page__concert-viewed-date">저장일 2026.07.{20 - (index % 4)}</p>
                 </div>
-              </Link>
+              </div>
               <div className="recently-viewed-page__concert-actions">
                 <Link
                   to={`/concerts/${concert.id}`}
@@ -168,12 +267,12 @@ export function RecentlyViewedPage() {
 
       {deleteTarget ? (
         <RecentlyViewedDeleteModal
-          onCancel={() => setDeleteTarget(null)}
-          onConfirm={() => {
-            removeRecentlyViewedConcert(deleteTarget.id);
-            setDeleteTarget(null);
-          }}
+          onCancel={closeDeleteModal}
+          onConfirm={confirmDelete}
         />
+      ) : null}
+      {isBulkDeleteModalOpen ? (
+        <RecentlyViewedDeleteModal onCancel={closeDeleteModal} onConfirm={confirmDelete} />
       ) : null}
     </section>
   );
