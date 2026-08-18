@@ -5,6 +5,7 @@ import sortIcon from "@/assets/icons/ic_sort.svg";
 import spotifyGreenIcon from "@/assets/icons/ic_spotify_green.svg";
 import spotifyIcon from "@/assets/icons/ic_spotify_white.svg";
 import { BackLink } from "@/components/common/back-link";
+import { CreatedPlaylistDeleteModal } from "@/components/common/created-playlist-delete-modal";
 import { PlaylistTrackTable } from "@/components/playlist/playlist-track-table";
 import "@/styles/created-playlists.css";
 
@@ -98,13 +99,15 @@ const PLAYLISTS: PlaylistData[] = [
 ];
 
 export function CreatedPlaylistsPage() {
+  const [playlists, setPlaylists] = useState(PLAYLISTS);
   const [searchTerm, setSearchTerm] = useState("");
   const [sortMode, setSortMode] = useState<"recent" | "oldest" | "alphabetical" | "most-tracks">("recent");
   const [showSortMenu, setShowSortMenu] = useState(false);
   const [expandedPlaylistIds, setExpandedPlaylistIds] = useState<string[]>(["seoul-music-festival"]);
+  const [deleteTarget, setDeleteTarget] = useState<PlaylistData | null>(null);
 
   const filteredPlaylists = useMemo(() => {
-    const list = PLAYLISTS.filter((playlist) => playlist.title.includes(searchTerm) || playlist.subtitle.includes(searchTerm));
+    const list = playlists.filter((playlist) => playlist.title.includes(searchTerm) || playlist.subtitle.includes(searchTerm));
     switch (sortMode) {
       case "recent":
         return [...list].sort((a, b) => b.createdAt.localeCompare(a.createdAt));
@@ -117,7 +120,7 @@ export function CreatedPlaylistsPage() {
       default:
         return list;
     }
-  }, [searchTerm, sortMode]);
+  }, [playlists, searchTerm, sortMode]);
 
   const allExpanded = filteredPlaylists.every((playlist) => expandedPlaylistIds.includes(playlist.id));
 
@@ -133,6 +136,14 @@ export function CreatedPlaylistsPage() {
     } else {
       setExpandedPlaylistIds(filteredPlaylists.map((playlist) => playlist.id));
     }
+  };
+
+  const deletePlaylist = () => {
+    if (!deleteTarget) return;
+
+    setPlaylists((current) => current.filter((playlist) => playlist.id !== deleteTarget.id));
+    setExpandedPlaylistIds((current) => current.filter((playlistId) => playlistId !== deleteTarget.id));
+    setDeleteTarget(null);
   };
 
   return (
@@ -259,7 +270,13 @@ export function CreatedPlaylistsPage() {
                         <span>Spotify에서 열기</span>
                       </button>
                       <Link to={`/concerts/${playlist.concertId}`} className="created-playlists-page__view-concert">공연 상세 보기</Link>
-                      <button type="button" className="created-playlists-page__delete-playlist">생성 기록 삭제</button>
+                      <button
+                        type="button"
+                        className="created-playlists-page__delete-playlist"
+                        onClick={() => setDeleteTarget(playlist)}
+                      >
+                        생성 기록 삭제
+                      </button>
                     </div>
                   </div>
                 </div>
@@ -268,6 +285,13 @@ export function CreatedPlaylistsPage() {
           );
         })}
       </div>
+
+      {deleteTarget ? (
+        <CreatedPlaylistDeleteModal
+          onCancel={() => setDeleteTarget(null)}
+          onConfirm={deletePlaylist}
+        />
+      ) : null}
     </section>
   );
 }
