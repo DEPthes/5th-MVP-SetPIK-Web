@@ -1,0 +1,126 @@
+.birth-date-modal-backdrop {
+  position: fixed;
+  z-index: 100;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  background: rgba(0, 0, 0, 0.68);
+}
+
+.birth-date-modal {
+  position: relative;
+  width: min(446px, 100%);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 32px;
+  border: 1px solid rgba(229, 231, 235, 0.1);
+  border-radius: 24px;
+  background: #171717;
+  box-shadow: 0 1px 1.5px rgba(0, 0, 0, 0.1), 0 1px 1px rgba(0, 0, 0, 0.1);
+}
+
+.birth-date-modal__heading {
+  width: 100%;
+}
+
+.birth-date-modal__heading h2 {
+  color: var(--color-white);
+  font-size: var(--font-size-title);
+  font-weight: var(--font-weight-bold);
+  line-height: 1.4;
+}
+
+.birth-date-modal__description {
+  width: 100%;
+  padding-top: 4px;
+  color: var(--color-gray-500);
+  font-size: var(--font-size-body-small);
+  font-weight: var(--font-weight-regular);
+  line-height: 20px;
+}
+
+.birth-date-modal__form {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  padding-top: 16px;
+}
+
+.birth-date-modal__select-row {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1.4fr 1fr 1fr;
+  gap: 8px;
+  padding-top: 8px;
+}
+
+.birth-date-modal__select {
+  position: relative;
+  min-width: 0;
+  height: 48px;
+}
+
+.birth-date-modal__select select {
+  width: 100%;
+  height: 48px;
+  appearance: none;
+  padding: 0 40px 0 16px;
+  border: 1px solid #262626;
+  border-radius: 12px;
+  outline: 0;
+  color: var(--color-gray-500);
+  background: #262626;
+  cursor: pointer;
+  font-size: var(--font-size-body-small);
+  font-weight: var(--font-weight-regular);
+  line-height: 20px;
+}
+
+.birth-date-modal__select select:focus {
+  border-color: rgba(255, 88, 224, 0.55);
+  box-shadow: 0 0 0 1px rgba(255, 88, 224, 0.12);
+}
+
+.birth-date-modal__select img {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  width: 16px;
+  height: 16px;
+  pointer-events: none;
+}
+
+.birth-date-modal__complete {
+  width: 100%;
+  height: 48px;
+  border: 0;
+  border-radius: 20px;
+  color: var(--color-white);
+  background: var(--color-brand-300);
+  cursor: pointer;
+  font-size: var(--font-size-body-small);
+  font-weight: var(--font-weight-semibold);
+  line-height: 20px;
+  transition: background-color var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.birth-date-modal__complete:hover {
+  background: #ff6ae3;
+  box-shadow: 0 0 18px rgba(255, 88, 224, 0.26);
+}
+
+.birth-date-modal__complete:focus-visible,
+.birth-date-modal__select select:focus-visible {
+  outline: 2px solid var(--color-white);
+  outline-offset: 3px;
+}
+
+@media (max-width: 480px) {
+  .birth-date-modal {
+    padding: 28px 20px 24px;
+  }
+}

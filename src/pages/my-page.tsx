@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { useAuth } from "@/hooks/use-auth";
 import { useSavedConcerts } from "@/hooks/use-saved-concerts";
 import { useRecentlyViewed } from "@/hooks/use-recently-viewed";
+import { BirthDateModal } from "@/components/common/birth-date-modal";
 import { getSpotifyConnectionHealth } from "@/services/spotify-connection";
 import spotifyIcon from "@/assets/icons/ic_spotify_green.svg";
 import spotifyDisconnectedIcon from "@/assets/icons/ic_spotify_gray.svg";
@@ -20,6 +21,8 @@ export function MyPage() {
   const { logout } = useAuth();
   const { savedConcertIds } = useSavedConcerts();
   const { recentlyViewedConcertIds } = useRecentlyViewed();
+  const [birthDate, setBirthDate] = useState<string | null>(null);
+  const [isBirthDateModalOpen, setIsBirthDateModalOpen] = useState(false);
   const [spotifyConnectionStatus, setSpotifyConnectionStatus] = useState<"idle" | "connected" | "connection-lost" | "unlinked">("idle");
 
   function logoutAfterStatusMessage() {
@@ -77,10 +80,10 @@ export function MyPage() {
                 </div>
                 <div className="my-page__info-row">
                   <div className="my-page__label">생년월일</div>
-                  <div className="my-page__value" style={{ color: "#4d4d4d" }}>
-                    등록된 생년월일이 없습니다.
+                  <div className="my-page__value" style={{ color: birthDate ? "var(--color-white)" : "#4d4d4d" }}>
+                    {birthDate ?? "등록된 생년월일이 없습니다."}
                   </div>
-                  <button type="button" className="my-page__small-button">
+                  <button type="button" className="my-page__small-button" onClick={() => setIsBirthDateModalOpen(true)}>
                     정보 등록
                   </button>
                 </div>
@@ -282,6 +285,16 @@ export function MyPage() {
           </Link>
         </div>
       </section>
+
+      {isBirthDateModalOpen ? (
+        <BirthDateModal
+          onClose={() => setIsBirthDateModalOpen(false)}
+          onComplete={(value) => {
+            setBirthDate(value);
+            setIsBirthDateModalOpen(false);
+          }}
+        />
+      ) : null}
     </section>
   );
 }
