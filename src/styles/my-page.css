@@ -187,6 +187,10 @@
   padding: 0;
 }
 
+.my-page__account-card--unlinked {
+  padding: 0;
+}
+
 .my-page__avatar-ring--spotify-disconnected {
   width: 56px;
   height: 56px;
@@ -236,8 +240,41 @@
   gap: 20px;
 }
 
+.my-page__account-card--unlinked .my-page__account-description {
+  gap: 20px;
+}
+
+.my-page__account-card--unlinked .my-page__account-actions {
+  margin-top: 0;
+}
+
 .my-page__spotify-disconnected-description {
   padding-top: 8px;
+}
+
+.my-page__spotify-check-status--unlinked {
+  min-height: 32px;
+  margin-top: 0;
+}
+
+.my-page__spotify-unlinked-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 11px;
+  border: 1px solid rgba(187, 136, 134, 0.46);
+  border-radius: 999px;
+  background: rgba(139, 14, 14, 0.22);
+  color: #ec3d3d;
+  font-size: 0.75rem;
+  line-height: 1.5;
+}
+
+.my-page__spotify-unlinked-dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 999px;
+  background: #ec3d3d;
 }
 
 .my-page__spotify-connect-button {

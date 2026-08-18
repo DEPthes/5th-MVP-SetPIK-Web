@@ -129,6 +129,39 @@ export function MyPage() {
                   </button>
                 </div>
               </div>
+            ) : spotifyConnectionStatus === "unlinked" ? (
+              <div className="my-page__account-card my-page__account-card--unlinked">
+                <div className="my-page__account-icon">
+                  <div className="my-page__avatar-ring" style={{ width: 56, height: 56, borderRadius: 16, borderColor: "rgba(29,185,84,0.2)", background: "rgba(29,185,84,0.08)" }}>
+                    <img src={spotifyIcon} alt="Spotify 아이콘" className="my-page__avatar-icon" style={{ width: 28, height: 28 }} />
+                  </div>
+                </div>
+                <div className="my-page__account-description">
+                  <div>
+                    <div className="my-page__activity-title">
+                      <h3 className="text-title-2" style={{ color: "var(--color-white)" }}>
+                        Spotify 계정 연결되지 않음
+                      </h3>
+                      <span className="my-page__spotify-unlinked-pill">
+                        <span className="my-page__spotify-unlinked-dot" />
+                        연결 해제됨
+                      </span>
+                    </div>
+                    <div className="my-page__spotify-check-status my-page__spotify-check-status--disconnected my-page__spotify-check-status--unlinked" role="alert">
+                      <img src={failIcon} alt="" aria-hidden="true" />
+                      <p>Spotify 계정 연동이 해제되었어요.</p>
+                    </div>
+                  </div>
+                  <div className="my-page__account-actions">
+                    <button type="button" className="my-page__account-action" onClick={handleSpotifyConnectionCheck}>
+                      연동 상태 확인
+                    </button>
+                    <button type="button" className="my-page__account-action my-page__account-action--danger" onClick={handleSpotifyUnlink}>
+                      연동 해제
+                    </button>
+                  </div>
+                </div>
+              </div>
             ) : (
               <div className="my-page__account-card">
                 <div className="my-page__account-icon">
@@ -157,12 +190,6 @@ export function MyPage() {
                       <div className="my-page__spotify-check-status my-page__spotify-check-status--connected" role="status">
                         <img src={checkCircleGreenIcon} alt="" aria-hidden="true" />
                         <p>Spotify 계정이 정상적으로 연결되어 있어요.</p>
-                      </div>
-                    )}
-                    {spotifyConnectionStatus === "unlinked" && (
-                      <div className="my-page__spotify-check-status my-page__spotify-check-status--disconnected" role="alert">
-                        <img src={failIcon} alt="" aria-hidden="true" />
-                        <p>Spotify 계정 연동이 해제되었어요.</p>
                       </div>
                     )}
                   </div>
