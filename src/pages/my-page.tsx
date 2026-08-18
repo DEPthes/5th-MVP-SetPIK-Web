@@ -1,8 +1,10 @@
-import { useState } from "react";
+import { useRef, useState, type ChangeEvent } from "react";
 import { Link } from "react-router-dom";
 import { useAuth } from "@/hooks/use-auth";
 import { useSavedConcerts } from "@/hooks/use-saved-concerts";
 import { useRecentlyViewed } from "@/hooks/use-recently-viewed";
+import { useUserProfile } from "@/hooks/use-user-profile";
+import { BirthDateModal } from "@/components/common/birth-date-modal";
 import { getSpotifyConnectionHealth } from "@/services/spotify-connection";
 import spotifyIcon from "@/assets/icons/ic_spotify_green.svg";
 import spotifyDisconnectedIcon from "@/assets/icons/ic_spotify_gray.svg";
@@ -20,6 +22,13 @@ export function MyPage() {
   const { logout } = useAuth();
   const { savedConcertIds } = useSavedConcerts();
   const { recentlyViewedConcertIds } = useRecentlyViewed();
+  const { profile, updateProfile } = useUserProfile();
+  const profileImageInputRef = useRef<HTMLInputElement>(null);
+  const [birthDate, setBirthDate] = useState<string | null>(null);
+  const [isBirthDateModalOpen, setIsBirthDateModalOpen] = useState(false);
+  const [isNicknameEditing, setIsNicknameEditing] = useState(false);
+  const [nicknameDraft, setNicknameDraft] = useState("");
+  const [profileImageError, setProfileImageError] = useState("");
   const [spotifyConnectionStatus, setSpotifyConnectionStatus] = useState<"idle" | "connected" | "connection-lost" | "unlinked">("idle");
 
   function logoutAfterStatusMessage() {
@@ -43,6 +52,51 @@ export function MyPage() {
     logoutAfterStatusMessage();
   }
 
+  function startNicknameEditing() {
+    setNicknameDraft(profile.nickname);
+    setIsNicknameEditing(true);
+  }
+
+  function cancelNicknameEditing() {
+    setNicknameDraft("");
+    setIsNicknameEditing(false);
+  }
+
+  function confirmNicknameEditing() {
+    const nextNickname = nicknameDraft.trim();
+    if (!nextNickname) return;
+
+    updateProfile({ nickname: nextNickname });
+    setNicknameDraft("");
+    setIsNicknameEditing(false);
+  }
+
+  function handleProfileImageChange(event: ChangeEvent<HTMLInputElement>) {
+    const file = event.target.files?.[0];
+    event.target.value = "";
+
+    if (!file) return;
+
+    if (!file.type.startsWith("image/")) {
+      setProfileImageError("이미지 파일만 업로드할 수 있어요.");
+      return;
+    }
+
+    if (file.size > 2 * 1024 * 1024) {
+      setProfileImageError("이미지는 2MB 이하로 업로드해 주세요.");
+      return;
+    }
+
+    const reader = new FileReader();
+    reader.onload = () => {
+      if (typeof reader.result !== "string") return;
+      updateProfile({ profileImage: reader.result });
+      setProfileImageError("");
+    };
+    reader.onerror = () => setProfileImageError("이미지를 불러오지 못했어요. 다시 시도해 주세요.");
+    reader.readAsDataURL(file);
+  }
+
   return (
     <section className="my-page page-shell" aria-labelledby="mypage-title">
       <div className="my-page__header">
@@ -63,31 +117,71 @@ export function MyPage() {
             <div className="my-page__profile-row">
               <div className="my-page__avatar-group">
                 <div className="my-page__avatar-ring">
-                  <img src={userIcon} alt="사용자 프로필 아이콘" className="my-page__avatar-icon" />
+                  <img
+                    src={profile.profileImage ?? userIcon}
+                    alt="사용자 프로필 아이콘"
+                    className={`my-page__avatar-icon${profile.profileImage ? " my-page__avatar-icon--uploaded" : ""}`}
+                  />
                 </div>
-                <div className="my-page__avatar-action">프로필 사진 변경</div>
+                <button
+                  className="my-page__avatar-action"
+                  onClick={() => {
+                    setProfileImageError("");
+                    profileImageInputRef.current?.click();
+                  }}
+                  type="button"
+                >
+                  프로필 사진 변경
+                </button>
+                <input
+                  ref={profileImageInputRef}
+                  accept="image/png,image/jpeg,image/gif,image/webp"
+                  className="sr-only"
+                  onChange={handleProfileImageChange}
+                  type="file"
+                />
+                {profileImageError ? <p className="my-page__avatar-error" role="alert">{profileImageError}</p> : null}
               </div>
               <div className="my-page__info-list">
                 <div className="my-page__info-row">
                   <div className="my-page__label">닉네임</div>
-                  <div className="my-page__value">SetPik User</div>
-                  <button type="button" className="my-page__small-button">
-                    변경
+                  {isNicknameEditing ? (
+                    <input
+                      aria-label="닉네임 입력"
+                      autoFocus
+                      className="my-page__nickname-input"
+                      onChange={(event) => setNicknameDraft(event.target.value)}
+                      onKeyDown={(event) => {
+                        if (event.key === "Enter") confirmNicknameEditing();
+                        if (event.key === "Escape") cancelNicknameEditing();
+                      }}
+                      type="text"
+                      value={nicknameDraft}
+                    />
+                  ) : (
+                    <div className="my-page__value">{profile.nickname}</div>
+                  )}
+                  <button
+                    type="button"
+                    className="my-page__small-button"
+                    onClick={isNicknameEditing ? confirmNicknameEditing : startNicknameEditing}
+                  >
+                    {isNicknameEditing ? "확인" : "변경"}
                   </button>
                 </div>
                 <div className="my-page__info-row">
                   <div className="my-page__label">생년월일</div>
-                  <div className="my-page__value" style={{ color: "#4d4d4d" }}>
-                    등록된 생년월일이 없습니다.
+                  <div className="my-page__value" style={{ color: birthDate ? "var(--color-white)" : "#4d4d4d" }}>
+                    {birthDate ?? "등록된 생년월일이 없습니다."}
                   </div>
-                  <button type="button" className="my-page__small-button">
+                  <button type="button" className="my-page__small-button" onClick={() => setIsBirthDateModalOpen(true)}>
                     정보 등록
                   </button>
                 </div>
                 <div className="my-page__info-row">
                   <div className="my-page__label">연결 계정</div>
                   <div className="my-page__row-actions">
-                    <span className="my-page__value">user@google.com</span>
+                    <span className="my-page__value">{profile.accountEmail}</span>
                     <span className="my-page__status-pill">
                       <span className="my-page__status-dot" />
                       연결됨
@@ -129,6 +223,39 @@ export function MyPage() {
                   </button>
                 </div>
               </div>
+            ) : spotifyConnectionStatus === "unlinked" ? (
+              <div className="my-page__account-card my-page__account-card--unlinked">
+                <div className="my-page__account-icon">
+                  <div className="my-page__avatar-ring" style={{ width: 56, height: 56, borderRadius: 16, borderColor: "rgba(29,185,84,0.2)", background: "rgba(29,185,84,0.08)" }}>
+                    <img src={spotifyIcon} alt="Spotify 아이콘" className="my-page__avatar-icon" style={{ width: 28, height: 28 }} />
+                  </div>
+                </div>
+                <div className="my-page__account-description">
+                  <div>
+                    <div className="my-page__activity-title">
+                      <h3 className="text-title-2" style={{ color: "var(--color-white)" }}>
+                        Spotify 계정 연결되지 않음
+                      </h3>
+                      <span className="my-page__spotify-unlinked-pill">
+                        <span className="my-page__spotify-unlinked-dot" />
+                        연결 해제됨
+                      </span>
+                    </div>
+                    <div className="my-page__spotify-check-status my-page__spotify-check-status--disconnected my-page__spotify-check-status--unlinked" role="alert">
+                      <img src={failIcon} alt="" aria-hidden="true" />
+                      <p>Spotify 계정 연동이 해제되었어요.</p>
+                    </div>
+                  </div>
+                  <div className="my-page__account-actions">
+                    <button type="button" className="my-page__account-action" onClick={handleSpotifyConnectionCheck}>
+                      연동 상태 확인
+                    </button>
+                    <button type="button" className="my-page__account-action my-page__account-action--danger" onClick={handleSpotifyUnlink}>
+                      연동 해제
+                    </button>
+                  </div>
+                </div>
+              </div>
             ) : (
               <div className="my-page__account-card">
                 <div className="my-page__account-icon">
@@ -157,12 +284,6 @@ export function MyPage() {
                       <div className="my-page__spotify-check-status my-page__spotify-check-status--connected" role="status">
                         <img src={checkCircleGreenIcon} alt="" aria-hidden="true" />
                         <p>Spotify 계정이 정상적으로 연결되어 있어요.</p>
-                      </div>
-                    )}
-                    {spotifyConnectionStatus === "unlinked" && (
-                      <div className="my-page__spotify-check-status my-page__spotify-check-status--disconnected" role="alert">
-                        <img src={failIcon} alt="" aria-hidden="true" />
-                        <p>Spotify 계정 연동이 해제되었어요.</p>
                       </div>
                     )}
                   </div>
@@ -255,6 +376,16 @@ export function MyPage() {
           </Link>
         </div>
       </section>
+
+      {isBirthDateModalOpen ? (
+        <BirthDateModal
+          onClose={() => setIsBirthDateModalOpen(false)}
+          onComplete={(value) => {
+            setBirthDate(value);
+            setIsBirthDateModalOpen(false);
+          }}
+        />
+      ) : null}
     </section>
   );
 }

@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useLayoutEffect, useRef, useState } from "react";
 import { Link, Navigate, useParams } from "react-router-dom";
 import chevronLeftIcon from "@/assets/icons/ic_chevron_left_thick.svg";
 import externalLinkIcon from "@/assets/icons/ic_externallink_pink.svg";
@@ -27,6 +27,10 @@ export function ConcertDetailPage() {
   const concert = ALL_CONCERTS.find((item) => item.id === concertId);
   const [isSaved, setIsSaved] = useState(false);
   const lineupTrackRef = useRef<HTMLDivElement>(null);
+
+  useLayoutEffect(() => {
+    window.scrollTo({ top: 0, left: 0, behavior: "auto" });
+  }, [concertId]);
 
   function slideLineup(direction: "next" | "previous") {
     const track = lineupTrackRef.current;

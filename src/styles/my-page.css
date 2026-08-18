@@ -67,14 +67,25 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  overflow: hidden;
 }
 
 .my-page__avatar-icon {
   width: 40px;
   height: 40px;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
+.my-page__avatar-icon--uploaded {
+  width: 100%;
+  height: 100%;
 }
 
 .my-page__avatar-action {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   background: rgba(255, 255, 255, 0.1);
   border: 1px solid var(--my-page-border);
   border-radius: 999px;
@@ -91,6 +102,14 @@
   color: var(--color-white);
   background: rgba(255, 255, 255, 0.14);
   box-shadow: 0 0 18px rgba(255, 255, 255, 0.08);
+}
+
+.my-page__avatar-error {
+  max-width: 150px;
+  color: var(--color-error-500);
+  font-size: var(--font-size-caption);
+  line-height: var(--line-height-default);
+  text-align: center;
 }
 
 .my-page__info-list {
@@ -122,6 +141,24 @@
 .my-page__value {
   color: var(--color-white);
   white-space: nowrap;
+}
+
+.my-page__nickname-input {
+  min-width: 0;
+  flex: 1;
+  padding: 6px 10px;
+  border: 1px solid rgba(255, 88, 224, 0.45);
+  border-radius: 8px;
+  outline: 0;
+  color: var(--color-white);
+  background: #262626;
+  font-size: inherit;
+  line-height: 1.5;
+}
+
+.my-page__nickname-input:focus {
+  border-color: var(--color-brand-300);
+  box-shadow: 0 0 0 1px rgba(255, 88, 224, 0.16), 0 0 12px rgba(255, 88, 224, 0.1);
 }
 
 .my-page__row-actions {
@@ -187,6 +224,10 @@
   padding: 0;
 }
 
+.my-page__account-card--unlinked {
+  padding: 0;
+}
+
 .my-page__avatar-ring--spotify-disconnected {
   width: 56px;
   height: 56px;
@@ -236,8 +277,41 @@
   gap: 20px;
 }
 
+.my-page__account-card--unlinked .my-page__account-description {
+  gap: 20px;
+}
+
+.my-page__account-card--unlinked .my-page__account-actions {
+  margin-top: 0;
+}
+
 .my-page__spotify-disconnected-description {
   padding-top: 8px;
+}
+
+.my-page__spotify-check-status--unlinked {
+  min-height: 32px;
+  margin-top: 0;
+}
+
+.my-page__spotify-unlinked-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 11px;
+  border: 1px solid rgba(187, 136, 134, 0.46);
+  border-radius: 999px;
+  background: rgba(139, 14, 14, 0.22);
+  color: #ec3d3d;
+  font-size: 0.75rem;
+  line-height: 1.5;
+}
+
+.my-page__spotify-unlinked-dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 999px;
+  background: #ec3d3d;
 }
 
 .my-page__spotify-connect-button {

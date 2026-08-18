@@ -1,25 +1,14 @@
 import { useMemo, useState } from "react";
 import { Link } from "react-router-dom";
 import chevronDownIcon from "@/assets/icons/ic_chevron_down.svg";
+import searchIcon from "@/assets/icons/ic_search.svg";
 import sortIcon from "@/assets/icons/ic_sort.svg";
 import spotifyGreenIcon from "@/assets/icons/ic_spotify_green.svg";
 import spotifyIcon from "@/assets/icons/ic_spotify_white.svg";
 import { BackLink } from "@/components/common/back-link";
+import { CreatedPlaylistDeleteModal } from "@/components/common/created-playlist-delete-modal";
 import { PlaylistTrackTable } from "@/components/playlist/playlist-track-table";
 import "@/styles/created-playlists.css";
-
-const imgSearchIcon = "https://www.figma.com/api/mcp/asset/7267fb0d-7221-4790-969b-c33cd3afca9b.svg";
-const imgTicketIcon = "https://www.figma.com/api/mcp/asset/99e6c001-089c-4211-a5d2-447ad1db90ba.svg";
-
-const TRACK_ICON_GRADIENTS = [
-  "linear-gradient(135deg, rgb(26, 10, 46) 0%, rgb(40, 12, 64) 100%)",
-  "linear-gradient(135deg, rgb(10, 26, 58) 0%, rgb(10, 40, 96) 100%)",
-  "linear-gradient(135deg, rgb(6, 32, 32) 0%, rgb(4, 48, 58) 100%)",
-  "linear-gradient(135deg, rgb(30, 26, 6) 0%, rgb(48, 40, 10) 100%)",
-  "linear-gradient(135deg, rgb(32, 8, 8) 0%, rgb(58, 12, 12) 100%)",
-  "linear-gradient(135deg, rgb(6, 32, 32) 0%, rgb(8, 48, 48) 100%)",
-  "linear-gradient(135deg, rgb(8, 8, 42) 0%, rgb(12, 12, 66) 100%)",
-];
 
 interface PlaylistTrack {
   id: string;
@@ -98,13 +87,15 @@ const PLAYLISTS: PlaylistData[] = [
 ];
 
 export function CreatedPlaylistsPage() {
+  const [playlists, setPlaylists] = useState(PLAYLISTS);
   const [searchTerm, setSearchTerm] = useState("");
   const [sortMode, setSortMode] = useState<"recent" | "oldest" | "alphabetical" | "most-tracks">("recent");
   const [showSortMenu, setShowSortMenu] = useState(false);
   const [expandedPlaylistIds, setExpandedPlaylistIds] = useState<string[]>(["seoul-music-festival"]);
+  const [deleteTarget, setDeleteTarget] = useState<PlaylistData | null>(null);
 
   const filteredPlaylists = useMemo(() => {
-    const list = PLAYLISTS.filter((playlist) => playlist.title.includes(searchTerm) || playlist.subtitle.includes(searchTerm));
+    const list = playlists.filter((playlist) => playlist.title.includes(searchTerm) || playlist.subtitle.includes(searchTerm));
     switch (sortMode) {
       case "recent":
         return [...list].sort((a, b) => b.createdAt.localeCompare(a.createdAt));
@@ -117,7 +108,7 @@ export function CreatedPlaylistsPage() {
       default:
         return list;
     }
-  }, [searchTerm, sortMode]);
+  }, [playlists, searchTerm, sortMode]);
 
   const allExpanded = filteredPlaylists.every((playlist) => expandedPlaylistIds.includes(playlist.id));
 
@@ -133,6 +124,14 @@ export function CreatedPlaylistsPage() {
     } else {
       setExpandedPlaylistIds(filteredPlaylists.map((playlist) => playlist.id));
     }
+  };
+
+  const deletePlaylist = () => {
+    if (!deleteTarget) return;
+
+    setPlaylists((current) => current.filter((playlist) => playlist.id !== deleteTarget.id));
+    setExpandedPlaylistIds((current) => current.filter((playlistId) => playlistId !== deleteTarget.id));
+    setDeleteTarget(null);
   };
 
   return (
@@ -152,7 +151,7 @@ export function CreatedPlaylistsPage() {
 
       <div className="created-playlists-page__controls">
         <label className="created-playlists-page__search-box">
-          <img src={imgSearchIcon} alt="검색" />
+          <img src={searchIcon} alt="검색" />
           <input
             type="text"
             value={searchTerm}
@@ -201,7 +200,7 @@ export function CreatedPlaylistsPage() {
       </div>
 
       <div className="created-playlists-page__playlist-list">
-        {filteredPlaylists.map((playlist, playlistIndex) => {
+        {filteredPlaylists.map((playlist) => {
           const isExpanded = expandedPlaylistIds.includes(playlist.id);
           return (
             <article
@@ -209,12 +208,7 @@ export function CreatedPlaylistsPage() {
               key={playlist.id}
             >
               <button type="button" className="created-playlists-page__playlist-card-header" onClick={() => togglePlaylist(playlist.id)}>
-                <div
-                  className="created-playlists-page__playlist-card-icon"
-                  style={{ backgroundImage: TRACK_ICON_GRADIENTS[playlistIndex % TRACK_ICON_GRADIENTS.length] }}
-                >
-                  <img src={imgTicketIcon} alt="플레이리스트 아이콘" />
-                </div>
+                <div className="created-playlists-page__playlist-card-icon" aria-hidden="true" />
                 <div className="created-playlists-page__playlist-card-meta">
                   <div className="created-playlists-page__playlist-card-title-row">
                     <p className="created-playlists-page__playlist-card-title">{playlist.title}</p>
@@ -251,7 +245,6 @@ export function CreatedPlaylistsPage() {
                   </div>
 
                   <PlaylistTrackTable
-                    coverBackgrounds={TRACK_ICON_GRADIENTS}
                     showPreviewButton
                     tracks={playlist.tracks}
                   />
@@ -265,7 +258,13 @@ export function CreatedPlaylistsPage() {
                         <span>Spotify에서 열기</span>
                       </button>
                       <Link to={`/concerts/${playlist.concertId}`} className="created-playlists-page__view-concert">공연 상세 보기</Link>
-                      <button type="button" className="created-playlists-page__delete-playlist">생성 기록 삭제</button>
+                      <button
+                        type="button"
+                        className="created-playlists-page__delete-playlist"
+                        onClick={() => setDeleteTarget(playlist)}
+                      >
+                        생성 기록 삭제
+                      </button>
                     </div>
                   </div>
                 </div>
@@ -274,6 +273,13 @@ export function CreatedPlaylistsPage() {
           );
         })}
       </div>
+
+      {deleteTarget ? (
+        <CreatedPlaylistDeleteModal
+          onCancel={() => setDeleteTarget(null)}
+          onConfirm={deletePlaylist}
+        />
+      ) : null}
     </section>
   );
 }

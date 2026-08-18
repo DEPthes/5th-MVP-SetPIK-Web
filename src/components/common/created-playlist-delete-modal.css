@@ -1,0 +1,179 @@
+.created-playlist-delete-modal-backdrop {
+  position: fixed;
+  z-index: 100;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  background: rgba(0, 0, 0, 0.68);
+}
+
+.created-playlist-delete-modal {
+  position: relative;
+  width: min(500px, 100%);
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  padding: 41px;
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  border-radius: 24px;
+  background: #171717;
+  box-shadow: 0 24px 64px rgba(0, 0, 0, 0.48);
+}
+
+.created-playlist-delete-modal__close {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  width: 38px;
+  height: 38px;
+  display: grid;
+  place-items: center;
+  padding: 0;
+  border: 0;
+  border-radius: 20px;
+  background: transparent;
+  cursor: pointer;
+}
+
+.created-playlist-delete-modal__close:hover {
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.created-playlist-delete-modal__close img {
+  width: 16px;
+  height: 16px;
+}
+
+.created-playlist-delete-modal__warning {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  padding-top: 4px;
+}
+
+.created-playlist-delete-modal__warning img {
+  width: 32px;
+  height: 32px;
+}
+
+.created-playlist-delete-modal__copy {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: center;
+  text-align: center;
+}
+
+.created-playlist-delete-modal__copy h2 {
+  color: var(--color-white);
+  font-size: var(--font-size-title);
+  font-weight: var(--font-weight-bold);
+  line-height: var(--line-height-default);
+}
+
+.created-playlist-delete-modal__copy p {
+  color: var(--color-gray-300);
+  font-size: var(--font-size-body-small);
+  font-weight: var(--font-weight-regular);
+  line-height: var(--line-height-default);
+}
+
+.created-playlist-delete-modal__info {
+  width: 100%;
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 15px 17px;
+  border: 1px solid rgba(111, 253, 248, 0.12);
+  border-radius: 16px;
+  background: rgba(111, 253, 248, 0.04);
+}
+
+.created-playlist-delete-modal__info img {
+  width: 16px;
+  height: 16px;
+  flex: 0 0 auto;
+  margin-top: 2px;
+}
+
+.created-playlist-delete-modal__info p {
+  color: rgba(111, 253, 248, 0.6);
+  font-size: var(--font-size-body-small);
+  font-weight: var(--font-weight-regular);
+  line-height: var(--line-height-default);
+}
+
+.created-playlist-delete-modal__notice {
+  width: 100%;
+  padding: 11px 17px;
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  border-radius: 20px;
+  color: var(--color-gray-500);
+  background: rgba(255, 255, 255, 0.04);
+  font-size: var(--font-size-body-small);
+  font-weight: var(--font-weight-regular);
+  line-height: var(--line-height-default);
+  text-align: center;
+}
+
+.created-playlist-delete-modal__actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.created-playlist-delete-modal__actions button {
+  min-width: 0;
+  min-height: 62px;
+  flex: 1 1 0;
+  padding: 17px 33px;
+  border-radius: 20px;
+  cursor: pointer;
+  font-size: var(--font-size-subtitle);
+  font-weight: var(--font-weight-semibold);
+  line-height: var(--line-height-default);
+  transition: border-color var(--transition-fast), background-color var(--transition-fast), box-shadow var(--transition-fast), color var(--transition-fast);
+}
+
+.created-playlist-delete-modal__cancel {
+  border: 1px solid var(--color-gray-700);
+  color: var(--color-gray-300);
+  background: transparent;
+}
+
+.created-playlist-delete-modal__confirm {
+  border: 1px solid rgba(236, 61, 61, 0.28);
+  color: var(--color-error-500);
+  background: rgba(139, 14, 14, 0.22);
+}
+
+.created-playlist-delete-modal__cancel:hover {
+  border-color: rgba(255, 255, 255, 0.3);
+  color: var(--color-white);
+  background: #1e1e1e;
+  box-shadow: 0 0 18px rgba(255, 255, 255, 0.1);
+}
+
+.created-playlist-delete-modal__confirm:hover {
+  border-color: rgba(236, 61, 61, 0.55);
+  background: rgba(139, 14, 14, 0.36);
+  box-shadow: 0 0 18px rgba(236, 61, 61, 0.16);
+}
+
+.created-playlist-delete-modal__close:focus-visible,
+.created-playlist-delete-modal__actions button:focus-visible {
+  outline: 2px solid var(--color-white);
+  outline-offset: 3px;
+}
+
+@media (max-width: 520px) {
+  .created-playlist-delete-modal {
+    padding: 36px 24px 24px;
+  }
+
+  .created-playlist-delete-modal__actions button {
+    padding-inline: 16px;
+  }
+}
