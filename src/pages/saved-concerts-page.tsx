@@ -7,8 +7,6 @@ import searchIcon from "@/assets/icons/ic_search.svg";
 import sortIcon from "@/assets/icons/ic_sort.svg";
 import chevronDownIcon from "@/assets/icons/ic_chevron_down.svg";
 import chevronUpPinkIcon from "@/assets/icons/ic_chevron_up_pink.svg";
-import musicIcon from "@/assets/icons/ic_music1.svg";
-import ticketIcon from "@/assets/icons/ic_TicketIcon_gray.svg";
 import sparkleIcon from "@/assets/icons/ic_shine_cyan.svg";
 import heartIcon from "@/assets/icons/ic_heart_pink.svg";
 import "@/styles/saved-concerts.css";
@@ -184,9 +182,7 @@ export function SavedConcertsPage() {
               className="saved-concerts-page__playlist-card-header"
               onClick={() => togglePlaylist(playlist.id)}
             >
-              <div className={`saved-concerts-page__playlist-card-icon-bg saved-concerts-page__playlist-card-icon-bg--${playlist.originalIndex}`}>
-                <img src={musicIcon} alt="" />
-              </div>
+              <div className="saved-concerts-page__playlist-card-icon-bg" aria-hidden="true" />
               <div className="saved-concerts-page__playlist-card-meta">
                 <div className="saved-concerts-page__playlist-card-title-row">
                   <strong>{playlist.title}</strong>
@@ -236,12 +232,11 @@ export function SavedConcertsPage() {
                           tabIndex={isEnded ? -1 : undefined}
                           to={`/concerts/${concert.id}`}
                         >
-                          <div className={`saved-concerts-page__concert-card-thumb saved-concerts-page__concert-card-thumb--${index}`}>
+                          <div className="saved-concerts-page__concert-card-thumb">
                             {index >= 2 ? <span className="saved-concerts-page__concert-card-status">{index === 2 ? "매진" : "종료"}</span> : null}
                             <span className="saved-concerts-page__concert-card-category">
                               {index === 0 ? "페스티벌" : index === 1 ? "단독 공연" : "콘서트"}
                             </span>
-                            <img src={ticketIcon} alt="" />
                           </div>
                           <div className="saved-concerts-page__concert-card-content">
                             <p className="saved-concerts-page__concert-card-title">{concert.title}</p>

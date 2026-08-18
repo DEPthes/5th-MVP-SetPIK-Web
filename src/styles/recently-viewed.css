@@ -172,14 +172,16 @@
   place-items: center;
   overflow: hidden;
   flex: 0 0 auto;
-  background: linear-gradient(159deg, #1a0a2e 8%, #280c40 92%);
+  background: #232323;
 }
 
-.recently-viewed-page__concert-thumb--1 { background: linear-gradient(159deg, #09082d 8%, #15154b 92%); }
-.recently-viewed-page__concert-thumb--2 { background: linear-gradient(159deg, #082f69 8%, #09438e 92%); }
-.recently-viewed-page__concert-thumb--3 { background: linear-gradient(159deg, #032225 8%, #06383b 92%); }
-.recently-viewed-page__concert-thumb::after { position: absolute; inset: 0; background: linear-gradient(to top, rgba(0, 0, 0, 0.18), transparent 48%); content: ""; }
-.recently-viewed-page__concert-thumb > img { position: relative; z-index: 1; width: 32px; height: 17px; }
+.recently-viewed-page__concert-thumb::after {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(23, 23, 23, 0.7) 0%, rgba(0, 0, 0, 0) 55%);
+  content: "";
+  pointer-events: none;
+}
 
 .recently-viewed-page__concert-status,
 .recently-viewed-page__concert-category {
@@ -195,7 +197,6 @@
 
 .recently-viewed-page__concert-status { left: 16px; }
 .recently-viewed-page__concert-category { right: 16px; }
-.recently-viewed-page__concert-thumb--2 .recently-viewed-page__concert-status { border: 1px solid rgba(242, 158, 46, 0.45); color: #f29e2e; }
 
 .recently-viewed-page__concert-content {
   display: flex;

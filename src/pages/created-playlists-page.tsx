@@ -201,7 +201,7 @@ export function CreatedPlaylistsPage() {
       </div>
 
       <div className="created-playlists-page__playlist-list">
-        {filteredPlaylists.map((playlist, playlistIndex) => {
+        {filteredPlaylists.map((playlist) => {
           const isExpanded = expandedPlaylistIds.includes(playlist.id);
           return (
             <article
@@ -209,12 +209,7 @@ export function CreatedPlaylistsPage() {
               key={playlist.id}
             >
               <button type="button" className="created-playlists-page__playlist-card-header" onClick={() => togglePlaylist(playlist.id)}>
-                <div
-                  className="created-playlists-page__playlist-card-icon"
-                  style={{ backgroundImage: TRACK_ICON_GRADIENTS[playlistIndex % TRACK_ICON_GRADIENTS.length] }}
-                >
-                  <img src={imgTicketIcon} alt="플레이리스트 아이콘" />
-                </div>
+                <div className="created-playlists-page__playlist-card-icon" aria-hidden="true" />
                 <div className="created-playlists-page__playlist-card-meta">
                   <div className="created-playlists-page__playlist-card-title-row">
                     <p className="created-playlists-page__playlist-card-title">{playlist.title}</p>
@@ -251,7 +246,6 @@ export function CreatedPlaylistsPage() {
                   </div>
 
                   <PlaylistTrackTable
-                    coverBackgrounds={TRACK_ICON_GRADIENTS}
                     showPreviewButton
                     tracks={playlist.tracks}
                   />

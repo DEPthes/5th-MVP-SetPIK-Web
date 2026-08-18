@@ -200,17 +200,10 @@
   width: 58px;
   height: 58px;
   flex: 0 0 auto;
-  display: grid;
-  place-items: center;
   border: 1px solid rgba(255, 255, 255, 0.08);
   border-radius: 20px;
-  background: linear-gradient(135deg, #1a0a2e, #320a4a);
+  background: #232323;
 }
-
-.saved-concerts-page__playlist-card-icon-bg--1 { background: linear-gradient(135deg, #07142c, #123f87); }
-.saved-concerts-page__playlist-card-icon-bg--2 { background: linear-gradient(135deg, #042426, #00505b); }
-.saved-concerts-page__playlist-card-icon-bg--3 { background: linear-gradient(135deg, #272100, #4b4000); }
-.saved-concerts-page__playlist-card-icon-bg img { width: 28px; height: 28px; opacity: 0.3; }
 
 .saved-concerts-page__playlist-card-meta {
   min-width: 0;
@@ -336,14 +329,16 @@
   display: grid;
   place-items: center;
   overflow: hidden;
-  background: linear-gradient(135deg, #18062e, #36105c);
+  background: #232323;
 }
 
-.saved-concerts-page__concert-card-thumb--1 { background: linear-gradient(135deg, #08072c, #15154c); }
-.saved-concerts-page__concert-card-thumb--2 { background: linear-gradient(135deg, #092d68, #07428f); }
-.saved-concerts-page__concert-card-thumb--3 { background: linear-gradient(135deg, #032124, #07373a); }
-.saved-concerts-page__concert-card-thumb::after { position: absolute; inset: 0; background: linear-gradient(to top, rgba(0, 0, 0, 0.22), transparent 48%); content: ""; }
-.saved-concerts-page__concert-card-thumb > img { position: relative; z-index: 1; width: 34px; height: 18px; }
+.saved-concerts-page__concert-card-thumb::after {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(23, 23, 23, 0.7) 0%, rgba(0, 0, 0, 0) 55%);
+  content: "";
+  pointer-events: none;
+}
 
 .saved-concerts-page__concert-card-status,
 .saved-concerts-page__concert-card-category {
@@ -360,8 +355,7 @@
 
 .saved-concerts-page__concert-card-status { left: 14px; }
 .saved-concerts-page__concert-card-category { right: 14px; }
-.saved-concerts-page__concert-card-thumb--2 .saved-concerts-page__concert-card-status { color: #f29e2e; border: 1px solid rgba(242, 158, 46, 0.45); }
-.saved-concerts-page__concert-card-thumb--3 .saved-concerts-page__concert-card-status { color: var(--color-gray-500); }
+.saved-concerts-page__concert-card-status { color: var(--color-gray-300); }
 
 .saved-concerts-page__concert-card-content {
   display: flex;

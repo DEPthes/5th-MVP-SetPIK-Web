@@ -6,7 +6,6 @@ import { BackLink } from "@/components/common/back-link";
 import searchIcon from "@/assets/icons/ic_search.svg";
 import sortIcon from "@/assets/icons/ic_sort.svg";
 import chevronDownIcon from "@/assets/icons/ic_chevron_down.svg";
-import ticketIcon from "@/assets/icons/ic_TicketIcon_gray.svg";
 import sparkleIcon from "@/assets/icons/ic_sparkle_cyan.svg";
 import trashIcon from "@/assets/icons/ic_trash.svg";
 import kebabMenuIcon from "@/assets/icons/ic_kebab_menu.svg";
@@ -140,10 +139,9 @@ export function RecentlyViewedPage() {
                 tabIndex={isEnded ? -1 : undefined}
                 to={`/concerts/${concert.id}`}
               >
-                <div className={`recently-viewed-page__concert-thumb recently-viewed-page__concert-thumb--${variant}`}>
+                <div className="recently-viewed-page__concert-thumb">
                   {status ? <span className="recently-viewed-page__concert-status">{status}</span> : null}
                   <span className="recently-viewed-page__concert-category">{category}</span>
-                  <img src={ticketIcon} alt="" />
                 </div>
                 <div className="recently-viewed-page__concert-content">
                   <h2>{concert.title}</h2>

@@ -242,11 +242,7 @@
   display: grid;
   place-items: center;
   border: 1px solid rgba(255, 255, 255, 0.08);
-}
-
-.created-playlists-page__playlist-card-icon img {
-  width: 28px;
-  height: 28px;
+  background: #232323;
 }
 
 .created-playlists-page__playlist-card-meta {
