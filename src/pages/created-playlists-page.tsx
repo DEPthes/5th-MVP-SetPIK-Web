@@ -1,6 +1,7 @@
 import { useMemo, useState } from "react";
 import { Link } from "react-router-dom";
 import chevronDownIcon from "@/assets/icons/ic_chevron_down.svg";
+import searchIcon from "@/assets/icons/ic_search.svg";
 import sortIcon from "@/assets/icons/ic_sort.svg";
 import spotifyGreenIcon from "@/assets/icons/ic_spotify_green.svg";
 import spotifyIcon from "@/assets/icons/ic_spotify_white.svg";
@@ -8,19 +9,6 @@ import { BackLink } from "@/components/common/back-link";
 import { CreatedPlaylistDeleteModal } from "@/components/common/created-playlist-delete-modal";
 import { PlaylistTrackTable } from "@/components/playlist/playlist-track-table";
 import "@/styles/created-playlists.css";
-
-const imgSearchIcon = "https://www.figma.com/api/mcp/asset/7267fb0d-7221-4790-969b-c33cd3afca9b.svg";
-const imgTicketIcon = "https://www.figma.com/api/mcp/asset/99e6c001-089c-4211-a5d2-447ad1db90ba.svg";
-
-const TRACK_ICON_GRADIENTS = [
-  "linear-gradient(135deg, rgb(26, 10, 46) 0%, rgb(40, 12, 64) 100%)",
-  "linear-gradient(135deg, rgb(10, 26, 58) 0%, rgb(10, 40, 96) 100%)",
-  "linear-gradient(135deg, rgb(6, 32, 32) 0%, rgb(4, 48, 58) 100%)",
-  "linear-gradient(135deg, rgb(30, 26, 6) 0%, rgb(48, 40, 10) 100%)",
-  "linear-gradient(135deg, rgb(32, 8, 8) 0%, rgb(58, 12, 12) 100%)",
-  "linear-gradient(135deg, rgb(6, 32, 32) 0%, rgb(8, 48, 48) 100%)",
-  "linear-gradient(135deg, rgb(8, 8, 42) 0%, rgb(12, 12, 66) 100%)",
-];
 
 interface PlaylistTrack {
   id: string;
@@ -163,7 +151,7 @@ export function CreatedPlaylistsPage() {
 
       <div className="created-playlists-page__controls">
         <label className="created-playlists-page__search-box">
-          <img src={imgSearchIcon} alt="검색" />
+          <img src={searchIcon} alt="검색" />
           <input
             type="text"
             value={searchTerm}
