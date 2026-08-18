@@ -109,6 +109,16 @@
   gap: 12px;
 }
 
+.notification-button {
+  width: 44px;
+  height: 44px;
+}
+
+.notification-button > img {
+  width: 20px;
+  height: 20px;
+}
+
 .profile-button {
   display: inline-flex;
   width: 36px;

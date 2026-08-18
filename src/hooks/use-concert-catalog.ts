@@ -30,11 +30,7 @@ export function useConcertCatalog() {
   const filteredConcerts = useMemo(() => {
     const normalizedSearchTerm = searchTerm.trim().toLowerCase();
     const concerts = normalizedSearchTerm
-      ? ALL_CONCERTS.filter((concert) => (
-        `${concert.title} ${concert.category} ${concert.artists} ${concert.location}`
-          .toLowerCase()
-          .includes(normalizedSearchTerm)
-      ))
+      ? ALL_CONCERTS.filter((concert) => `${concert.title} ${concert.category} ${concert.artists}`.toLowerCase().includes(normalizedSearchTerm))
       : ALL_CONCERTS;
 
     if (sort === "date") return [...concerts].sort((first, second) => first.date.localeCompare(second.date));

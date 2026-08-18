@@ -1,5 +1,6 @@
 .back-button {
   display: inline-flex;
+  min-height: 44px;
   align-items: center;
   gap: 6px;
   padding: 0;
@@ -7,21 +8,24 @@
   color: var(--color-gray-500);
   background: transparent;
   cursor: pointer;
-  font-size: var(--font-size-subtitle);
+  font-size: var(--font-size-title);
   font-weight: var(--font-weight-semibold);
   line-height: var(--line-height-default);
-  text-decoration: none;
   transition: color var(--transition-fast);
 }
 
 .back-button img {
-  width: 16px;
-  height: 16px;
+  width: 28px;
+  height: 28px;
   transition: filter var(--transition-fast);
 }
 
 .back-button:hover {
   color: var(--color-white);
+}
+
+.back-button:hover img {
+  filter: brightness(0) invert(1);
 }
 
 .back-button:focus-visible {

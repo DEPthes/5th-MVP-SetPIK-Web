@@ -41,6 +41,8 @@
 
 .artist-card__content { display: flex; width: 100%; flex-direction: column; align-items: flex-start; gap: 2px; padding-top: 12px; }
 .artist-card__tag { box-sizing: border-box; min-height: 28px; margin-block: 2px; padding: 5px 9px; border: 1px solid rgba(111, 253, 248, 0.25); border-radius: var(--radius-pill); color: var(--color-accent-300); background: rgba(111, 253, 248, 0.1); font-size: var(--font-size-caption); font-weight: var(--font-weight-regular); line-height: var(--line-height-default); }
+.artist-card__tag-placeholder { display: block; min-height: 28px; margin-block: 2px; }
+
 .artist-card__content > strong { overflow: hidden; width: 100%; padding-top: 8px; color: var(--color-white); font-size: var(--font-size-subtitle); font-weight: var(--font-weight-semibold); line-height: var(--line-height-default); text-overflow: ellipsis; white-space: nowrap; }
 .artist-card__content > small { overflow: hidden; width: 100%; min-height: 26px; box-sizing: border-box; padding-top: 2px; color: var(--color-gray-500); font-size: var(--font-size-body-small); font-weight: var(--font-weight-semibold); line-height: var(--line-height-default); text-overflow: ellipsis; white-space: nowrap; }
 

@@ -1,5 +1,4 @@
 import { Link } from "react-router-dom";
-import { useAuth } from "@/hooks/use-auth";
 import setPikLogo from "@/assets/icons/ic_setpik_logo.svg";
 import "./footer.css";
 
@@ -11,15 +10,12 @@ const QUICK_LINKS = [
 ];
 
 export function Footer() {
-  const { isAuthenticated, isOnboardingComplete } = useAuth();
-  const logoPath = isAuthenticated && isOnboardingComplete ? "/concerts" : "/";
-
   return (
     <footer className="site-footer">
       <div className="site-footer__inner">
         <div className="site-footer__columns">
           <section className="site-footer__brand" aria-label="SetPik 소개">
-            <Link className="site-footer__logo-link" to={logoPath} aria-label="SetPik 홈">
+            <Link className="site-footer__logo-link" to="/" aria-label="SetPik 홈">
               <img className="site-footer__logo" src={setPikLogo} alt="" />
             </Link>
             <p className="site-footer__description">

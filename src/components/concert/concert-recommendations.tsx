@@ -1,5 +1,4 @@
 import type { ReactNode, RefObject } from "react";
-import { useNavigate } from "react-router-dom";
 import aiCyanIcon from "@/assets/icons/ic_shine_cyan.svg";
 import artistIcon from "@/assets/icons/ic_artist.svg";
 import playlistIcon from "@/assets/icons/ic_playlist.svg";
@@ -35,8 +34,6 @@ function ConcertSection({ children, description, id, title }: ConcertSectionProp
 }
 
 export function ConcertRecommendationCriteria() {
-  const navigate = useNavigate();
-
   return (
     <section className="concert-home__criteria" aria-label="공연 추천 기준">
       <span className="concert-home__playlist-cover" aria-hidden="true" />
@@ -48,7 +45,7 @@ export function ConcertRecommendationCriteria() {
         <span><img alt="" src={playlistIcon} />42곡</span>
         <span><img alt="" src={artistIcon} />선택한 아티스트 5명</span>
       </div>
-      <button onClick={() => navigate("/onboarding/playlist-selection")} type="button">변경</button>
+      <button type="button">변경</button>
     </section>
   );
 }

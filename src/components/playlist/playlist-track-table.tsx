@@ -1,3 +1,4 @@
+import musicIcon from "@/assets/icons/ic_music1.svg";
 import playIcon from "@/assets/icons/ic_play.svg";
 import timeIcon from "@/assets/icons/ic_time_gray.svg";
 import "./playlist-track-table.css";
@@ -44,6 +45,7 @@ export function PlaylistTrackTable({ tracks, showPreviewButton = false, coverBac
             <li key={track.id ?? `${track.title}-${index}`} role="row">
               <span className="playlist-track-table-shared__index" role="cell">{index + 1}</span>
               <span className="playlist-track-table-shared__cover" style={coverStyle} role="cell">
+                <img src={musicIcon} alt="" />
               </span>
               <span className="playlist-track-table-shared__title" role="cell">
                 <strong>{track.title}</strong>

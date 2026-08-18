@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import { ALL_CONCERTS } from "@/components/concert/concert-data";
 import { useSavedConcerts } from "@/hooks/use-saved-concerts";
-import { BackLink } from "@/components/common/back-link";
+import arrowLeftIcon from "@/assets/icons/ic_chevron_left_thick.svg";
 import searchIcon from "@/assets/icons/ic_search.svg";
 import sortIcon from "@/assets/icons/ic_sort.svg";
 import chevronDownIcon from "@/assets/icons/ic_chevron_down.svg";
@@ -108,7 +108,10 @@ export function SavedConcertsPage() {
   return (
     <section className="saved-concerts-page page-shell" aria-labelledby="saved-concerts-title">
       <div className="saved-concerts-page__back">
-        <BackLink to="/mypage">마이페이지로</BackLink>
+        <Link to="/mypage" className="saved-concerts-page__back-button">
+          <img src={arrowLeftIcon} alt="" />
+          <span>마이페이지로</span>
+        </Link>
       </div>
 
       <div className="saved-concerts-page__header">

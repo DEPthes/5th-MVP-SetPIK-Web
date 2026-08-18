@@ -1,19 +1,12 @@
 import { useNavigate } from "react-router-dom";
-import { getOnboardingPath } from "@/contexts/auth-context";
-import { useAuth } from "@/hooks/use-auth";
 import { SpotifyButton } from "@/components/common/spotify-button";
 import "@/styles/auth.css";
 
 export function LoginPage() {
   const navigate = useNavigate();
-  const { isOnboardingComplete, login, onboardingStep } = useAuth();
 
   function handleSpotifyLogin() {
-    login();
-    navigate(
-      isOnboardingComplete ? "/concerts" : getOnboardingPath(onboardingStep),
-      { replace: true },
-    );
+    navigate("/onboarding/playlist-selection", { replace: true });
   }
 
   return (

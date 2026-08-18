@@ -21,6 +21,7 @@ export function ArtistSelectionPage() {
       <div className="artist-selection-page__inner">
         {!isDisconnected ? (
           <BackButton
+            className="artist-selection__back-button"
             onClick={() => navigate("/onboarding/playlist-selection")}
           />
         ) : null}

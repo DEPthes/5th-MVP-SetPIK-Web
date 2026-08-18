@@ -1,12 +1,14 @@
 import { useRef, useState } from "react";
 import { Link, Navigate, useParams } from "react-router-dom";
+import arrowLeftIcon from "@/assets/icons/ic_chevron_left_thick.svg";
+import calendarIcon from "@/assets/icons/ic_calendar.svg";
 import chevronLeftIcon from "@/assets/icons/ic_chevron_left_thick.svg";
 import externalLinkIcon from "@/assets/icons/ic_externallink_pink.svg";
+import musicIcon from "@/assets/icons/ic_music1.svg";
 import musicCyanIcon from "@/assets/icons/ic_music1_cyan.svg";
 import playIcon from "@/assets/icons/ic_play.svg";
 import starIcon from "@/assets/icons/ic_star_cyan.svg";
 import { Button } from "@/components/common/button";
-import { BackLink } from "@/components/common/back-link";
 import { SaveButton } from "@/components/common/save-button";
 import { ALL_CONCERTS } from "@/components/concert/concert-data";
 import "@/styles/concert-detail.css";
@@ -59,7 +61,10 @@ export function ConcertDetailPage() {
   return (
     <section className="concert-detail" aria-labelledby="concert-detail-title">
       <div className="concert-detail__inner">
-        <BackLink to="/concerts">공연 목록으로</BackLink>
+        <Link className="concert-detail__back" to="/concerts">
+          <img alt="" src={arrowLeftIcon} />
+          공연 목록으로
+        </Link>
 
         <header className="concert-detail__heading">
           <h1 id="concert-detail-title">{concert.title}</h1>
@@ -75,6 +80,8 @@ export function ConcertDetailPage() {
 
         <div className="concert-detail__overview">
           <div className="concert-detail__poster" aria-label={`${concert.title} 공연 포스터`}>
+            <img alt="" src={musicIcon} />
+            <p>공연 이미지가 없습니다</p>
           </div>
 
           <div className="concert-detail__information">
@@ -93,6 +100,9 @@ export function ConcertDetailPage() {
               <Link className="concert-detail__action concert-detail__action--playlist" to="/pre-study-playlists">
                 <img alt="" src={musicCyanIcon} /> 예습 플리 만들기
               </Link>
+              <button className="concert-detail__action concert-detail__action--neutral" type="button">
+                <img alt="" src={calendarIcon} /> 캘린더에 저장
+              </button>
               <SaveButton className="concert-detail__action concert-detail__action--neutral" isSaved={isSaved} label="공연 저장" onClick={() => setIsSaved((saved) => !saved)} variant="label" />
             </div>
           </div>
@@ -116,6 +126,8 @@ export function ConcertDetailPage() {
             {ARTISTS.map((artist) => (
               <article className="concert-artist-card" key={artist.name}>
                 <div className={`concert-artist-card__image concert-artist-card__image--${artist.gradient}`}>
+                  <strong>{artist.initial}</strong>
+                  <span><img alt="" src={starIcon} />내 플레이리스트</span>
                 </div>
                 <div className="concert-artist-card__content">
                   <h3>{artist.name}</h3>
