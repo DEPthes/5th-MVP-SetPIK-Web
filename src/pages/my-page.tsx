@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { useAuth } from "@/hooks/use-auth";
 import { useSavedConcerts } from "@/hooks/use-saved-concerts";
 import { useRecentlyViewed } from "@/hooks/use-recently-viewed";
+import { useUserProfile } from "@/hooks/use-user-profile";
 import { BirthDateModal } from "@/components/common/birth-date-modal";
 import { getSpotifyConnectionHealth } from "@/services/spotify-connection";
 import spotifyIcon from "@/assets/icons/ic_spotify_green.svg";
@@ -21,6 +22,7 @@ export function MyPage() {
   const { logout } = useAuth();
   const { savedConcertIds } = useSavedConcerts();
   const { recentlyViewedConcertIds } = useRecentlyViewed();
+  const { profile } = useUserProfile();
   const [birthDate, setBirthDate] = useState<string | null>(null);
   const [isBirthDateModalOpen, setIsBirthDateModalOpen] = useState(false);
   const [spotifyConnectionStatus, setSpotifyConnectionStatus] = useState<"idle" | "connected" | "connection-lost" | "unlinked">("idle");
@@ -66,14 +68,14 @@ export function MyPage() {
             <div className="my-page__profile-row">
               <div className="my-page__avatar-group">
                 <div className="my-page__avatar-ring">
-                  <img src={userIcon} alt="사용자 프로필 아이콘" className="my-page__avatar-icon" />
+                  <img src={profile.profileImage ?? userIcon} alt="사용자 프로필 아이콘" className="my-page__avatar-icon" />
                 </div>
                 <div className="my-page__avatar-action">프로필 사진 변경</div>
               </div>
               <div className="my-page__info-list">
                 <div className="my-page__info-row">
                   <div className="my-page__label">닉네임</div>
-                  <div className="my-page__value">SetPik User</div>
+                  <div className="my-page__value">{profile.nickname}</div>
                   <button type="button" className="my-page__small-button">
                     변경
                   </button>
@@ -90,7 +92,7 @@ export function MyPage() {
                 <div className="my-page__info-row">
                   <div className="my-page__label">연결 계정</div>
                   <div className="my-page__row-actions">
-                    <span className="my-page__value">user@google.com</span>
+                    <span className="my-page__value">{profile.accountEmail}</span>
                     <span className="my-page__status-pill">
                       <span className="my-page__status-dot" />
                       연결됨
