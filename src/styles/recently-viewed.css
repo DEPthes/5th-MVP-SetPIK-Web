@@ -157,7 +157,6 @@
   background: #171717;
 }
 
-.recently-viewed-page__concert-card--disabled { opacity: 0.4; }
 .recently-viewed-page__concert-card-link {
   display: flex;
   flex: 1;
@@ -255,7 +254,7 @@
 .recently-viewed-page__concert-actions > button {
   transition: border-color var(--transition-fast), background-color var(--transition-fast), box-shadow var(--transition-fast), color var(--transition-fast);
 }
-.recently-viewed-page__concert-card:not(.recently-viewed-page__concert-card--disabled) .recently-viewed-page__concert-actions > a:hover,
+.recently-viewed-page__concert-card .recently-viewed-page__concert-actions > a:hover,
 .recently-viewed-page__concert-actions > button:not(:disabled):hover {
   border-color: rgba(255, 255, 255, 0.3);
   color: var(--color-white);
@@ -263,9 +262,6 @@
   box-shadow: 0 0 18px rgba(255, 255, 255, 0.1);
 }
 .recently-viewed-page__concert-actions > button img { width: 13px; height: 13px; }
-.recently-viewed-page__concert-card--disabled .recently-viewed-page__concert-card-link,
-.recently-viewed-page__concert-card--disabled .recently-viewed-page__concert-actions > a,
-.recently-viewed-page__concert-actions > button:disabled { cursor: not-allowed; }
 
 @media (max-width: 1350px) {
   .recently-viewed-page__card-grid { grid-template-columns: repeat(4, 232px); }

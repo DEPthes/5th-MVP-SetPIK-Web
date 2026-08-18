@@ -24,7 +24,6 @@ function getCardPresentation(index: number) {
   return {
     category: variant === 0 ? "페스티벌" : variant === 1 ? "단독 공연" : "콘서트",
     status: variant === 2 ? "매진" : variant === 3 ? "종료" : null,
-    isEnded: variant === 3,
     variant,
   };
 }
@@ -121,22 +120,15 @@ export function RecentlyViewedPage() {
 
       <div className="recently-viewed-page__card-grid">
         {visibleConcerts.map((concert, index) => {
-          const { category, status, isEnded, variant } = getCardPresentation(index);
+          const { category, status, variant } = getCardPresentation(index);
 
           return (
             <article
-              aria-disabled={isEnded}
-              className={[
-                "recently-viewed-page__concert-card",
-                isEnded ? "recently-viewed-page__concert-card--disabled" : "",
-              ].filter(Boolean).join(" ")}
+              className="recently-viewed-page__concert-card"
               key={concert.id}
             >
               <Link
-                aria-disabled={isEnded}
                 className="recently-viewed-page__concert-card-link"
-                onClick={isEnded ? (event) => event.preventDefault() : undefined}
-                tabIndex={isEnded ? -1 : undefined}
                 to={`/concerts/${concert.id}`}
               >
                 <div className="recently-viewed-page__concert-thumb">
@@ -155,15 +147,11 @@ export function RecentlyViewedPage() {
               </Link>
               <div className="recently-viewed-page__concert-actions">
                 <Link
-                  aria-disabled={isEnded}
-                  onClick={isEnded ? (event) => event.preventDefault() : undefined}
-                  tabIndex={isEnded ? -1 : undefined}
                   to={`/concerts/${concert.id}`}
                 >
                   공연 상세 보기
                 </Link>
                 <button
-                  disabled={isEnded}
                   onClick={() => removeRecentlyViewedConcert(concert.id)}
                   type="button"
                 >
