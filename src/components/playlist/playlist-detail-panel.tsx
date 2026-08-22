@@ -40,6 +40,15 @@ function SelectionPlaceholder() {
 }
 
 function PlaylistDetail({ playlist, tracks }: { playlist: Playlist; tracks: PlaylistTrack[] }) {
+  const totalDurationMs = tracks.reduce((total, track) => total + (track.durationMs ?? 0), 0);
+  const totalMinutes = Math.floor(totalDurationMs / 60_000);
+  const totalHours = Math.floor(totalMinutes / 60);
+  const totalDuration = totalDurationMs > 0
+    ? totalHours > 0
+      ? `${totalHours}시간 ${totalMinutes % 60}분`
+      : `${totalMinutes}분`
+    : "재생 시간 정보 없음";
+
   return (
     <div className="playlist-detail">
       <div className="playlist-detail__summary">
@@ -57,7 +66,7 @@ function PlaylistDetail({ playlist, tracks }: { playlist: Playlist; tracks: Play
           <div className="playlist-detail__metadata">
             <span><img src={musicNoteIcon} alt="" />{playlist.trackCount}곡</span>
             <i aria-hidden="true">·</i>
-            <span><img src={timePinkIcon} alt="" />재생 시간 정보 없음</span>
+            <span><img src={timePinkIcon} alt="" />{totalDuration}</span>
             <i aria-hidden="true">·</i>
             <span><img src={dateIcon} alt="" />{playlist.updatedAt}</span>
           </div>

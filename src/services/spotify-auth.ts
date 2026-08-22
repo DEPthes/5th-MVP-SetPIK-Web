@@ -2,6 +2,7 @@ const SPOTIFY_LOGIN_START_PATH = "/api/v1/auth/spotify/login";
 const ACCESS_TOKEN_REFRESH_PATH = "/api/v1/auth/token/refresh";
 
 let accessToken: string | null = null;
+let accessTokenRefreshRequest: Promise<string> | null = null;
 
 interface ApiResponse<T> {
   isSuccess?: unknown;
@@ -61,7 +62,13 @@ async function readJson(response: Response) {
  * 프론트는 이 주소로 직접 이동해야 한다.
  */
 export function getSpotifyLoginStartUrl() {
-  return getApiUrl(SPOTIFY_LOGIN_START_PATH);
+  const loginUrl = new URL(getApiUrl(SPOTIFY_LOGIN_START_PATH));
+
+  // 백엔드는 이 값을 허용된 프론트 주소인지 검증한 뒤 OAuth 완료 후 되돌려 준다.
+  // 따라서 로컬에서는 localhost:5173, 배포에서는 Vercel 주소가 전달된다.
+  loginUrl.searchParams.set("frontendUrl", window.location.origin);
+
+  return loginUrl.toString();
 }
 
 /**
@@ -77,36 +84,46 @@ export async function confirmSpotifyLogin() {
  * Access Token은 localStorage에 저장하지 않고, 열린 브라우저 탭의 메모리에만 둔다.
  */
 export async function refreshSpotifyAccessToken() {
+  if (accessTokenRefreshRequest) return accessTokenRefreshRequest;
+
+  accessTokenRefreshRequest = (async () => {
   let response: Response;
 
+    try {
+      response = await fetch(getApiUrl(ACCESS_TOKEN_REFRESH_PATH), {
+        method: "POST",
+        headers: { Accept: "application/json" },
+        credentials: "include",
+        cache: "no-store",
+      });
+    } catch {
+      throw new SpotifyAuthError("로그인 정보를 확인할 수 없습니다. 다시 시도해주세요.");
+    }
+
+    const payload = await readJson(response);
+
+    if (!response.ok) {
+      throw new SpotifyAuthError(getErrorMessage(payload, "로그인 정보를 확인하지 못했습니다."));
+    }
+
+    if (!isApiResponse(payload) || payload.isSuccess !== true) {
+      throw new SpotifyAuthError(getErrorMessage(payload, "로그인 정보를 확인하지 못했습니다."));
+    }
+
+    const result = payload.result as AccessTokenPayload | undefined;
+    if (!result || typeof result.accessToken !== "string" || !result.accessToken.trim()) {
+      throw new SpotifyAuthError("로그인 확인 응답에 access token이 없습니다.");
+    }
+
+    accessToken = result.accessToken.trim();
+    return accessToken;
+  })();
+
   try {
-    response = await fetch(getApiUrl(ACCESS_TOKEN_REFRESH_PATH), {
-      method: "POST",
-      headers: { Accept: "application/json" },
-      credentials: "include",
-      cache: "no-store",
-    });
-  } catch {
-    throw new SpotifyAuthError("로그인 정보를 확인할 수 없습니다. 다시 시도해주세요.");
+    return await accessTokenRefreshRequest;
+  } finally {
+    accessTokenRefreshRequest = null;
   }
-
-  const payload = await readJson(response);
-
-  if (!response.ok) {
-    throw new SpotifyAuthError(getErrorMessage(payload, "로그인 정보를 확인하지 못했습니다."));
-  }
-
-  if (!isApiResponse(payload) || payload.isSuccess !== true) {
-    throw new SpotifyAuthError(getErrorMessage(payload, "로그인 정보를 확인하지 못했습니다."));
-  }
-
-  const result = payload.result as AccessTokenPayload | undefined;
-  if (!result || typeof result.accessToken !== "string" || !result.accessToken.trim()) {
-    throw new SpotifyAuthError("로그인 확인 응답에 access token이 없습니다.");
-  }
-
-  accessToken = result.accessToken.trim();
-  return accessToken;
 }
 
 /**
