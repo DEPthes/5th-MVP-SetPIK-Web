@@ -12,7 +12,10 @@ export function PlaylistSelectionPage() {
     currentState,
     filteredPlaylists,
     retry,
+    saveSelectedPlaylist,
     searchTerm,
+    isSelecting,
+    selectionError,
     selectedPlaylist,
     selectedPlaylistId,
     selectedTracks,
@@ -40,12 +43,15 @@ export function PlaylistSelectionPage() {
           />
           <PlaylistDetailPanel
             currentState={currentState}
-            onNext={() => {
+            isSelecting={isSelecting}
+            onNext={() => void saveSelectedPlaylist().then((didSave) => {
+              if (!didSave) return;
               setOnboardingStep("artist");
               navigate("/onboarding/artists");
-            }}
+            })}
             selectedPlaylist={selectedPlaylist}
             selectedTracks={selectedTracks}
+            selectionError={selectionError}
           />
         </div>
       </div>

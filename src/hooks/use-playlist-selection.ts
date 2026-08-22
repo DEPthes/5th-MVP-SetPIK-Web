@@ -5,6 +5,8 @@ import {
   getMyPlaylists,
   getPlaylistDetail,
   getPlaylistTracks,
+  PlaylistQueryError,
+  selectPlaylist,
 } from "@/services/playlist-query";
 import { syncSpotifyPlaylists } from "@/services/playlist-sync";
 
@@ -18,6 +20,8 @@ export function usePlaylistSelection() {
   const [selectedPlaylistId, setSelectedPlaylistId] = useState<string | null>(null);
   const [playlists, setPlaylists] = useState<Playlist[]>([]);
   const [selectedTracks, setSelectedTracks] = useState<PlaylistTrack[]>([]);
+  const [isSelecting, setIsSelecting] = useState(false);
+  const [selectionError, setSelectionError] = useState<string | null>(null);
   const [searchTerm, setSearchTerm] = useState("");
   const [syncAttempt, setSyncAttempt] = useState(0);
   const lastSyncedAttemptRef = useRef<number | null>(null);
@@ -41,6 +45,7 @@ export function usePlaylistSelection() {
         setPlaylists(loadedPlaylists);
         setSelectedPlaylistId(null);
         setSelectedTracks([]);
+        setSelectionError(null);
         setLoadState(loadedPlaylists.length ? "ready" : "empty");
       } catch {
         if (isActive) setLoadState("error");
@@ -104,11 +109,35 @@ export function usePlaylistSelection() {
     setSyncAttempt((attempt) => attempt + 1);
   }
 
+  async function saveSelectedPlaylist() {
+    if (!selectedPlaylistId || isSelecting) return false;
+
+    setIsSelecting(true);
+    setSelectionError(null);
+
+    try {
+      await selectPlaylist(selectedPlaylistId);
+      return true;
+    } catch (error) {
+      setSelectionError(
+        error instanceof PlaylistQueryError
+          ? error.message
+          : "플레이리스트 선택을 저장하지 못했습니다. 다시 시도해 주세요.",
+      );
+      return false;
+    } finally {
+      setIsSelecting(false);
+    }
+  }
+
   return {
     currentState,
     filteredPlaylists,
     retry,
+    saveSelectedPlaylist,
     searchTerm,
+    isSelecting,
+    selectionError,
     selectedPlaylist,
     selectedPlaylistId,
     selectedTracks,
