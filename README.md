@@ -40,6 +40,14 @@ OAUTH_SUCCESS_REDIRECT_URI=http://localhost:5173/oauth/success
 OAUTH_FAILURE_REDIRECT_URI=http://localhost:5173/oauth/failure
 ```
 
+Spotify 로그인 문제를 해결하는 동안 로그인 뒤 화면만 개발해야 한다면, 개인 `.env.local`에 아래 값을 추가할 수 있습니다. 이 값은 `pnpm dev`에서만 적용되며 배포 빌드에서는 무시됩니다.
+
+```bash
+VITE_DEV_AUTH_BYPASS=true
+```
+
+이 우회는 화면 접근만 열어 줍니다. 실제 인증이 필요한 API 요청은 백엔드의 테스트용 Access Token 또는 정상 로그인 세션이 필요합니다.
+
 ### 배포 연동
 
 배포 빌드는 `.env.production`의 API Gateway 주소를 사용합니다. Refresh Token은 API Gateway 도메인의 HttpOnly 쿠키이므로 모든 인증 요청에 `credentials: "include"`가 필요합니다. Spotify OAuth는 아래 주소로 돌아오도록 백엔드와 Spotify Dashboard에 등록되어 있어야 합니다.
