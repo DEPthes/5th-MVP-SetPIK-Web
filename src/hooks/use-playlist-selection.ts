@@ -1,13 +1,12 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { useSearchParams } from "react-router-dom";
+import { type Playlist, type PlaylistLoadState, type PlaylistTrack } from "@/components/playlist/playlist-data";
 import {
-  MOCK_PLAYLISTS,
-  type PlaylistLoadState,
-} from "@/components/playlist/playlist-data";
+  getMyPlaylists,
+  getPlaylistDetail,
+  getPlaylistTracks,
+} from "@/services/playlist-query";
 import { syncSpotifyPlaylists } from "@/services/playlist-sync";
-
-const isDevelopmentAuthBypass =
-  import.meta.env.DEV && import.meta.env.VITE_DEV_AUTH_BYPASS === "true";
 
 function getPreviewState(value: string | null): PlaylistLoadState | null {
   return value === "loading" || value === "error" || value === "empty" ? value : null;
@@ -17,6 +16,8 @@ export function usePlaylistSelection() {
   const [searchParams, setSearchParams] = useSearchParams();
   const [loadState, setLoadState] = useState<PlaylistLoadState>("loading");
   const [selectedPlaylistId, setSelectedPlaylistId] = useState<string | null>(null);
+  const [playlists, setPlaylists] = useState<Playlist[]>([]);
+  const [selectedTracks, setSelectedTracks] = useState<PlaylistTrack[]>([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [syncAttempt, setSyncAttempt] = useState(0);
   const lastSyncedAttemptRef = useRef<number | null>(null);
@@ -25,12 +26,6 @@ export function usePlaylistSelection() {
 
   useEffect(() => {
     if (previewState) return undefined;
-
-    // 로컬 화면 작업용 우회에서는 실제 인증 쿠키가 없으므로 기존 목 데이터를 유지한다.
-    if (isDevelopmentAuthBypass) {
-      const timer = window.setTimeout(() => setLoadState("ready"), 850);
-      return () => window.clearTimeout(timer);
-    }
 
     // StrictMode가 개발 환경에서 effect를 다시 실행해도 같은 동기화를 중복 호출하지 않는다.
     if (lastSyncedAttemptRef.current === syncAttempt) return undefined;
@@ -41,7 +36,12 @@ export function usePlaylistSelection() {
     async function sync() {
       try {
         await syncSpotifyPlaylists();
-        if (isActive) setLoadState("ready");
+        const loadedPlaylists = await getMyPlaylists();
+        if (!isActive) return;
+        setPlaylists(loadedPlaylists);
+        setSelectedPlaylistId(null);
+        setSelectedTracks([]);
+        setLoadState(loadedPlaylists.length ? "ready" : "empty");
       } catch {
         if (isActive) setLoadState("error");
       }
@@ -54,16 +54,46 @@ export function usePlaylistSelection() {
     };
   }, [previewState, syncAttempt]);
 
+  useEffect(() => {
+    if (!selectedPlaylistId) return undefined;
+    const playlistId = selectedPlaylistId;
+
+    let isActive = true;
+
+    async function loadSelectedPlaylist() {
+      try {
+        const [detail, tracks] = await Promise.all([
+          getPlaylistDetail(playlistId),
+          getPlaylistTracks(playlistId),
+        ]);
+
+        if (!isActive) return;
+        setPlaylists((current) => current.map((playlist) => (
+          playlist.id === playlistId ? { ...playlist, ...detail, coverUrl: playlist.coverUrl } : playlist
+        )));
+        setSelectedTracks(tracks);
+      } catch {
+        if (isActive) setSelectedTracks([]);
+      }
+    }
+
+    void loadSelectedPlaylist();
+
+    return () => {
+      isActive = false;
+    };
+  }, [selectedPlaylistId]);
+
   const filteredPlaylists = useMemo(() => {
     const normalizedSearchTerm = searchTerm.trim().toLowerCase();
     return normalizedSearchTerm
-      ? MOCK_PLAYLISTS.filter((playlist) => playlist.title.toLowerCase().includes(normalizedSearchTerm))
-      : MOCK_PLAYLISTS;
-  }, [searchTerm]);
+      ? playlists.filter((playlist) => playlist.title.toLowerCase().includes(normalizedSearchTerm))
+      : playlists;
+  }, [playlists, searchTerm]);
 
   const selectedPlaylist = useMemo(
-    () => MOCK_PLAYLISTS.find((playlist) => playlist.id === selectedPlaylistId) ?? null,
-    [selectedPlaylistId],
+    () => playlists.find((playlist) => playlist.id === selectedPlaylistId) ?? null,
+    [playlists, selectedPlaylistId],
   );
 
   function retry() {
@@ -81,6 +111,7 @@ export function usePlaylistSelection() {
     searchTerm,
     selectedPlaylist,
     selectedPlaylistId,
+    selectedTracks,
     setSearchTerm,
     setSelectedPlaylistId,
   };

@@ -15,6 +15,7 @@ export function PlaylistSelectionPage() {
     searchTerm,
     selectedPlaylist,
     selectedPlaylistId,
+    selectedTracks,
     setSearchTerm,
     setSelectedPlaylistId,
   } = usePlaylistSelection();
@@ -44,6 +45,7 @@ export function PlaylistSelectionPage() {
               navigate("/onboarding/artists");
             }}
             selectedPlaylist={selectedPlaylist}
+            selectedTracks={selectedTracks}
           />
         </div>
       </div>

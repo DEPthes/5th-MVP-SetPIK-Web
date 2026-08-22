@@ -8,15 +8,16 @@ import { Button } from "@/components/common/button";
 import { PlaylistCover } from "./playlist-cover";
 import { PlaylistTrackTable } from "./playlist-track-table";
 import {
-  MOCK_PLAYLIST_TRACKS,
   type Playlist,
   type PlaylistLoadState,
+  type PlaylistTrack,
 } from "./playlist-data";
 import "./playlist-detail-panel.css";
 
 interface PlaylistDetailPanelProps {
   currentState: PlaylistLoadState;
   selectedPlaylist: Playlist | null;
+  selectedTracks: PlaylistTrack[];
   onNext: () => void;
 }
 
@@ -36,7 +37,7 @@ function SelectionPlaceholder() {
   );
 }
 
-function PlaylistDetail({ playlist }: { playlist: Playlist }) {
+function PlaylistDetail({ playlist, tracks }: { playlist: Playlist; tracks: PlaylistTrack[] }) {
   return (
     <div className="playlist-detail">
       <div className="playlist-detail__summary">
@@ -50,11 +51,11 @@ function PlaylistDetail({ playlist }: { playlist: Playlist }) {
               선택됨
             </span>
           </div>
-          <span>혼자 있는 새벽에 듣기 좋은 감성적인 곡들 모음</span>
+          <span>{playlist.description ?? "플레이리스트 설명을 불러오는 중입니다."}</span>
           <div className="playlist-detail__metadata">
             <span><img src={musicNoteIcon} alt="" />{playlist.trackCount}곡</span>
             <i aria-hidden="true">·</i>
-            <span><img src={timePinkIcon} alt="" />1시간 32분</span>
+            <span><img src={timePinkIcon} alt="" />재생 시간 정보 없음</span>
             <i aria-hidden="true">·</i>
             <span><img src={dateIcon} alt="" />{playlist.updatedAt}</span>
           </div>
@@ -64,13 +65,13 @@ function PlaylistDetail({ playlist }: { playlist: Playlist }) {
         <div className="playlist-detail__tracks-heading">
           <h3>수록곡</h3>
         </div>
-        <PlaylistTrackTable tracks={MOCK_PLAYLIST_TRACKS} />
+        <PlaylistTrackTable tracks={tracks} />
       </div>
     </div>
   );
 }
 
-export function PlaylistDetailPanel({ currentState, selectedPlaylist, onNext }: PlaylistDetailPanelProps) {
+export function PlaylistDetailPanel({ currentState, selectedPlaylist, selectedTracks, onNext }: PlaylistDetailPanelProps) {
   const hasSelection = selectedPlaylist !== null && currentState === "ready";
 
   return (
@@ -79,7 +80,7 @@ export function PlaylistDetailPanel({ currentState, selectedPlaylist, onNext }: 
         className={`playlist-selection__detail-panel${hasSelection ? " playlist-selection__detail-panel--selected" : ""}`}
         aria-live="polite"
       >
-        {hasSelection ? <PlaylistDetail playlist={selectedPlaylist} /> : <SelectionPlaceholder />}
+        {hasSelection ? <PlaylistDetail playlist={selectedPlaylist} tracks={selectedTracks} /> : <SelectionPlaceholder />}
       </section>
       <Button
         className="playlist-selection__next-button button--selection-cta"
