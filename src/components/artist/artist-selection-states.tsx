@@ -1,5 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import disconnectedIcon from "@/assets/icons/ic_disconnected.svg";
+import { Button } from "@/components/common/button";
 import { SpotifyButton } from "@/components/common/spotify-button";
 import { StatusState } from "@/components/common/status-state";
 import { ArtistCardSkeleton } from "./artist-card-skeleton";
@@ -31,5 +32,18 @@ export function ArtistLoadingState() {
         {Array.from({ length: 10 }, (_, index) => <ArtistCardSkeleton key={index} />)}
       </div>
     </div>
+  );
+}
+
+export function ArtistErrorState({ description, onRetry }: { description: string; onRetry: () => void }) {
+  return (
+    <StatusState
+      action={<Button onClick={onRetry}>다시 시도</Button>}
+      className="artist-selection__disconnected"
+      description={description}
+      icon={disconnectedIcon}
+      title="아티스트 분석을 불러오지 못했어요."
+      titleId="artist-selection-title"
+    />
   );
 }
