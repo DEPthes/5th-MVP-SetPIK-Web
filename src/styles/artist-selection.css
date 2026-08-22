@@ -190,6 +190,10 @@
   color: var(--color-accent-300);
 }
 
+.artist-selection__footer-action .artist-selection__save-error {
+  color: #ff6b7a;
+}
+
 .artist-selection__next-button {
   min-height: 58px;
   padding-inline: 24px;

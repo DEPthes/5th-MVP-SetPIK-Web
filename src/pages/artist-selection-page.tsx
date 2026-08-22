@@ -1,39 +1,33 @@
-import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { ArtistSelectionAction } from "@/components/artist/artist-selection-action";
 import { ArtistSelectionGrid } from "@/components/artist/artist-selection-grid";
 import { ArtistSelectionNotice } from "@/components/artist/artist-selection-notice";
-import { ArtistDisconnectedState, ArtistLoadingState } from "@/components/artist/artist-selection-states";
+import {
+  ArtistDisconnectedState,
+  ArtistErrorState,
+  ArtistLoadingState,
+} from "@/components/artist/artist-selection-states";
 import { ArtistSelectionToolbar } from "@/components/artist/artist-selection-toolbar";
 import { BackButton } from "@/components/common/back-button";
 import { useArtistSelection } from "@/hooks/use-artist-selection";
-import { getRecentPlaylistSelections } from "@/services/playlist-query";
+import { useAuth } from "@/hooks/use-auth";
 import "@/styles/artist-selection.css";
 
 export function ArtistSelectionPage() {
   const navigate = useNavigate();
+  const { completeOnboarding } = useAuth();
   const selection = useArtistSelection();
-  const [recentPlaylistName, setRecentPlaylistName] = useState<string | null>(null);
   const isDisconnected = selection.currentState === "disconnected";
 
-  useEffect(() => {
-    let isActive = true;
+  function handleComplete() {
+    void (async () => {
+      const didSave = await selection.saveSelectedArtists();
+      if (!didSave) return;
 
-    async function loadRecentSelection() {
-      try {
-        const [recentSelection] = await getRecentPlaylistSelections();
-        if (isActive) setRecentPlaylistName(recentSelection?.playlistName ?? null);
-      } catch {
-        if (isActive) setRecentPlaylistName(null);
-      }
-    }
-
-    void loadRecentSelection();
-
-    return () => {
-      isActive = false;
-    };
-  }, []);
+      completeOnboarding();
+      navigate("/concerts?state=loading");
+    })();
+  }
 
   return (
     <section
@@ -51,6 +45,11 @@ export function ArtistSelectionPage() {
           <ArtistDisconnectedState />
         ) : selection.currentState === "loading" ? (
           <ArtistLoadingState />
+        ) : selection.currentState === "error" ? (
+          <ArtistErrorState
+            description={selection.saveError ?? "잠시 후 다시 시도해 주세요."}
+            onRetry={selection.reload}
+          />
         ) : (
           <>
             <header className="artist-selection__heading">
@@ -65,7 +64,7 @@ export function ArtistSelectionPage() {
               <span className="artist-selection__playlist-cover" aria-hidden="true" />
               <div>
                 <p>분석할 플레이리스트</p>
-                <strong>{recentPlaylistName ?? "최근 선택한 플레이리스트"}</strong>
+                <strong>{selection.recentPlaylistName ?? "최근 선택한 플레이리스트"}</strong>
               </div>
               <button type="button" onClick={() => navigate("/onboarding/playlist-selection")}>
                 변경
@@ -92,7 +91,12 @@ export function ArtistSelectionPage() {
               onToggleArtist={selection.toggleArtist}
               selectedArtistIds={selection.selectedArtistIds}
             />
-            <ArtistSelectionAction selectedArtistCount={selection.selectedArtistCount} />
+            <ArtistSelectionAction
+              isSaving={selection.isSaving}
+              onComplete={handleComplete}
+              saveError={selection.saveError}
+              selectedArtistCount={selection.selectedArtistCount}
+            />
           </>
         )}
       </div>
