@@ -21,28 +21,33 @@
 
 ## Spotify OAuth 환경 변수
 
-`.env.example`을 복사해 `.env.local`을 만들고 실제 주소를 입력합니다. `VITE_SPOTIFY_REDIRECT_URI`는 Spotify와 백엔드 허용 목록에 등록된 **백엔드 콜백 URI**와 한 글자까지 같아야 합니다.
+`.env.example`을 복사해 `.env.local`을 만들고 실제 백엔드 주소를 입력합니다. Spotify callback 주소와 성공·실패 리다이렉트 주소는 백엔드와 Spotify Dashboard에서 관리합니다.
 
 ```bash
 VITE_API_BASE_URL=https://api.example.com
-VITE_SPOTIFY_REDIRECT_URI=https://api.example.com/api/v1/auth/spotify/callback
 ```
 
-로그인 URL 요청은 OAuth state 쿠키를 받아야 하므로 credential을 포함합니다. 프론트와 API가 다른 origin이면 백엔드는 해당 프론트 origin에 대해 `Access-Control-Allow-Credentials: true`와 정확한 `Access-Control-Allow-Origin`을 반환해야 합니다.
+로그인 버튼은 `${VITE_API_BASE_URL}/api/v1/auth/spotify/login`으로 직접 이동합니다. 백엔드가 state 쿠키를 설정하고 Spotify로 302 이동하므로, 프론트에서 callback 주소나 state 값을 만들지 않습니다.
 
 ### 로컬 연동
 
-로컬 백엔드의 CORS 설정이 없는 현재 구성에서는 Vite가 `/api` 요청을 `127.0.0.1:8080`으로 프록시합니다. 프론트를 재시작한 뒤, 백엔드 `.env`와 Spotify Dashboard의 Redirect URI도 아래처럼 일치시켜야 OAuth state 쿠키가 콜백까지 전달됩니다.
+로컬에서 백엔드를 사용할 때만 Vite 프록시 주소를 `.env.local`에 설정합니다. Spotify 로그인 시작 주소는 프록시가 아닌 실제 백엔드 주소를 사용해야 합니다.
 
 ```bash
-SPOTIFY_REDIRECT_URI=http://localhost:5173/api/v1/auth/spotify/callback
-OAUTH_SUCCESS_REDIRECT_URI=http://localhost:5173/oauth/success
-OAUTH_FAILURE_REDIRECT_URI=http://localhost:5173/oauth/failure
+VITE_API_BASE_URL=http://127.0.0.1:8080
 ```
+
+Spotify 로그인 문제를 해결하는 동안 로그인 뒤 화면만 개발해야 한다면, 개인 `.env.local`에 아래 값을 추가할 수 있습니다. 이 값은 `pnpm dev`에서만 적용되며 배포 빌드에서는 무시됩니다.
+
+```bash
+VITE_DEV_AUTH_BYPASS=true
+```
+
+이 우회는 화면 접근만 열어 줍니다. 실제 인증이 필요한 API 요청은 백엔드의 테스트용 Access Token 또는 정상 로그인 세션이 필요합니다.
 
 ### 배포 연동
 
-배포 빌드는 `.env.production`의 API Gateway 주소를 사용합니다. Refresh Token은 API Gateway 도메인의 HttpOnly 쿠키이므로 모든 인증 요청에 `credentials: "include"`가 필요합니다. Spotify OAuth는 아래 주소로 돌아오도록 백엔드와 Spotify Dashboard에 등록되어 있어야 합니다.
+Vercel에는 `VITE_API_BASE_URL`을 API Gateway 주소로 등록하고 재배포합니다. Refresh Token은 API Gateway 도메인의 HttpOnly 쿠키이므로 로그인 완료 뒤 인증 API 요청에는 `credentials: "include"`가 필요합니다. Spotify OAuth callback은 백엔드와 Spotify Dashboard에 아래 주소로 등록되어 있어야 합니다.
 
 ```text
 https://c635a7u5c3.execute-api.ap-northeast-2.amazonaws.com/api/v1/auth/spotify/callback
