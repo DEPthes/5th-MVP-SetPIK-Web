@@ -16,6 +16,7 @@ export interface PlaylistTrack {
   album: string;
   addedAt: string;
   duration: string;
+  durationMs?: number;
   coverUrl?: string;
 }
 

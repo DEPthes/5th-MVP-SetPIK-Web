@@ -1,6 +1,9 @@
 import type { Playlist, PlaylistTrack } from "@/components/playlist/playlist-data";
 import { getApiUrl, getSpotifyAccessToken, SpotifyAuthError } from "@/services/spotify-auth";
 
+let ongoingMyPlaylistsRequest: Promise<Playlist[]> | null = null;
+let ongoingRecentSelectionsRequest: Promise<RecentPlaylistSelection[]> | null = null;
+
 interface ApiResponse<T> {
   isSuccess?: unknown;
   message?: unknown;
@@ -31,7 +34,10 @@ interface PlaylistTrackPayload {
   playlistTrackId: unknown;
   trackPosition: unknown;
   trackName: unknown;
+  albumName: unknown;
   albumImageUrl: unknown;
+  addedAt: unknown;
+  durationMs: unknown;
   artists: unknown;
 }
 
@@ -102,8 +108,8 @@ function getResult<T>(payload: unknown, fallback: string): T {
   return response.result;
 }
 
-function formatDate(value: unknown) {
-  if (typeof value !== "string" || !value.trim()) return "동기화 날짜 정보 없음";
+function formatDate(value: unknown, fallback = "동기화 날짜 정보 없음") {
+  if (typeof value !== "string" || !value.trim()) return fallback;
 
   const date = new Date(value);
   if (Number.isNaN(date.getTime())) return value;
@@ -113,6 +119,18 @@ function formatDate(value: unknown) {
     month: "2-digit",
     day: "2-digit",
   }).format(date).replaceAll(". ", ".");
+}
+
+function formatDuration(durationMs: unknown) {
+  if (typeof durationMs !== "number" || !Number.isFinite(durationMs) || durationMs < 0) {
+    return "-";
+  }
+
+  const totalSeconds = Math.floor(durationMs / 1_000);
+  const minutes = Math.floor(totalSeconds / 60);
+  const seconds = totalSeconds % 60;
+
+  return `${minutes}:${String(seconds).padStart(2, "0")}`;
 }
 
 function mapPlaylist(payload: PlaylistSummaryPayload): Playlist {
@@ -153,9 +171,14 @@ function mapTrack(payload: PlaylistTrackPayload): PlaylistTrack {
     id: typeof payload.playlistTrackId === "number" ? String(payload.playlistTrackId) : undefined,
     title: payload.trackName,
     artist: artists.join(", ") || "아티스트 정보 없음",
-    album: "앨범 정보 없음",
-    addedAt: typeof payload.trackPosition === "number" ? `${payload.trackPosition}번 트랙` : "-",
-    duration: "-",
+    album: typeof payload.albumName === "string" && payload.albumName.trim()
+      ? payload.albumName
+      : "앨범 정보 없음",
+    addedAt: formatDate(payload.addedAt, "추가 날짜 정보 없음"),
+    duration: formatDuration(payload.durationMs),
+    durationMs: typeof payload.durationMs === "number" && Number.isFinite(payload.durationMs)
+      ? payload.durationMs
+      : undefined,
     coverUrl: typeof payload.albumImageUrl === "string" ? payload.albumImageUrl : undefined,
   };
 }
@@ -193,7 +216,7 @@ async function authorizedRequest(path: string, options: Pick<RequestInit, "metho
   return payload;
 }
 
-export async function getMyPlaylists() {
+async function requestMyPlaylists() {
   const payload = await authorizedRequest("/api/v1/playlists?page=0&size=100&sort=playlistName,asc");
   const result = getResult<PlaylistPagePayload>(payload, "플레이리스트 목록을 불러오지 못했습니다.");
 
@@ -202,6 +225,18 @@ export async function getMyPlaylists() {
   }
 
   return result.content.map((playlist) => mapPlaylist(playlist as PlaylistSummaryPayload));
+}
+
+export function getMyPlaylists() {
+  if (ongoingMyPlaylistsRequest) return ongoingMyPlaylistsRequest;
+
+  const request = requestMyPlaylists();
+  ongoingMyPlaylistsRequest = request;
+  request.finally(() => {
+    if (ongoingMyPlaylistsRequest === request) ongoingMyPlaylistsRequest = null;
+  }).catch(() => undefined);
+
+  return request;
 }
 
 export async function getPlaylistDetail(playlistId: string) {
@@ -250,7 +285,7 @@ export async function selectPlaylist(playlistId: string) {
   }
 }
 
-export async function getRecentPlaylistSelections() {
+async function requestRecentPlaylistSelections() {
   const payload = await authorizedRequest(
     "/api/v1/playlists/recent-selections?page=0&size=20&sort=selectedAt,desc",
   );
@@ -276,4 +311,16 @@ export async function getRecentPlaylistSelections() {
       selectedAt: item.selectedAt,
     };
   });
+}
+
+export function getRecentPlaylistSelections() {
+  if (ongoingRecentSelectionsRequest) return ongoingRecentSelectionsRequest;
+
+  const request = requestRecentPlaylistSelections();
+  ongoingRecentSelectionsRequest = request;
+  request.finally(() => {
+    if (ongoingRecentSelectionsRequest === request) ongoingRecentSelectionsRequest = null;
+  }).catch(() => undefined);
+
+  return request;
 }

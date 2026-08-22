@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import { type Playlist, type PlaylistLoadState, type PlaylistTrack } from "@/components/playlist/playlist-data";
 import {
@@ -24,22 +24,32 @@ export function usePlaylistSelection() {
   const [selectionError, setSelectionError] = useState<string | null>(null);
   const [searchTerm, setSearchTerm] = useState("");
   const [syncAttempt, setSyncAttempt] = useState(0);
-  const lastSyncedAttemptRef = useRef<number | null>(null);
   const previewState = getPreviewState(searchParams.get("state"));
   const currentState = previewState ?? loadState;
 
   useEffect(() => {
     if (previewState) return undefined;
 
-    // StrictMode가 개발 환경에서 effect를 다시 실행해도 같은 동기화를 중복 호출하지 않는다.
-    if (lastSyncedAttemptRef.current === syncAttempt) return undefined;
-    lastSyncedAttemptRef.current = syncAttempt;
-
     let isActive = true;
 
-    async function sync() {
+    async function loadPlaylists() {
       try {
-        await syncSpotifyPlaylists();
+        // 이미 동기화된 목록은 먼저 보여 주고, Spotify 동기화는 뒤에서 진행한다.
+        // 첫 로그인처럼 저장된 목록이 없는 경우에는 동기화 완료 후의 목록을 보여 준다.
+        const existingPlaylistsPromise = getMyPlaylists();
+        const syncPromise = syncSpotifyPlaylists();
+        const existingPlaylists = await existingPlaylistsPromise.catch(() => null);
+
+        if (isActive && existingPlaylists?.length) {
+          setPlaylists(existingPlaylists);
+          setSelectedPlaylistId(null);
+          setSelectedTracks([]);
+          setSelectionError(null);
+          setLoadState("ready");
+        }
+
+        if (!isActive) return;
+        await syncPromise;
         const loadedPlaylists = await getMyPlaylists();
         if (!isActive) return;
         setPlaylists(loadedPlaylists);
@@ -52,7 +62,7 @@ export function usePlaylistSelection() {
       }
     }
 
-    void sync();
+    void loadPlaylists();
 
     return () => {
       isActive = false;

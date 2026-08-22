@@ -5,6 +5,7 @@ import {
 } from "@/services/spotify-auth";
 
 const PLAYLIST_SYNC_PATH = "/api/v1/playlists/sync";
+let ongoingPlaylistSync: Promise<PlaylistSyncSummary> | null = null;
 
 interface PlaylistSyncResult {
   syncedPlaylistCount: unknown;
@@ -84,7 +85,7 @@ function getSummary(payload: unknown): PlaylistSyncSummary {
  * Spotify의 내 플레이리스트와 수록곡을 SetPik 서버에 동기화한다.
  * 동기화된 목록은 다음 단계의 GET /api/v1/playlists에서 조회한다.
  */
-export async function syncSpotifyPlaylists() {
+async function requestSpotifyPlaylistSync() {
   let token: string;
 
   try {
@@ -124,4 +125,21 @@ export async function syncSpotifyPlaylists() {
   }
 
   return getSummary(payload);
+}
+
+export function syncSpotifyPlaylists() {
+  if (ongoingPlaylistSync) return ongoingPlaylistSync;
+
+  const request = requestSpotifyPlaylistSync();
+  ongoingPlaylistSync = request;
+  request.then(
+    () => {
+      if (ongoingPlaylistSync === request) ongoingPlaylistSync = null;
+    },
+    () => {
+      if (ongoingPlaylistSync === request) ongoingPlaylistSync = null;
+    },
+  );
+
+  return request;
 }
