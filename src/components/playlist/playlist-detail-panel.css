@@ -83,6 +83,13 @@
   opacity: 1;
 }
 
+.playlist-selection__next-error {
+  margin: 12px 0 0;
+  color: #ff8d8d;
+  font-size: 14px;
+  text-align: center;
+}
+
 .playlist-detail {
   width: 100%;
 }

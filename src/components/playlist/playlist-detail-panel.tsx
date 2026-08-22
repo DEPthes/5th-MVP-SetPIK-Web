@@ -18,6 +18,8 @@ interface PlaylistDetailPanelProps {
   currentState: PlaylistLoadState;
   selectedPlaylist: Playlist | null;
   selectedTracks: PlaylistTrack[];
+  isSelecting: boolean;
+  selectionError: string | null;
   onNext: () => void;
 }
 
@@ -71,7 +73,14 @@ function PlaylistDetail({ playlist, tracks }: { playlist: Playlist; tracks: Play
   );
 }
 
-export function PlaylistDetailPanel({ currentState, selectedPlaylist, selectedTracks, onNext }: PlaylistDetailPanelProps) {
+export function PlaylistDetailPanel({
+  currentState,
+  selectedPlaylist,
+  selectedTracks,
+  isSelecting,
+  selectionError,
+  onNext,
+}: PlaylistDetailPanelProps) {
   const hasSelection = selectedPlaylist !== null && currentState === "ready";
 
   return (
@@ -84,12 +93,13 @@ export function PlaylistDetailPanel({ currentState, selectedPlaylist, selectedTr
       </section>
       <Button
         className="playlist-selection__next-button button--selection-cta"
-        disabled={!hasSelection}
+        disabled={!hasSelection || isSelecting}
         onClick={onNext}
         trailingIcon={<img src={arrowRightIcon} alt="" />}
       >
-        다음 단계
+        {isSelecting ? "선택 저장 중..." : "다음 단계"}
       </Button>
+      {selectionError ? <p className="playlist-selection__next-error" role="alert">{selectionError}</p> : null}
     </div>
   );
 }

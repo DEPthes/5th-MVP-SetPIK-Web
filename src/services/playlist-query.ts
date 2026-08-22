@@ -39,6 +39,27 @@ interface PlaylistTrackPagePayload {
   content: unknown;
 }
 
+interface PlaylistSelectionPayload {
+  playlistId: unknown;
+  selectedAt: unknown;
+}
+
+interface RecentPlaylistSelectionPayload {
+  playlistId: unknown;
+  playlistName: unknown;
+  selectedAt: unknown;
+}
+
+interface RecentPlaylistSelectionPagePayload {
+  content: unknown;
+}
+
+export interface RecentPlaylistSelection {
+  playlistId: string;
+  playlistName: string;
+  selectedAt: string;
+}
+
 export class PlaylistQueryError extends Error {
   constructor(message: string) {
     super(message);
@@ -91,7 +112,7 @@ function formatDate(value: unknown) {
     year: "numeric",
     month: "2-digit",
     day: "2-digit",
-  }).format(date).replaceAll(". ", ".").replace(".", ".");
+  }).format(date).replaceAll(". ", ".");
 }
 
 function mapPlaylist(payload: PlaylistSummaryPayload): Playlist {
@@ -139,7 +160,7 @@ function mapTrack(payload: PlaylistTrackPayload): PlaylistTrack {
   };
 }
 
-async function authorizedRequest(path: string) {
+async function authorizedRequest(path: string, options: Pick<RequestInit, "method"> = {}) {
   let token: string;
 
   try {
@@ -153,6 +174,7 @@ async function authorizedRequest(path: string) {
 
   try {
     response = await fetch(getApiUrl(path), {
+      method: options.method,
       headers: {
         Accept: "application/json",
         Authorization: `Bearer ${token}`,
@@ -214,4 +236,44 @@ export async function getPlaylistTracks(playlistId: string) {
   }
 
   return result.content.map((track) => mapTrack(track as PlaylistTrackPayload));
+}
+
+export async function selectPlaylist(playlistId: string) {
+  const payload = await authorizedRequest(
+    `/api/v1/playlists/${encodeURIComponent(playlistId)}/select`,
+    { method: "POST" },
+  );
+  const result = getResult<PlaylistSelectionPayload>(payload, "플레이리스트 선택을 저장하지 못했습니다.");
+
+  if (typeof result.playlistId !== "number" || typeof result.selectedAt !== "string") {
+    throw new PlaylistQueryError("플레이리스트 선택 응답 형식이 올바르지 않습니다.");
+  }
+}
+
+export async function getRecentPlaylistSelections() {
+  const payload = await authorizedRequest(
+    "/api/v1/playlists/recent-selections?page=0&size=20&sort=selectedAt,desc",
+  );
+  const result = getResult<RecentPlaylistSelectionPagePayload>(payload, "최근 선택한 플레이리스트를 불러오지 못했습니다.");
+
+  if (!Array.isArray(result.content)) {
+    throw new PlaylistQueryError("최근 선택한 플레이리스트 응답 형식이 올바르지 않습니다.");
+  }
+
+  return result.content.map((selection): RecentPlaylistSelection => {
+    const item = selection as RecentPlaylistSelectionPayload;
+    if (
+      typeof item.playlistId !== "number"
+      || typeof item.playlistName !== "string"
+      || typeof item.selectedAt !== "string"
+    ) {
+      throw new PlaylistQueryError("최근 선택한 플레이리스트 응답 형식이 올바르지 않습니다.");
+    }
+
+    return {
+      playlistId: String(item.playlistId),
+      playlistName: item.playlistName,
+      selectedAt: item.selectedAt,
+    };
+  });
 }
