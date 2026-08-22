@@ -1,5 +1,6 @@
 import { useEffect, useState, type ReactNode } from "react";
 import { AuthContext, type AuthState } from "@/contexts/auth-context";
+import { clearSpotifyAccessToken } from "@/services/spotify-auth";
 import { getStorageItem, setStorageItem } from "@/utils/storage";
 
 const DEFAULT_AUTH_STATE: AuthState = {
@@ -46,6 +47,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   }
 
   function logout() {
+    clearSpotifyAccessToken();
     setAuthState(DEFAULT_AUTH_STATE);
   }
 

@@ -1,12 +1,7 @@
-const SPOTIFY_CALLBACK_PATH = "/api/v1/auth/spotify/callback";
-const SPOTIFY_LOGIN_URL_PATH = "/api/v1/auth/spotify/login-url";
+const SPOTIFY_LOGIN_START_PATH = "/api/v1/auth/spotify/login";
 const ACCESS_TOKEN_REFRESH_PATH = "/api/v1/auth/token/refresh";
-const SPOTIFY_ACCOUNTS_HOST = "accounts.spotify.com";
 
-interface SpotifyLoginUrlPayload {
-  loginUrl: unknown;
-  state: unknown;
-}
+let accessToken: string | null = null;
 
 interface ApiResponse<T> {
   isSuccess?: unknown;
@@ -31,18 +26,8 @@ function getApiOrigin() {
   return configuredOrigin || window.location.origin;
 }
 
-function getApiUrl(path: string) {
+export function getApiUrl(path: string) {
   return new URL(path, getApiOrigin()).toString();
-}
-
-function getConfiguredRedirectUri() {
-  const configuredUri = import.meta.env.VITE_SPOTIFY_REDIRECT_URI?.trim();
-
-  if (configuredUri) {
-    return configuredUri;
-  }
-
-  return getApiUrl(SPOTIFY_CALLBACK_PATH);
 }
 
 function getErrorMessage(payload: unknown, fallback: string) {
@@ -59,45 +44,8 @@ function getErrorMessage(payload: unknown, fallback: string) {
   return fallback;
 }
 
-function isApiResponse(value: unknown): value is ApiResponse<SpotifyLoginUrlPayload> {
+function isApiResponse(value: unknown): value is ApiResponse<unknown> {
   return Boolean(value) && typeof value === "object";
-}
-
-function getSpotifyLoginUrl(payload: unknown) {
-  if (!isApiResponse(payload)) {
-    throw new SpotifyAuthError("로그인 URL 응답 형식이 올바르지 않습니다.");
-  }
-
-  if (payload.isSuccess !== true) {
-    throw new SpotifyAuthError(getErrorMessage(payload, "Spotify 로그인 URL 발급에 실패했습니다."));
-  }
-
-  const result = payload.result;
-  if (!result || typeof result.loginUrl !== "string" || typeof result.state !== "string") {
-    throw new SpotifyAuthError("로그인 URL 응답에 필요한 값이 없습니다.");
-  }
-
-  const state = result.state.trim();
-  if (!state) {
-    throw new SpotifyAuthError("로그인 URL 응답의 state 값이 비어 있습니다.");
-  }
-
-  let loginUrl: URL;
-  try {
-    loginUrl = new URL(result.loginUrl);
-  } catch {
-    throw new SpotifyAuthError("로그인 URL 형식이 올바르지 않습니다.");
-  }
-
-  if (loginUrl.protocol !== "https:" || loginUrl.hostname !== SPOTIFY_ACCOUNTS_HOST) {
-    throw new SpotifyAuthError("허용되지 않은 Spotify 로그인 URL입니다.");
-  }
-
-  if (loginUrl.searchParams.get("state") !== state) {
-    throw new SpotifyAuthError("Spotify 로그인 state 검증에 실패했습니다.");
-  }
-
-  return loginUrl.toString();
 }
 
 async function readJson(response: Response) {
@@ -109,37 +57,11 @@ async function readJson(response: Response) {
 }
 
 /**
- * 백엔드가 OAuth state 쿠키를 발급한 뒤 Spotify 인가 URL을 반환합니다.
- * callback은 프론트가 아닌 백엔드 API 주소여야 합니다.
+ * 백엔드가 state 쿠키를 같은 사이트 탐색으로 설정한 뒤 Spotify로 302 이동한다.
+ * 프론트는 이 주소로 직접 이동해야 한다.
  */
-export async function requestSpotifyLoginUrl() {
-  let response: Response;
-
-  try {
-    response = await fetch(
-      `${getApiUrl(SPOTIFY_LOGIN_URL_PATH)}?${new URLSearchParams({
-        redirectUri: getConfiguredRedirectUri(),
-      })}`,
-      {
-        method: "GET",
-        headers: { Accept: "application/json" },
-        credentials: "include",
-        cache: "no-store",
-      },
-    );
-  } catch {
-    throw new SpotifyAuthError("서버에 연결하지 못했습니다. 잠시 후 다시 시도해주세요.");
-  }
-
-  const payload = await readJson(response);
-
-  if (!response.ok) {
-    throw new SpotifyAuthError(
-      getErrorMessage(payload, "Spotify 로그인 URL을 가져오지 못했습니다. 잠시 후 다시 시도해주세요."),
-    );
-  }
-
-  return getSpotifyLoginUrl(payload);
+export function getSpotifyLoginStartUrl() {
+  return getApiUrl(SPOTIFY_LOGIN_START_PATH);
 }
 
 /**
@@ -147,6 +69,14 @@ export async function requestSpotifyLoginUrl() {
  * 이 요청이 성공한 경우에만 프론트의 로그인 상태를 갱신해야 합니다.
  */
 export async function confirmSpotifyLogin() {
+  return refreshSpotifyAccessToken();
+}
+
+/**
+ * Refresh Token 쿠키로 Access Token을 다시 발급받는다.
+ * Access Token은 localStorage에 저장하지 않고, 열린 브라우저 탭의 메모리에만 둔다.
+ */
+export async function refreshSpotifyAccessToken() {
   let response: Response;
 
   try {
@@ -174,4 +104,19 @@ export async function confirmSpotifyLogin() {
   if (!result || typeof result.accessToken !== "string" || !result.accessToken.trim()) {
     throw new SpotifyAuthError("로그인 확인 응답에 access token이 없습니다.");
   }
+
+  accessToken = result.accessToken.trim();
+  return accessToken;
+}
+
+/**
+ * 인증이 필요한 API가 사용할 Access Token을 가져온다.
+ * 새로고침으로 메모리 값이 사라진 경우에는 HttpOnly Refresh Token 쿠키로 재발급한다.
+ */
+export async function getSpotifyAccessToken() {
+  return accessToken ?? refreshSpotifyAccessToken();
+}
+
+export function clearSpotifyAccessToken() {
+  accessToken = null;
 }

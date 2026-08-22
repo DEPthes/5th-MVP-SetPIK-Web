@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { useAuth } from "@/hooks/use-auth";
 import { useUserProfile } from "@/hooks/use-user-profile";
+import { requestLogout } from "@/services/auth-logout";
 import setPikLogo from "@/assets/icons/ic_setpik_logo.svg";
 import logoutIcon from "@/assets/icons/ic_logout.svg";
 import spotifyIcon from "@/assets/icons/ic_spotify_white.svg";
@@ -54,9 +55,15 @@ export function Header({ variant }: HeaderProps) {
     };
   }, [isProfileMenuOpen]);
 
-  function handleLogout() {
+  async function handleLogout() {
     setIsProfileMenuOpen(false);
-    logout();
+
+    try {
+      await requestLogout();
+    } finally {
+      // 서버 통신이 끊겨도 이 기기의 로그인 화면은 즉시 정리한다.
+      logout();
+    }
   }
 
   return (

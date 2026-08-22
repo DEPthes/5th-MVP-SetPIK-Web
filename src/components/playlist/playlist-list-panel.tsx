@@ -10,7 +10,6 @@ import { Button } from "@/components/common/button";
 import { PlaylistCover } from "./playlist-cover";
 import {
   formatPlaylistMeta,
-  MOCK_PLAYLISTS,
   type Playlist,
   type PlaylistLoadState,
 } from "./playlist-data";
@@ -123,7 +122,7 @@ export function PlaylistListPanel({
               </button>
             ) : null}
           </div>
-          <p className="playlist-selection__count">내 플레이리스트 · {MOCK_PLAYLISTS.length}개</p>
+          <p className="playlist-selection__count">내 플레이리스트 · {playlists.length}개</p>
           <ul className="playlist-list">
             {playlists.map((playlist) => {
               const isSelected = playlist.id === selectedPlaylistId;

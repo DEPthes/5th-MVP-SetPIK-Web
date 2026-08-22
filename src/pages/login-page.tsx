@@ -1,29 +1,16 @@
 import { useState } from "react";
 import { SpotifyButton } from "@/components/common/spotify-button";
-import { requestSpotifyLoginUrl, SpotifyAuthError } from "@/services/spotify-auth";
+import { getSpotifyLoginStartUrl } from "@/services/spotify-auth";
 import "@/styles/auth.css";
 
 export function LoginPage() {
-  const [errorMessage, setErrorMessage] = useState("");
   const [isLoggingIn, setIsLoggingIn] = useState(false);
 
-  async function handleSpotifyLogin() {
+  function handleSpotifyLogin() {
     if (isLoggingIn) return;
 
-    setErrorMessage("");
     setIsLoggingIn(true);
-
-    try {
-      const loginUrl = await requestSpotifyLoginUrl();
-      window.location.assign(loginUrl);
-    } catch (error) {
-      setErrorMessage(
-        error instanceof SpotifyAuthError
-          ? error.message
-          : "Spotify 로그인 준비 중 오류가 발생했습니다. 잠시 후 다시 시도해주세요.",
-      );
-      setIsLoggingIn(false);
-    }
+    window.location.assign(getSpotifyLoginStartUrl());
   }
 
   return (
@@ -48,11 +35,6 @@ export function LoginPage() {
           >
             {isLoggingIn ? "Spotify 로그인 준비 중..." : "Spotify로 계속하기"}
           </SpotifyButton>
-          {errorMessage ? (
-            <p className="login-card__error" role="alert">
-              {errorMessage}
-            </p>
-          ) : null}
         </div>
       </div>
     </section>
