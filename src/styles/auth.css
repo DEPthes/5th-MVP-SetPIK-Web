@@ -92,6 +92,14 @@
   transform: scale(0.99);
 }
 
+.login-card__error {
+  margin-top: 16px;
+  color: var(--color-error-200);
+  font-size: var(--font-size-body-small);
+  font-weight: var(--font-weight-semibold);
+  line-height: var(--line-height-default);
+}
+
 @media (prefers-reduced-motion: reduce) {
   .login-card {
     animation: none;

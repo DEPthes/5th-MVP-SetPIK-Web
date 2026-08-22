@@ -23,4 +23,7 @@ dist-ssr
 *.sln
 *.sw?
 
+# 환경별 실제 설정값은 저장소에 올리지 않습니다.
 .env
+.env.*
+!.env.example

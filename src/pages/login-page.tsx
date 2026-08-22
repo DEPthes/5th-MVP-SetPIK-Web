@@ -1,19 +1,29 @@
-import { useNavigate } from "react-router-dom";
-import { getOnboardingPath } from "@/contexts/auth-context";
-import { useAuth } from "@/hooks/use-auth";
+import { useState } from "react";
 import { SpotifyButton } from "@/components/common/spotify-button";
+import { requestSpotifyLoginUrl, SpotifyAuthError } from "@/services/spotify-auth";
 import "@/styles/auth.css";
 
 export function LoginPage() {
-  const navigate = useNavigate();
-  const { isOnboardingComplete, login, onboardingStep } = useAuth();
+  const [errorMessage, setErrorMessage] = useState("");
+  const [isLoggingIn, setIsLoggingIn] = useState(false);
 
-  function handleSpotifyLogin() {
-    login();
-    navigate(
-      isOnboardingComplete ? "/concerts" : getOnboardingPath(onboardingStep),
-      { replace: true },
-    );
+  async function handleSpotifyLogin() {
+    if (isLoggingIn) return;
+
+    setErrorMessage("");
+    setIsLoggingIn(true);
+
+    try {
+      const loginUrl = await requestSpotifyLoginUrl();
+      window.location.assign(loginUrl);
+    } catch (error) {
+      setErrorMessage(
+        error instanceof SpotifyAuthError
+          ? error.message
+          : "Spotify 로그인 준비 중 오류가 발생했습니다. 잠시 후 다시 시도해주세요.",
+      );
+      setIsLoggingIn(false);
+    }
   }
 
   return (
@@ -32,11 +42,17 @@ export function LoginPage() {
         <div className="login-card__actions">
           <SpotifyButton
             className="login-card__button"
+            disabled={isLoggingIn}
             fullWidth
             onClick={handleSpotifyLogin}
           >
-            Spotify로 계속하기
+            {isLoggingIn ? "Spotify 로그인 준비 중..." : "Spotify로 계속하기"}
           </SpotifyButton>
+          {errorMessage ? (
+            <p className="login-card__error" role="alert">
+              {errorMessage}
+            </p>
+          ) : null}
         </div>
       </div>
     </section>
