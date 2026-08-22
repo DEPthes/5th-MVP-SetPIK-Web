@@ -7,6 +7,7 @@ import { CreatedPlaylistsPage } from "@/pages/created-playlists-page";
 import { LoginPage } from "@/pages/login-page";
 import { MyPage } from "@/pages/my-page";
 import { OnboardingPage } from "@/pages/onboarding-page";
+import { OAuthCallbackPage } from "@/pages/oauth-callback-page";
 import { PlaylistSelectionPage } from "@/pages/playlist-selection-page";
 import { PreStudyPlaylistPage } from "@/pages/pre-study-playlist-page";
 import { PreStudyPlaylistCreatePage } from "@/pages/pre-study-playlist-create-page";
@@ -27,6 +28,8 @@ export function App() {
         <Route element={<PublicAccessRoute />}>
           <Route index element={<OnboardingPage />} />
           <Route path="login" element={<LoginPage />} />
+          <Route path="oauth/success" element={<OAuthCallbackPage outcome="success" />} />
+          <Route path="oauth/failure" element={<OAuthCallbackPage outcome="failure" />} />
         </Route>
       </Route>
       <Route element={<AppLayout headerVariant="authenticated" />}>

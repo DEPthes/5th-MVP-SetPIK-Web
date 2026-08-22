@@ -19,6 +19,37 @@
 | **Package Manager**      | ![pnpm](https://img.shields.io/badge/pnpm-F69220?style=flat&logo=pnpm&logoColor=white)                           |
 | **Browser Storage**      | ![LocalStorage](https://img.shields.io/badge/LocalStorage-4D4D4D?style=flat)                                    |
 
+## Spotify OAuth 환경 변수
+
+`.env.example`을 복사해 `.env.local`을 만들고 실제 주소를 입력합니다. `VITE_SPOTIFY_REDIRECT_URI`는 Spotify와 백엔드 허용 목록에 등록된 **백엔드 콜백 URI**와 한 글자까지 같아야 합니다.
+
+```bash
+VITE_API_BASE_URL=https://api.example.com
+VITE_SPOTIFY_REDIRECT_URI=https://api.example.com/api/v1/auth/spotify/callback
+```
+
+로그인 URL 요청은 OAuth state 쿠키를 받아야 하므로 credential을 포함합니다. 프론트와 API가 다른 origin이면 백엔드는 해당 프론트 origin에 대해 `Access-Control-Allow-Credentials: true`와 정확한 `Access-Control-Allow-Origin`을 반환해야 합니다.
+
+### 로컬 연동
+
+로컬 백엔드의 CORS 설정이 없는 현재 구성에서는 Vite가 `/api` 요청을 `127.0.0.1:8080`으로 프록시합니다. 프론트를 재시작한 뒤, 백엔드 `.env`와 Spotify Dashboard의 Redirect URI도 아래처럼 일치시켜야 OAuth state 쿠키가 콜백까지 전달됩니다.
+
+```bash
+SPOTIFY_REDIRECT_URI=http://localhost:5173/api/v1/auth/spotify/callback
+OAUTH_SUCCESS_REDIRECT_URI=http://localhost:5173/oauth/success
+OAUTH_FAILURE_REDIRECT_URI=http://localhost:5173/oauth/failure
+```
+
+### 배포 연동
+
+배포 빌드는 `.env.production`의 API Gateway 주소를 사용합니다. Refresh Token은 API Gateway 도메인의 HttpOnly 쿠키이므로 모든 인증 요청에 `credentials: "include"`가 필요합니다. Spotify OAuth는 아래 주소로 돌아오도록 백엔드와 Spotify Dashboard에 등록되어 있어야 합니다.
+
+```text
+https://c635a7u5c3.execute-api.ap-northeast-2.amazonaws.com/api/v1/auth/spotify/callback
+```
+
+현재 AWS CORS 허용 origin이 Vercel 배포 주소뿐이면, `localhost:5173`에서 AWS OAuth를 직접 시험할 수 없습니다. 로컬 시험이 필요하면 백엔드 CORS에 `http://localhost:5173`을 추가하고, 성공·실패 리다이렉트도 각각 `http://localhost:5173/oauth/success`, `http://localhost:5173/oauth/failure`로 일시 변경해야 합니다. OAuth state 쿠키의 도메인이 콜백 API와 같아야 하므로 AWS OAuth 요청을 Vite 프록시로 우회하면 안 됩니다.
+
 ---
 
 <br>
